@@ -12,9 +12,10 @@ import { CTASection } from "@/components/landing/CTASection";
 import { useAuth } from '@/contexts/auth'
 
 /**
- * Marketing landing ('/'). The ONE light-themed surface on the platform
- * (.landing scope in globals.css — #BAADD1) and the home of the feature
- * catalogue (the old /features route anchors here).
+ * Marketing landing ('/') and the home of the feature catalogue (the old
+ * /features route anchors here). Visual language follows the ConFuse pitch
+ * deck (v7). CTA flow: hero -> /auth/login (or /dashboard when signed in),
+ * closing CTA -> /billing.
  */
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
