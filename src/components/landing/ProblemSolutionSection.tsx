@@ -1,27 +1,27 @@
 'use client'
 
 import { Reveal } from "./Reveal";
-import { SpotlightGroup } from "./Spotlight";
-import { SearchX, BrainCircuit, Users, RefreshCw, Plug, Layers, MessageCircleQuestion } from "lucide-react";
+import { Plug, Layers, MessageCircleQuestion } from "lucide-react";
+import { ProblemGlyph, type GlyphKind } from "./ProblemGlyph";
 
 const PROBLEMS = [
   {
-    icon: SearchX,
+    glyph: "scattered" as GlyphKind,
     title: "Knowledge is scattered",
     body: "A bit in the repos. A bit in the docs. The rest buried in chat threads and log streams. Nobody has the whole picture.",
   },
   {
-    icon: BrainCircuit,
+    glyph: "guess" as GlyphKind,
     title: "AI that guesses",
     body: "Assistants answer without your context — confidently, and often wrong. Trust erodes with every made-up detail.",
   },
   {
-    icon: Users,
+    glyph: "weeks" as GlyphKind,
     title: "Onboarding takes weeks",
     body: "The 'why' behind the code lives in people's heads. New teammates re-ask the same questions in every channel.",
   },
   {
-    icon: RefreshCw,
+    glyph: "stale" as GlyphKind,
     title: "Answers go stale",
     body: "The moment code changes, every doc and every cached answer drifts out of date. Nobody knows what's still true.",
   },
@@ -61,7 +61,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <Reveal className={`mx-auto max-w-3xl text-center ${className}`}>
+    <Reveal className={`max-w-3xl text-left md:mx-auto md:text-center ${className}`}>
       <p className="eyebrow mb-5 text-subtle">{eyebrow}</p>
       <h2 className="mb-5 text-3xl font-medium leading-[1.12] tracking-[-0.03em] md:text-[2.75rem]">{title}</h2>
       {lede && <p className="text-lg leading-relaxed text-muted-foreground">{lede}</p>}
@@ -83,20 +83,20 @@ export function ProblemSolutionSection() {
                 decisions made on stale context.</>}
           />
 
-          <SpotlightGroup className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {/* one frame split by hairlines; each problem drawn as a 7x7 cell field */}
+          <Reveal plain className="frame grid overflow-hidden sm:grid-cols-2 xl:grid-cols-4">
             {PROBLEMS.map((problem, index) => (
-              <Reveal key={problem.title} delay={index * 90} className="h-full">
-                <div className="spotlight card-hover card-lit h-full rounded-xl border border-border p-7">
-                  <div className="mb-10 flex items-center justify-between">
-                    <problem.icon className="h-5 w-5 text-subtle" aria-hidden="true" />
-                    <span className="font-mono text-xs text-dim">0{index + 1}</span>
-                  </div>
-                  <h3 className="mb-3 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
-                </div>
+              <Reveal
+                key={problem.title}
+                delay={index * 90}
+                className="cell-hover border-border p-7 [&:not(:first-child)]:border-t sm:[&:nth-child(2)]:border-l sm:[&:nth-child(2)]:border-t-0 sm:[&:nth-child(4)]:border-l xl:border-t-0 xl:[&:not(:first-child)]:border-l xl:[&:not(:first-child)]:border-t-0"
+              >
+                <ProblemGlyph kind={problem.glyph} />
+                <h3 className="mb-3 mt-10 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
               </Reveal>
             ))}
-          </SpotlightGroup>
+          </Reveal>
         </div>
       </section>
 

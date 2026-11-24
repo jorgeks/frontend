@@ -459,3 +459,22 @@
   .dm-dot, .g-node, .g-scan { animation: none !important; }
   .scope-cell.is-on { animation: none !important; background: hsl(var(--brand)); border-color: hsl(var(--brand)); }
 }
+
+/* Problem glyphs: 7x7 cell fields, stepped like Linear's dot-matrix loaders */
+.pg-cell { fill: hsl(var(--foreground)); opacity: .12; }
+.pg-flash, .pg-decay { opacity: .55; }
+[data-visible="true"] .pg-flash { animation: pg-flash 4.2s steps(1) infinite; animation-delay: var(--d, 0s); }
+[data-visible="true"] .pg-type { animation: pg-type var(--pg-t, 5s) steps(1) infinite; animation-delay: var(--d, 0s); }
+[data-visible="true"] .pg-decay { animation: pg-decay 6s cubic-bezier(.4, 0, .2, 1) infinite; animation-delay: var(--d, 0s); }
+@keyframes pg-flash { 0% { fill: hsl(var(--brand)); opacity: 1; } 6%, 100% { fill: hsl(var(--foreground)); opacity: .55; } }
+@keyframes pg-type { 0% { opacity: .12; } 1% { fill: hsl(var(--brand)); opacity: 1; } 5%, 82% { fill: hsl(var(--foreground)); opacity: .6; } 84%, 100% { opacity: .12; } }
+@keyframes pg-decay { 0%, 25% { opacity: .6; } 55%, 88% { opacity: .1; } 100% { opacity: .6; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-visible="true"] .pg-flash, [data-visible="true"] .pg-type, [data-visible="true"] .pg-decay { animation: none; }
+  .pg-type { opacity: .55; }
+}
+
+/* Why rows: colour-only state change, Vercel timing */
+.why-idx, .why-title { transition: color .15s cubic-bezier(.4, 0, .2, 1); }
+.why-row:hover .why-idx { color: hsl(var(--brand)); }
+.why-row:hover .why-title { color: hsl(var(--brand-soft)); }
