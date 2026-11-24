@@ -5,38 +5,49 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 
+/**
+ * Closing CTA — deck-style "thank you" slide: centred display headline on a
+ * glowing, softly bordered panel. Copy and destinations unchanged
+ * (primary -> /billing, secondary -> /pricing).
+ */
 export function CTASection() {
   return (
-    <section className="py-28 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-16 left-1/3 h-72 w-72 rounded-full bg-white/40 blur-3xl animate-[float-slow_10s_ease-in-out_infinite]" />
-        <div className="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-primary/15 blur-3xl animate-[float-slower_12s_ease-in-out_infinite]" />
-      </div>
-
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <section className="relative overflow-hidden py-24 md:py-32">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-5">
-            Ready to unify your context?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-            Start free, invite your team when it clicks, and scale when you&apos;re
-            ready. No credit card required.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/billing">
-              <Button className="h-12 px-8 bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-base group">
-                Get Started Free
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <Link href="/pricing">
-              <Button
-                variant="outline"
-                className="h-12 px-8 border-border hover:bg-muted rounded-none font-medium text-base"
-              >
-                View Pricing
-              </Button>
-            </Link>
+          <div className="relative overflow-hidden rounded-[20px] border border-primary/50 bg-card px-6 py-16 text-center shadow-[inset_0_0_80px_hsl(var(--primary)/0.10)] md:px-12 md:py-20">
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              <div className="absolute -top-32 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-primary/25 blur-[100px]" />
+              <div className="absolute inset-0 bg-[radial-gradient(hsl(var(--foreground)/0.08)_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+            </div>
+
+            <div className="relative">
+              <h2 className="mb-5 text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-6xl">
+                Ready to unify your <span className="text-primary">context?</span>
+              </h2>
+              <p className="mx-auto mb-10 max-w-xl text-lg text-muted-foreground">
+                Start free, invite your team when it clicks, and scale when you&apos;re
+                ready. No credit card required.
+              </p>
+              <div className="flex flex-col justify-center gap-3 sm:flex-row">
+                <Button
+                  asChild
+                  className="group h-12 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.7)] hover:bg-primary/90"
+                >
+                  <Link href="/billing">
+                    Get Started Free
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-border bg-card/40 px-7 text-base font-semibold hover:bg-card"
+                >
+                  <Link href="/pricing">View Pricing</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
