@@ -381,9 +381,10 @@
 /* Lattice cells: surface light only (no border trace on shared hairlines) */
 .spotlight-soft::after { display: none; }
 /* One hover treatment for standalone cards */
-.card-hover { transition: border-color .2s ease, transform .2s ease; }
-.card-hover:hover { border-color: hsl(var(--foreground) / .18); transform: translateY(-2px); }
-@media (prefers-reduced-motion: reduce) { .card-hover:hover { transform: none; } }
+.card-hover { transition: border-color .15s cubic-bezier(.4, 0, .2, 1); }
+.card-hover svg { transition: color .15s cubic-bezier(.4, 0, .2, 1); }
+.card-hover:hover { border-color: hsl(var(--foreground) / .2); }
+.card-hover:hover svg { color: hsl(var(--brand)); }
 
 /* Lattice cell hover: lifted surface and a short brand rule on top */
 .cell-hover { position: relative; transition: background-color .2s ease; }

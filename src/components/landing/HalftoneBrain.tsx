@@ -38,8 +38,8 @@ export function HalftoneBrain({ className }: { className?: string }) {
           rx={1.4}
           style={{
             ['--s' as string]: s,
-            ['--din' as string]: `${c * 28 + r * 6}ms`,
-            ['--dw' as string]: `${2.2 + c * 0.11}s`,
+            ['--din' as string]: `${c * 10 + r * 4}ms`,
+            ['--dw' as string]: `${0.9 + c * 0.11}s`,
           }}
         />
       ))}

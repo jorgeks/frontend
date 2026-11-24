@@ -32,7 +32,7 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden border-b border-border">
-      <div className="container-lg relative pt-10 md:pt-16 lg:pt-16">
+      <div className="container-lg relative pt-6 md:pt-16 lg:pt-16">
         <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-4">
           {/* copy */}
           <div className="flex min-w-0 max-w-full flex-col items-start text-left">
@@ -48,19 +48,19 @@ export function HeroSection() {
             </a>
 
             <h1
-              className="rise mt-6 font-display text-[2.15rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
+              className="rise mt-5 font-display text-[2rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
               style={{ ['--d' as string]: '80ms' }}
             >
               ConFuse: Context Layer for <span className="text-primary">coding agents</span>.
             </h1>
             <h2
-              className="rise mt-6 font-sans text-lg font-medium tracking-[-0.01em] text-foreground/90 md:text-xl"
+              className="rise mt-4 font-sans text-base font-medium sm:mt-6 sm:text-lg tracking-[-0.01em] text-foreground/90 md:text-xl"
               style={{ ['--d' as string]: '180ms' }}
             >
               Stop hunting for context. Start shipping with it.
             </h2>
             <p
-              className="rise mt-3 max-w-[560px] text-base leading-relaxed text-muted-foreground md:text-[17px]"
+              className="rise mt-3 max-w-[560px] text-[15px] leading-relaxed sm:text-base text-muted-foreground md:text-[17px]"
               style={{ ['--d' as string]: '260ms' }}
             >
               Your repositories, documentation, conversations, and logs — connected
@@ -69,7 +69,7 @@ export function HeroSection() {
             </p>
 
             <div
-              className="rise mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+              className="rise mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:gap-3 sm:w-auto sm:flex-row"
               style={{ ['--d' as string]: '340ms' }}
             >
               <Button size="lg" variant="secondary" className="group" onClick={handleGetStarted}>
