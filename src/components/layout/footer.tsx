@@ -6,8 +6,8 @@ import { ArrowUpRight } from 'lucide-react'
 /**
  * Site footer for the public landing surface.
  *
- * Column layout styled after the ConFuse deck: near-black surface, uppercase
- * eyebrow labels with the pink dot, hairline borders and #E63FA8 accents.
+ * Column layout on the shared design system: hairline `border-border`,
+ * `.container-lg` width, eyebrow labels with the brand dot, no glows.
  */
 
 type FooterLink = { href: string; label: string; testId?: string }
@@ -53,22 +53,17 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
 export function Footer() {
   return (
     <footer
-      className="relative overflow-hidden border-t border-border bg-background px-4 pb-10 pt-16 text-foreground sm:px-6 lg:px-8"
+      className="border-t border-border bg-background pb-10 pt-16 text-foreground"
       data-testid="footer"
     >
-      {/* soft pink glow, as on the deck's highlighted cards */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
-      />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="container-lg mx-auto w-full max-w-[1280px] px-4 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center gap-2.5" data-testid="footer-brand">
               <span
                 aria-hidden
-                className="h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.9)]"
+                className="h-2 w-2 rounded-full bg-primary"
               />
               <span className="text-2xl font-bold tracking-[-0.02em]">ConFuse</span>
             </Link>
@@ -77,12 +72,9 @@ export function Footer() {
             </p>
             <Link
               href="/status"
-              className="mt-6 inline-flex items-center gap-2 rounded-md border border-foreground/[0.14] bg-foreground/[0.03] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground"
+              className="mt-6 inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors duration-200 hover:border-foreground/25 hover:text-foreground"
             >
-              <span className="relative flex h-2 w-2" aria-hidden>
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60 motion-reduce:animate-none" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
+              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
               Status
               <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
@@ -104,7 +96,7 @@ export function Footer() {
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         data-testid={l.testId}
                       >
                         {l.label}
@@ -117,7 +109,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-foreground/[0.10] pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-muted-foreground/70" data-testid="footer-copyright">
             © {new Date().getFullYear()} ConFuse. All rights reserved.
           </p>

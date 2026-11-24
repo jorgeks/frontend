@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { useAuth } from '@/contexts/auth'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 /**
@@ -14,8 +15,9 @@ import { cn } from '@/lib/utils'
  * whole auth area (Sign In and the primary CTA included) for surfaces like docs
  * that keep a navigation-only bar. Every other page keeps the default behaviour.
  *
- * Visual language follows the ConFuse deck: near-black surface, hairline
- * white/13% borders, #E63FA8 accent with a soft pink glow, Space Grotesk.
+ * Follows the shared design system: transparent, in-flow bar (~73px), hairline
+ * `border-border`, `.container-lg` width, default <Button> for the primary CTA,
+ * no glows and 0.2s transitions only.
  */
 
 const NAV_LINKS = [
@@ -28,11 +30,13 @@ const goToLogin = () => {
   window.location.href = '/auth/login'
 }
 
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+
 export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?: boolean; showAuth?: boolean }) {
   const { user, isAuthenticated, isLoading, logout } = useAuth()
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
 
   const signedIn = showUserMenu && isAuthenticated
   const showSignIn = !isLoading && !isAuthenticated
@@ -55,89 +59,51 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
     }
   }, [open])
 
-  // Slightly denser bar once the page scrolls.
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
   const isActive = (href: string) =>
     !href.startsWith('/#') && (pathname === href || pathname?.startsWith(`${href}/`))
 
-  const primaryCta = signedIn ? (
-    <Link
-      href="/dashboard"
-      className="cf-cta group rounded-md"
-      data-testid="navbar-cta"
-    >
-      Dashboard
-      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-    </Link>
-  ) : (
-    <button type="button" onClick={goToLogin} className="cf-cta group rounded-md" data-testid="navbar-cta">
-      Get started
-      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-    </button>
-  )
+  const primaryCta = (className?: string) =>
+    signedIn ? (
+      <Button asChild className={className} data-testid="navbar-cta">
+        <Link href="/dashboard" onClick={() => setOpen(false)}>
+          Dashboard
+          <ArrowRight aria-hidden />
+        </Link>
+      </Button>
+    ) : (
+      <Button onClick={goToLogin} className={className} data-testid="navbar-cta">
+        Get started
+        <ArrowRight aria-hidden />
+      </Button>
+    )
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 w-full border-b text-foreground backdrop-blur-xl transition-colors duration-300',
-        scrolled || open
-          ? 'border-border bg-background/85'
-          : 'border-foreground/[0.08] bg-background/60'
+        'relative z-40 w-full border-b border-border text-foreground transition-colors duration-200',
+        open ? 'bg-background' : 'bg-transparent'
       )}
       data-testid="navbar"
     >
-      {/* Deck-style controls built on the shared theme tokens (primary = brand pink). */}
-      <style>{`
-        .cf-cta{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;
-          background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-size:14px;font-weight:600;
-          letter-spacing:-.01em;white-space:nowrap;
-          box-shadow:0 0 0 1px hsl(0 0% 100% / .18) inset,0 8px 28px -8px hsl(var(--primary) / .65);
-          transition:filter .2s,box-shadow .2s,transform .2s}
-        .cf-cta:hover{filter:brightness(1.08);box-shadow:0 0 0 1px hsl(0 0% 100% / .28) inset,0 10px 34px -8px hsl(var(--primary) / .85)}
-        .cf-cta:active{transform:translateY(1px)}
-        .cf-cta:focus-visible,.cf-ghost:focus-visible,.cf-link:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}
-        .cf-ghost{display:inline-flex;align-items:center;height:38px;padding:0 14px;
-          border:1px solid hsl(var(--border));color:hsl(var(--foreground));font-size:14px;font-weight:500;white-space:nowrap;
-          transition:border-color .2s,background-color .2s}
-        .cf-ghost:hover{border-color:hsl(var(--foreground) / .3);background:hsl(var(--foreground) / .04)}
-        @keyframes cf-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-        .cf-drop{animation:cf-drop .28s cubic-bezier(.2,.7,.2,1) both}
-        @media (prefers-reduced-motion:reduce){.cf-drop{animation:none}}
-      `}</style>
-
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="container-lg mx-auto flex h-[73px] w-full max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-8">
         <Link
           href="/"
-          className="cf-link flex items-center gap-2.5 rounded-sm"
+          className={cn('flex items-center gap-2.5 rounded-sm', focusRing)}
           data-testid="navbar-brand"
         >
-          <span
-            aria-hidden
-            className="h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.9)]"
-          />
+          <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
           <span className="text-xl font-bold tracking-[-0.02em] text-foreground">ConFuse</span>
         </Link>
 
-        <nav
-          className="hidden items-center gap-1 rounded-lg border border-foreground/[0.10] bg-foreground/[0.03] p-1 md:flex"
-          data-testid="navbar-links"
-          aria-label="Main"
-        >
+        <nav className="hidden items-center gap-1 md:flex" data-testid="navbar-links" aria-label="Main">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={cn(
-                'cf-link rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
-                isActive(l.href)
-                  ? 'bg-foreground/[0.08] text-foreground'
-                  : 'text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground'
+                'rounded-md px-4 py-2 text-[15px] font-medium transition-colors duration-200',
+                focusRing,
+                isActive(l.href) ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
               aria-current={isActive(l.href) ? 'page' : undefined}
               data-testid={l.testId}
@@ -152,37 +118,34 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
             <div className="hidden items-center gap-2 md:flex">
               {signedIn ? (
                 <>
-                  <span
-                    className="max-w-[160px] truncate text-sm text-muted-foreground/70"
-                    data-testid="navbar-user"
-                  >
+                  <span className="max-w-[160px] truncate text-sm text-muted-foreground" data-testid="navbar-user">
                     {user?.name || user?.email}
                   </span>
-                  <button type="button" onClick={logout} className="cf-ghost rounded-md" data-testid="navbar-sign-out">
+                  <Button variant="outline" onClick={logout} data-testid="navbar-sign-out">
                     Sign Out
-                  </button>
+                  </Button>
                 </>
               ) : showSignIn ? (
-                <button type="button" onClick={goToLogin} className="cf-ghost rounded-md" data-testid="navbar-sign-in">
+                <Button variant="ghost" onClick={goToLogin} data-testid="navbar-sign-in">
                   Sign In
-                </button>
+                </Button>
               ) : null}
-              {primaryCta}
+              {primaryCta()}
             </div>
           )}
 
           <div className="md:hidden">
-            <button
-              type="button"
-              className="cf-ghost rounded-md !h-10 !w-10 !justify-center !p-0"
+            <Button
+              variant="outline"
+              size="icon"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="navbar-mobile-menu"
               onClick={() => setOpen((v) => !v)}
               data-testid="navbar-menu-toggle"
             >
-              {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
-            </button>
+              {open ? <X aria-hidden /> : <Menu aria-hidden />}
+            </Button>
           </div>
         </div>
       </div>
@@ -190,13 +153,9 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
       {open && (
         <div
           id="navbar-mobile-menu"
-          className="cf-drop absolute inset-x-0 top-16 h-[calc(100dvh-4rem)] overflow-y-auto border-t border-foreground/[0.08] bg-background px-4 pb-8 pt-4 sm:px-6 md:hidden"
+          className="absolute inset-x-0 top-full h-[calc(100dvh-73px)] overflow-y-auto bg-background px-4 pb-8 pt-4 animate-in fade-in-0 duration-200 sm:px-8 md:hidden"
           data-testid="navbar-mobile-menu"
         >
-          <div className="mb-3 flex items-center gap-3 px-1 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
-            Menu
-          </div>
           <nav className="flex flex-col gap-2" aria-label="Mobile">
             {NAV_LINKS.map((l) => (
               <Link
@@ -204,45 +163,35 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  'cf-link flex items-center justify-between rounded-lg border px-5 py-4 text-lg font-semibold tracking-[-0.01em] transition-colors',
+                  'flex items-center justify-between rounded-lg border px-5 py-4 text-lg font-semibold tracking-[-0.01em] transition-colors duration-200',
+                  focusRing,
                   isActive(l.href)
-                    ? 'border-primary/55 bg-primary/[0.06] text-foreground'
+                    ? 'border-primary/50 bg-card text-foreground'
                     : 'border-border bg-card text-foreground hover:border-foreground/25'
                 )}
                 data-testid={`${l.testId}-mobile`}
               >
                 {l.label}
-                <ArrowRight className="h-4 w-4 text-muted-foreground/70" aria-hidden />
+                <ArrowRight className="h-4 w-4 text-muted-foreground" aria-hidden />
               </Link>
             ))}
           </nav>
 
           {showAuth && (
-            <div className="mt-6 flex flex-col gap-3 border-t border-foreground/[0.10] pt-6">
-              {signedIn ? (
-                <>
-                  <span className="truncate px-1 text-sm text-muted-foreground/70">{user?.name || user?.email}</span>
-                  <Link href="/dashboard" className="cf-cta rounded-md !h-12 justify-center text-base" onClick={() => setOpen(false)}>
-                    Dashboard
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
-                  <button type="button" onClick={logout} className="cf-ghost rounded-md !h-12 justify-center text-base">
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button type="button" onClick={goToLogin} className="cf-cta rounded-md !h-12 justify-center text-base">
-                    Get started
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </button>
-                  {showSignIn && (
-                    <button type="button" onClick={goToLogin} className="cf-ghost rounded-md !h-12 justify-center text-base">
-                      Sign In
-                    </button>
-                  )}
-                </>
+            <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">
+              {signedIn && (
+                <span className="truncate px-1 text-sm text-muted-foreground">{user?.name || user?.email}</span>
               )}
+              {primaryCta('h-12 w-full text-base')}
+              {signedIn ? (
+                <Button variant="outline" size="lg" onClick={logout} className="w-full">
+                  Sign Out
+                </Button>
+              ) : showSignIn ? (
+                <Button variant="outline" size="lg" onClick={goToLogin} className="w-full">
+                  Sign In
+                </Button>
+              ) : null}
             </div>
           )}
         </div>
