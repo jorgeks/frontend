@@ -10,21 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
-import { User, LogOut, CreditCard, Sun, Moon } from "lucide-react";
+import { User, LogOut, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from '@/contexts/auth';
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
 
 export function ProfileAvatar() {
   const { user, logout, isAuthenticated } = useAuth()
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const getInitial = (name: string) => {
     const trimmed = name?.trim()
     return trimmed ? trimmed.charAt(0).toUpperCase() : 'U'
@@ -36,21 +27,6 @@ export function ProfileAvatar() {
 
   return (
     <div className="flex items-center gap-4">
-      {mounted && (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="h-9 w-9 rounded-full"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-4 w-4" />
-          ) : (
-            <Moon className="h-4 w-4" />
-          )}
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-10 w-10 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0">

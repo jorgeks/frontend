@@ -184,8 +184,8 @@ export function SubscriptionPlans() {
           <Card 
             key={plan.id} 
             className={`relative flex flex-col justify-between ${
-              plan.tier === 'pro' ? 'border-primary shadow-lg ring-1 ring-primary' : ''
-            } ${isCurrentPlan(plan.tier) ? 'ring-2 ring-emerald-500 border-emerald-500' : ''}`}
+              plan.tier === 'pro' ? 'card-brand shadow-glow' : ''
+            } ${isCurrentPlan(plan.tier) ? 'ring-2 ring-primary border-primary' : ''}`}
           >
             {plan.tier === 'pro' && (
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary">
@@ -193,7 +193,7 @@ export function SubscriptionPlans() {
               </Badge>
             )}
             {isCurrentPlan(plan.tier) && (
-              <Badge className="absolute -top-3 right-4 bg-emerald-500 text-white">
+              <Badge className="absolute -top-3 right-4 bg-primary text-primary-foreground">
                 Active Plan
               </Badge>
             )}
@@ -210,7 +210,7 @@ export function SubscriptionPlans() {
               <ul className="space-y-2 text-left">
                 {renderFeatureList(plan).map((feature, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm">
-                    <Check className="h-4 w-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-muted-foreground text-xs leading-relaxed">{feature}</span>
                   </li>
                 ))}
@@ -251,7 +251,7 @@ export function SubscriptionPlans() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium">
-                  Status: <span className="text-emerald-500 capitalize">{currentSubData?.subscription?.status || 'Active'}</span>
+                  Status: <span className="text-success capitalize">{currentSubData?.subscription?.status || 'Active'}</span>
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Storage Used: {currentSubData?.usage?.storageUsedMb || 0} MB / {currentSubData?.limits?.maxStorageMb || 256} MB

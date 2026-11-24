@@ -55,10 +55,10 @@ export function ProblemSolutionSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+              <p className="eyebrow mb-4">
                 The problem
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
                 Your knowledge is everywhere.
                 <br />
                 And that means it&apos;s nowhere.
@@ -71,10 +71,10 @@ export function ProblemSolutionSection() {
             </div>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {PROBLEMS.map((problem, index) => (
               <Reveal key={problem.title} delay={index * 120}>
-                <div className="h-full bg-background p-8 hover:bg-card transition-colors duration-300">
+                <div className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset">
                   <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-destructive/10 text-destructive mb-5">
                     <problem.icon className="w-5 h-5" />
                   </div>
@@ -92,10 +92,10 @@ export function ProblemSolutionSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+              <p className="eyebrow mb-4">
                 The solution
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
                 One place that actually
                 <br />
                 knows your stack.
@@ -110,7 +110,7 @@ export function ProblemSolutionSection() {
           <div className="grid md:grid-cols-3 gap-8">
             {SOLUTIONS.map((solution, index) => (
               <Reveal key={solution.step} delay={index * 150}>
-                <div className="relative h-full border border-border bg-card p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <div className="relative h-full rounded-lg border border-primary/50 bg-card p-8 shadow-glow-inset transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground">
                       <solution.icon className="w-5 h-5" />

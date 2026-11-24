@@ -51,11 +51,35 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          soft: "hsl(var(--brand-soft))",
+        },
+        subtle: "hsl(var(--subtle))",
+        dim: "hsl(var(--dim))",
+        info: "hsl(var(--info))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+      letterSpacing: {
+        display: "-0.02em",
+        eyebrow: "0.12em",
+      },
+      boxShadow: {
+        glow: "var(--shadow-glow)",
+        "glow-sm": "var(--shadow-glow-sm)",
+        "glow-inset": "var(--shadow-glow-inset)",
+        card: "var(--shadow-card)",
       },
       borderRadius: {
+        xl: "calc(var(--radius) + 6px)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "calc(var(--radius) - 6px)",
       },
       keyframes: {
         "accordion-down": {

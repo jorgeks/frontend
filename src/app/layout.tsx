@@ -14,6 +14,7 @@ const spaceGrotesk = localFont({
   weight: '300 700',
   style: 'normal',
   display: 'swap',
+  variable: '--font-sans',
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
 
@@ -59,7 +60,7 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={spaceGrotesk.className}>
+      <body className={`${spaceGrotesk.variable} ${spaceGrotesk.className}`}>
         <Providers>
           <TooltipProvider>
             <Toaster />

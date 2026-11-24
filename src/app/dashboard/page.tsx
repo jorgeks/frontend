@@ -328,7 +328,7 @@ export default function Dashboard() {
                           icon: GitBranch,
                           label: "Repository",
                           buttonText: "Connect",
-                          btnColor: "bg-indigo-600 hover:bg-indigo-700"
+                          btnColor: "bg-primary hover:bg-primary/90"
                         },
                         {
                           toggleId: "enableCloudLogs",
@@ -530,8 +530,8 @@ export default function Dashboard() {
                       <Card className="border-border bg-card" data-testid="docs-card">
                         <CardHeader>
                           <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600/10">
-                              <BookOpen className="h-5 w-5 text-indigo-500" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                              <BookOpen className="h-5 w-5 text-primary" />
                             </div>
                             <CardTitle className="text-base font-semibold text-foreground">
                               Documentation
@@ -544,7 +544,7 @@ export default function Dashboard() {
                             need to get the most out of ConFuse.
                           </p>
                           <Link prefetch={false} href="/docs" target="_blank">
-                            <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors">
+                            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
                               View Documentation →
                             </Button>
                           </Link>
@@ -717,7 +717,7 @@ export default function Dashboard() {
                 <div className="max-w-3xl mx-auto text-center mb-10">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                     Connect Your{" "}
-                    <span className="bg-gradient-to-r from-indigo-500 via-sky-500 to-violet-500 dark:from-indigo-400 dark:via-sky-400 dark:to-violet-400 bg-clip-text text-transparent">
+                    <span className="text-gradient-brand">
                       AI Agent
                     </span>
                   </h2>
@@ -726,13 +726,13 @@ export default function Dashboard() {
                   </p>
                 </div>
 
-                <div className="mb-10 rounded-2xl border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-card to-sky-500/10 shadow-lg shadow-indigo-500/10 dark:shadow-indigo-500/20 overflow-hidden">
+                <div className="mb-10 rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/10 via-card to-card shadow-glow-inset overflow-hidden">
                   <div className="flex justify-between items-center px-5 py-3.5 border-b border-border/60">
                     <span className="text-sm font-semibold text-foreground">Your Secure Connection URL</span>
                     <Button
                       size="sm"
                       onClick={handleCopy}
-                      className="h-9 px-4 flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm"
+                      className="h-9 px-4 flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm"
                     >
                       {copied ? (
                         <>
@@ -756,8 +756,8 @@ export default function Dashboard() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* Native HTTP Card */}
-                  <div className="group flex flex-col rounded-2xl border-2 border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-400/70 dark:hover:border-indigo-500/60 overflow-hidden">
-                    <div className="h-1.5 w-full bg-gradient-to-r from-indigo-500 to-indigo-400" />
+                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-glow-sm hover:border-primary/60 overflow-hidden">
+                    <div className="h-1.5 w-full bg-gradient-to-r from-brand to-brand-soft" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Native (type: http)</h4>
                       <Button
@@ -777,14 +777,14 @@ export default function Dashboard() {
                     <div className="px-5 pb-5 flex-1">
                       <JsonCode
                         json={httpConfig}
-                        accentClass="text-indigo-600 dark:text-indigo-400"
-                        tintClass="bg-indigo-50/60 dark:bg-indigo-950/25"
+                        accentClass="text-brand-soft"
+                        tintClass="bg-primary/10"
                       />
                     </div>
                   </div>
 
                   {/* Native SSE Card */}
-                  <div className="group flex flex-col rounded-2xl border-2 border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-sky-500/10 hover:border-sky-400/70 dark:hover:border-sky-500/60 overflow-hidden">
+                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-sky-500/10 hover:border-sky-400/70 dark:hover:border-sky-500/60 overflow-hidden">
                     <div className="h-1.5 w-full bg-gradient-to-r from-sky-500 to-sky-400" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Native (type: sse)</h4>
@@ -812,7 +812,7 @@ export default function Dashboard() {
                   </div>
 
                   {/* Stdio Proxy Card */}
-                  <div className="group flex flex-col rounded-2xl border-2 border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-violet-500/10 hover:border-violet-400/70 dark:hover:border-violet-500/60 overflow-hidden">
+                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-violet-500/10 hover:border-violet-400/70 dark:hover:border-violet-500/60 overflow-hidden">
                     <div className="h-1.5 w-full bg-gradient-to-r from-violet-500 to-violet-400" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Stdio Proxy (CLI)</h4>

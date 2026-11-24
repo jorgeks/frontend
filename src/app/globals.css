@@ -28,84 +28,68 @@
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
-
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 9%;
-
-    --radius: 0rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 0 0% 9%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96.1%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 0 0% 89.8%;
-    --sidebar-ring: 0 0% 9%;
-  }
-
+  /* ── ConFuse design tokens (single source of truth) ─────────────────────
+     Derived from the ConFuse deck v7 aesthetic: near-black canvas, plum-tinted
+     surfaces, magenta brand (#E63FA8) with a soft pink highlight (#FF9EDC),
+     lilac-grey copy, 14px radii and soft magenta glows. Every surface
+     (landing, pricing, docs, app) reads from these; :root and .dark are the
+     same on purpose so the brand never flips with the OS theme. */
+  :root,
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 0%;              /* #000000 */
+    --foreground: 295 35% 93.3%;        /* #F3E8F4 */
 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 266 28% 4.9%;               /* #0C0910 */
+    --card-foreground: 295 35% 93.3%;
 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 273 27% 6.5%;            /* #110C15 */
+    --popover-foreground: 295 35% 93.3%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 322 77% 57.5%;           /* #E63FA8 */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 273 27% 6.5%;          /* #110C15 */
+    --secondary-foreground: 295 35% 93.3%;
 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    --muted: 266 14% 9.7%;              /* white 5% over card */
+    --muted-foreground: 277 12% 71.8%;  /* #B9AEC0 */
 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 310 42% 10.5%;            /* brand 12% over card */
+    --accent-foreground: 295 35% 93.3%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    
-    --sidebar-background: 0 0% 3.9%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 0 0% 9%;
-    --sidebar-accent: 0 0% 14.9%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 14.9%;
-    --sidebar-ring: 0 0% 83.1%;
+    --border: 266 7% 17.3%;             /* white 13% over card */
+    --input: 266 7% 17.3%;
+    --ring: 322 77% 57.5%;
+
+    /* Brand extras */
+    --brand: 322 77% 57.5%;             /* #E63FA8 */
+    --brand-soft: 322 100% 81%;         /* #FF9EDC */
+    --subtle: 281 9% 54.1%;             /* #8E7F95 — labels, eyebrows */
+    --dim: 276 11% 36.1%;               /* #5E5266 */
+    --info: 219 100% 65.5%;             /* #4F8DFF */
+    --success: 160 84% 39.4%;           /* #10B981 */
+    --warning: 38 92% 50.2%;            /* #F59E0B */
+
+    --radius: 0.875rem;                 /* 14px */
+
+    --shadow-glow: 0 0 0 1px rgba(230, 63, 168, 0.45), 0 0 40px rgba(230, 63, 168, 0.18);
+    --shadow-glow-sm: 0 0 0 1px rgba(230, 63, 168, 0.35), 0 0 18px rgba(230, 63, 168, 0.18);
+    --shadow-glow-inset: 0 0 70px rgba(230, 63, 168, 0.10) inset;
+    --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+
+    --sidebar-background: 266 28% 4.9%;
+    --sidebar-foreground: 295 35% 93.3%;
+    --sidebar-primary: 322 77% 57.5%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 310 42% 10.5%;
+    --sidebar-accent-foreground: 295 35% 93.3%;
+    --sidebar-border: 266 7% 17.3%;
+    --sidebar-ring: 322 77% 57.5%;
+
+    color-scheme: dark;
   }
 }
 
@@ -116,6 +100,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: rgba(230, 63, 168, 0.35);
+    color: hsl(var(--foreground));
+  }
   
   ::-webkit-scrollbar {
     width: 6px;
@@ -125,6 +116,7 @@
   }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--foreground) / 0.5);
@@ -157,85 +149,47 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* Ambient dashboard backdrop: soft brand-colored glow behind the dark UI */
-.ambient-glow { background-image: radial-gradient(1000px 500px at 15% -5%, rgba(59, 130, 246, 0.14), transparent), radial-gradient(800px 450px at 85% 0%, rgba(168, 85, 247, 0.12), transparent), radial-gradient(700px 400px at 50% 110%, rgba(16, 185, 129, 0.07), transparent); }
-
-/* ── Landing theme (scoped: '/' only) ─────────────────────────────────────
-   WHY: the marketing landing is the ONE light surface on the platform
-   (#BAADD1 lavender, per product direction); every other route keeps the
-   standard dark theme. Scoping the design tokens here re-themes everything
-   inside the wrapper (incl. shared Navbar/Footer) without touching them. */
-.landing {
-  --background: 262 28% 75%;          /* #BAADD1 */
-  --foreground: 262 45% 16%;
-  --card: 262 32% 87%;
-  --card-foreground: 262 45% 16%;
-  --popover: 262 32% 87%;
-  --popover-foreground: 262 45% 16%;
-  --primary: 262 47% 30%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 262 26% 88%;
-  --secondary-foreground: 262 45% 16%;
-  --muted: 262 24% 84%;
-  --muted-foreground: 262 18% 36%;
-  --accent: 262 30% 89%;
-  --accent-foreground: 262 45% 16%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 262 22% 62%;
-  --input: 262 22% 62%;
-  --ring: 262 47% 30%;
-}
-
-/* Unauthenticated pricing surface (/pricing + the signed-out /billing view):
-   warm seashell #FFF5EE backdrop with white cards and a terracotta accent.
-   Scoped so every token-driven child (Navbar, Footer, Cards, Buttons) stays
-   readable; signed-in surfaces keep their themes. */
-.pricing-sea {
-  --background: 24.7 100% 96.7%;     /* #FFF5EE */
-  --foreground: 24 45% 14%;
-  --card: 0 0% 100%;
-  --card-foreground: 24 45% 14%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 24 45% 14%;
-  --primary: 18 72% 40%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 24 40% 91%;
-  --secondary-foreground: 24 45% 14%;
-  --muted: 24 40% 90%;
-  --muted-foreground: 24 22% 34%;
-  --accent: 24 45% 89%;
-  --accent-foreground: 24 45% 14%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 24 35% 78%;
-  --input: 24 35% 78%;
-  --ring: 18 72% 40%;
-}
-
-/* Documentation surface (/docs index + /docs/[slug] articles): warm dark
-   salmon #E9967A backdrop with white cards. Applied from docs/layout.tsx so
-   every current and future docs page inherits it. */
-.docs-salmon {
-  --background: 15.13 71.61% 69.61%;   /* #E9967A */
-  --foreground: 15 50% 13%;
-  --card: 0 0% 100%;
-  --card-foreground: 15 50% 13%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 15 50% 13%;
-  --primary: 15 70% 30%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 15 55% 82%;
-  --secondary-foreground: 15 50% 13%;
-  --muted: 15 55% 80%;
-  --muted-foreground: 15 30% 28%;
-  --accent: 15 60% 80%;
-  --accent-foreground: 15 50% 13%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 15 40% 50%;
-  --input: 15 40% 50%;
-  --ring: 15 70% 30%;
+/* Brand utilities (deck v7 vocabulary) */
+@layer components {
+  /* Uppercase label with a small magenta dot in front */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-xs font-bold uppercase tracking-eyebrow text-foreground;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: hsl(var(--brand));
+    box-shadow: 0 0 8px rgba(230, 63, 168, 0.8);
+  }
+  /* Small uppercase caption used above numbers and card titles */
+  .label {
+    @apply text-xs font-semibold uppercase tracking-eyebrow text-subtle;
+  }
+  /* Highlighted card: magenta hairline + faint magenta wash */
+  .card-brand {
+    border-color: rgba(230, 63, 168, 0.55);
+    background-color: rgba(230, 63, 168, 0.05);
+    box-shadow: var(--shadow-glow-inset);
+  }
+  /* Surface gradient used for large feature cards */
+  .surface-gradient {
+    background-image: linear-gradient(180deg, #110C15 0%, #0A070C 100%);
+  }
+  .text-gradient-brand {
+    background-image: linear-gradient(90deg, hsl(var(--brand)) 0%, hsl(var(--brand-soft)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Ambient backdrop: soft magenta glow behind dark surfaces */
+  .bg-ambient,
+  .ambient-glow {
+    background-image:
+      radial-gradient(900px 480px at 15% -10%, rgba(230, 63, 168, 0.14), transparent 70%),
+      radial-gradient(700px 420px at 90% 0%, rgba(255, 158, 220, 0.07), transparent 70%);
+  }
 }
 
 /* Landing motion vocabulary (CSS-only; stagger via inline delays) */

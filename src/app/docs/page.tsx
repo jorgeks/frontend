@@ -26,12 +26,12 @@ export default async function DocumentationIndex() {
         <section className="py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-8">
-              <div className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-lg mx-auto">
+              <div className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-glow mx-auto">
                 <BookOpen className="w-5 h-5 mr-2" />
                 <span className="font-bold text-lg">Documentation</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-center mb-6">
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Complete Documentation</span>
+                <span className="text-gradient-brand">Complete Documentation</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Everything you need to master ConFuse, from basic setup to advanced integrations.

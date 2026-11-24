@@ -214,10 +214,10 @@ export function LandingFeatures() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal>
               <div className="mb-12 max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+                <p className="eyebrow mb-4">
                   {group.label}
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-display mb-3">
                   {group.title}
                 </h2>
                 <p className="text-lg text-muted-foreground">{group.subtitle}</p>
@@ -227,12 +227,12 @@ export function LandingFeatures() {
             {/* Keep every group at 6 features: the hairline grid renders full
                 rows only (3 cols on lg, 2 on md) — partial rows leave an ugly
                 empty cell in the gap-px border lattice. */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {group.features.map((feature, index) => (
                 <Reveal key={feature.id} delay={(index % 3) * 100}>
                   <div
                     data-testid={`feature-${feature.id}`}
-                    className="h-full bg-background p-8 hover:bg-card transition-colors duration-300 group"
+                    className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset group"
                   >
                     <h3 className="text-lg font-semibold mb-2 tracking-tight">
                       {feature.title}

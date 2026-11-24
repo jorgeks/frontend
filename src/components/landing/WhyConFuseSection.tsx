@@ -42,10 +42,10 @@ export function WhyConFuseSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="max-w-2xl mb-14">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+            <p className="eyebrow mb-4">
               Why ConFuse
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
               Context you can trust.
               <br />
               Speed you can feel.
@@ -57,10 +57,10 @@ export function WhyConFuseSection() {
           </div>
         </Reveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {REASONS.map((reason, index) => (
             <Reveal key={reason.title} delay={(index % 3) * 120}>
-              <div className="h-full bg-background p-8 hover:bg-card transition-colors duration-300 group">
+              <div className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset group">
                 <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary/10 text-primary mb-5 transition-transform duration-300 group-hover:scale-110">
                   <reason.icon className="w-5 h-5" />
                 </div>
