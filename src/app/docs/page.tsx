@@ -65,7 +65,7 @@ export default async function DocumentationIndex() {
                       )}
                       
                       <div className="mt-auto pt-4">
-                        <div className="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
+                        <div className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-brand-deep px-4 py-2 text-sm font-medium text-foreground transition-colors group-hover:border-primary/70 group-hover:bg-primary group-hover:text-primary-foreground">
                           Read Document <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </div>
                       </div>

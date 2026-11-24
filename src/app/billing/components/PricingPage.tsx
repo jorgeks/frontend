@@ -71,8 +71,8 @@ export function PricingPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-20">
-        <section className="relative overflow-hidden py-24">
+      <main>
+        <section className="relative overflow-hidden pt-44 pb-24">
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-glow-top" />
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

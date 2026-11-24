@@ -45,7 +45,7 @@ export function WhyConFuseSection() {
             <p className="eyebrow mb-4">
               Why ConFuse
             </p>
-            <h2 className="text-3xl md:text-5xl font-semibold leading-[1.1] mb-5">
+            <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-[1.12] mb-5">
               Context you can trust.
               <br />
               Speed you can feel.

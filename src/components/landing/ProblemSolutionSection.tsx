@@ -58,7 +58,7 @@ export function ProblemSolutionSection() {
               <p className="eyebrow mb-4">
                 The problem
               </p>
-              <h2 className="text-3xl md:text-5xl font-semibold leading-[1.1] mb-5">
+              <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-[1.12] mb-5">
                 Your knowledge is everywhere.
                 <br />
                 And that means it&apos;s nowhere.
@@ -95,7 +95,7 @@ export function ProblemSolutionSection() {
               <p className="eyebrow mb-4">
                 The solution
               </p>
-              <h2 className="text-3xl md:text-5xl font-semibold leading-[1.1] mb-5">
+              <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-[1.12] mb-5">
                 One place that actually
                 <br />
                 knows your stack.
