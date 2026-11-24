@@ -3,15 +3,15 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Code2 } from 'lucide-react'
 import { LogoMark } from '@/components/brand/Logo'
-import { INTEGRATIONS } from './integrations'
+import { SOURCE_CATEGORIES } from './integrations'
 import { useInView } from './Reveal'
 
 const useIso = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 type Beam = { d: string; delay: number; dur: number; out: boolean; src?: string }
 
-/** Sources the sample query cites (repo, docs, chat): they light up once the capsule returns. */
-const CITED = new Set(['GitHub', 'Notion', 'Slack'])
+/** Categories the sample query cites (repo, docs, chat): they light up once the capsule returns. */
+const CITED = new Set(['repo', 'docs', 'chat'])
 
 /**
  * Product scene from the deck's solution slides: every source is wired once
@@ -55,7 +55,7 @@ export function ContextFlow() {
         const y1 = vertical ? r.bottom - br.top : r.top - br.top + r.height / 2
         const x2 = vertical ? cx : cr.left - br.left
         const y2 = vertical ? cr.top - br.top : cy
-        next.push({ d: curve(x1, y1, x2, y2), delay: i * 0.37, dur: 2.6 + (i % 3) * 0.35, out: false, src: INTEGRATIONS[i].name })
+        next.push({ d: curve(x1, y1, x2, y2), delay: i * 0.37, dur: 2.6 + (i % 3) * 0.35, out: false, src: SOURCE_CATEGORIES[i].id })
       })
       agentRefs.current.forEach((el, i) => {
         if (!el) return
@@ -127,23 +127,29 @@ export function ContextFlow() {
           ))}
         </svg>
 
-        {/* sources */}
-        <div className="relative grid grid-cols-4 gap-2 sm:grid-cols-8 md:grid-cols-1 md:gap-2 md:justify-self-start md:w-full md:max-w-[240px]">
-          {INTEGRATIONS.map((s, i) => (
+        {/* what ConFuse unifies, by category */}
+        <div className="relative grid grid-cols-2 gap-2 md:grid-cols-1 md:gap-3 md:justify-self-start md:w-full md:max-w-[280px]">
+          {SOURCE_CATEGORIES.map((c, i) => (
             <div
-              key={s.name}
+              key={c.id}
               ref={(el) => { srcRefs.current[i] = el }}
-              className={`reveal flex items-center justify-center gap-3 rounded-md border bg-card px-2 py-2.5 transition-colors duration-500 md:justify-start md:px-3 md:py-1.5 ${cited && CITED.has(s.name) ? 'border-primary/60' : 'border-border'}`}
+              className={`reveal rounded-md border bg-card px-3 py-2.5 transition-colors duration-500 ${cited && CITED.has(c.id) ? 'border-primary/60' : 'border-border'}`}
               data-visible={visible}
-              style={{ ['--d' as string]: `${i * 60}ms` }}
+              style={{ ['--d' as string]: `${i * 80}ms` }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.src} alt="" className="h-5 w-5 object-contain" />
-              <span className="hidden min-w-0 md:block">
-                <span className="block truncate text-sm font-medium text-foreground">{s.name}</span>
-                <span className="block text-xs uppercase tracking-[0.08em] text-subtle">{s.kind}</span>
-              </span>
-              <span className="sr-only md:hidden">{s.name}</span>
+              <div className="flex items-center gap-2">
+                <c.icon className={`h-4 w-4 transition-colors duration-500 ${cited && CITED.has(c.id) ? 'text-primary' : 'text-subtle'}`} aria-hidden="true" />
+                <span className="text-sm font-medium text-foreground">{c.name}</span>
+              </div>
+              <ul className="mt-2 flex flex-wrap gap-1.5">
+                {c.items.map((it) => (
+                  <li key={it.label} className="inline-flex items-center gap-1.5 rounded border border-border px-1.5 py-0.5 text-xs text-muted-foreground">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {it.icon && <img src={it.icon} alt="" className="h-3.5 w-3.5 object-contain" />}
+                    {it.label}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -184,7 +190,7 @@ export function ContextFlow() {
               <span className="min-w-0">
                 <span className="block truncate text-sm font-medium">{label}</span>
                 <span className="sr-only"> (coding agent)</span>
-                <span className="block font-mono text-xs text-subtle">get_context()</span>
+                <span className="hidden font-mono text-xs text-subtle sm:block">get_context()</span>
               </span>
             </div>
           ))}
