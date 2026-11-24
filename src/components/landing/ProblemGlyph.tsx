@@ -45,7 +45,7 @@ function state(kind: GlyphKind, c: number, r: number): { cls: string; d: number 
 
 export function ProblemGlyph({ kind }: { kind: GlyphKind }) {
   return (
-    <svg viewBox={`0 0 ${N * PITCH} ${N * PITCH}`} className="pglyph h-14 w-14"
+    <svg viewBox={`0 0 ${N * PITCH} ${N * PITCH}`} className="pglyph h-20 w-20"
       style={kind === 'weeks' ? { ['--pg-t' as string]: '6s' } : undefined} aria-hidden="true">
       {Array.from({ length: N * N }, (_, i) => {
         const c = i % N, r = Math.floor(i / N)

@@ -147,7 +147,7 @@ export function ScopeVisual() {
       <div className="px-4 py-3">
         <div className="grid grid-cols-[1fr_repeat(3,4.5rem)] items-center gap-y-2.5 text-xs">
           <span />
-          {ROLES.map((r) => <span key={r} className="text-center font-mono text-[11px] text-subtle">{r}</span>)}
+          {ROLES.map((r) => <span key={r} className="text-center font-mono text-xs text-subtle">{r}</span>)}
           {SOURCE_CATEGORIES.map((c, ri) => (
             <div key={c.id} className="contents">
               <span className="flex items-center gap-2 text-sm text-foreground">

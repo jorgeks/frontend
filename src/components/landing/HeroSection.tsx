@@ -40,7 +40,7 @@ export function HeroSection() {
               href="#features"
               className="rise group inline-flex max-w-full items-center gap-2.5 rounded-full border border-border py-1 pl-1 pr-3.5 text-xs text-muted-foreground transition-colors duration-200 hover:border-foreground/25 hover:text-foreground sm:text-sm"
             >
-              <span className="rounded-full border border-primary/40 bg-primary/10 shrink-0 whitespace-nowrap px-2.5 py-0.5 font-mono text-[11px] text-brand-soft">
+              <span className="rounded-full border border-primary/40 bg-primary/10 shrink-0 whitespace-nowrap px-2.5 py-0.5 font-mono text-xs text-brand-soft">
                 v1.0.0-beta
               </span>
               <span className="hidden min-w-0 truncate min-[420px]:inline">The Context Layer for coding agents is here</span>

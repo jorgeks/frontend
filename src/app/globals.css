@@ -440,11 +440,12 @@
 
 /* Graph: nodes fade with age; the scanline crosses the time axis every 6s and
    each column's nodes take the accent as it passes (Supermemory-style sweep). */
-.g-node { opacity: var(--age, 1); stroke-width: 1; transition: opacity .2s; }
-.g-code { fill: hsl(var(--foreground) / .85); }
-.g-doc { fill: hsl(var(--card)); stroke: hsl(var(--foreground) / .75); }
+.g-node { opacity: var(--age, 1); stroke-width: 1.5; transition: opacity .2s; }
+.g-code { fill: hsl(var(--foreground) / .85); --st: transparent; stroke: var(--st); }
+.g-doc { fill: hsl(var(--card)); --st: hsl(var(--foreground) / .75); stroke: var(--st); }
 [data-visible="true"] .g-node { animation: g-hit 6s linear infinite; animation-delay: calc(var(--d, 0s) + .6s); }
-@keyframes g-hit { 0%, 100% { } 3% { fill: hsl(var(--brand)); stroke: hsl(var(--brand)); opacity: 1; } 10% { } }
+/* only the outline flashes, so code (filled) and docs (hollow) stay readable */
+@keyframes g-hit { 0%, 10%, 100% { stroke: var(--st); } 3% { stroke: hsl(var(--brand)); opacity: 1; } }
 .g-scan { opacity: 0; }
 [data-visible="true"] .g-scan { animation: g-scan 6s cubic-bezier(.32, .72, 0, 1) infinite; animation-delay: .6s; }
 @keyframes g-scan { 0% { transform: translateX(60px); opacity: 0; } 2% { opacity: .9; } 30% { transform: translateX(300px); opacity: .9; } 36%, 100% { transform: translateX(300px); opacity: 0; } }
@@ -478,3 +479,7 @@
 .why-idx, .why-title { transition: color .15s cubic-bezier(.4, 0, .2, 1); }
 .why-row:hover .why-idx { color: hsl(var(--brand)); }
 .why-row:hover .why-title { color: hsl(var(--brand-soft)); }
+
+/* Solution stepper signal: only while in view */
+.stepper:not([data-visible="true"]) .flow-signal, .stepper:not([data-visible="true"]) .flow-edge { animation: none; }
+.stepper { --cycle: 8s; }

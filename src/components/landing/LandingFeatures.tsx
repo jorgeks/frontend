@@ -223,7 +223,7 @@ export function LandingFeatures() {
             data-testid={`feature-group-${group.id}`}
             className={`relative py-20 md:py-24 ${gi > 0 ? "border-t border-border" : ""}`}
           >
-            <div className={`container-lg grid gap-12 xl:gap-16 ${gi % 2 ? "xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]" : "xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"}`}>
+            <div className={`container-lg grid grid-cols-[minmax(0,1fr)] gap-12 xl:gap-16 ${gi % 2 ? "xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]" : "xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"}`}>
               {/* sticky intro + illustration */}
               <div className={`xl:sticky xl:top-24 xl:self-start ${gi % 2 ? "xl:order-2" : ""}`}>
                 <Reveal>

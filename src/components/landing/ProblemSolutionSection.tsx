@@ -92,7 +92,7 @@ export function ProblemSolutionSection() {
                 className="cell-hover border-border p-7 [&:not(:first-child)]:border-t sm:[&:nth-child(2)]:border-l sm:[&:nth-child(2)]:border-t-0 sm:[&:nth-child(4)]:border-l xl:border-t-0 xl:[&:not(:first-child)]:border-l xl:[&:not(:first-child)]:border-t-0"
               >
                 <ProblemGlyph kind={problem.glyph} />
-                <h3 className="mb-3 mt-10 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
+                <h3 className="mb-3 mt-6 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
               </Reveal>
             ))}
@@ -110,16 +110,23 @@ export function ProblemSolutionSection() {
                 layer — and delivers it wherever questions get asked.</>}
           />
 
-          <Reveal plain className="relative">
-            {/* hairline connector, drawn once left to right */}
+          <Reveal plain className="stepper relative" >
+            {/* hairline connector, drawn once; then one signal per 8s cycle
+                runs 01 → 03 and each step's ring flashes as it passes */}
             <div className="pointer-events-none absolute left-[calc((100%-4rem)/6)] right-[calc((100%-4rem)/6)] top-[22px] hidden h-px md:block" aria-hidden="true">
               <div className="grow-x h-full w-full bg-foreground/15" style={{ ['--d' as string]: "300ms" }} />
+              <svg className="absolute inset-0 h-px w-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 1">
+                <line x1="0" y1="0.5" x2="100" y2="0.5" pathLength={100} stroke="hsl(var(--brand))" strokeWidth={1.25} vectorEffect="non-scaling-stroke" className="flow-signal" style={{ ['--d' as string]: "1.6s" }} />
+              </svg>
             </div>
             <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
               {SOLUTIONS.map((solution, index) => (
                 <li key={solution.step}>
                   <Reveal delay={200 + index * 180} className="flex flex-col items-start text-left md:items-center md:text-center">
-                    <div className="relative z-10 mb-7 flex h-11 w-11 items-center justify-center rounded-full border border-primary/50 bg-background text-brand-soft">
+                    <div
+                      className="flow-edge relative z-10 mb-7 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground/80"
+                      style={{ ['--fd' as string]: `${1.6 + [0, 0.12, 0.7][index]}s` }}
+                    >
                       <solution.icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <span className="mb-2 font-mono text-xs text-primary">{solution.step}</span>
