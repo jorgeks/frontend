@@ -134,7 +134,7 @@ export function GraphSetupCard({ onByodbSelected }: GraphSetupCardProps) {
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-2">
         <Button
-          className="h-20 flex flex-col gap-2 bg-indigo-600 hover:bg-indigo-700 text-white"
+          className="h-20 flex flex-col gap-2 bg-primary hover:bg-primary/90 text-primary-foreground"
           disabled={busy !== null}
           onClick={() => void choose('managed')}
           data-testid="graph-setup-managed"

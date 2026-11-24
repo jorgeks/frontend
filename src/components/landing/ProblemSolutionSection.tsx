@@ -51,19 +51,19 @@ export function ProblemSolutionSection() {
   return (
     <>
       {/* ── The problem ── */}
-      <section className="py-24 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative section">
+        <div className="container-lg">
           <Reveal>
-            <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+            <div className="max-w-[768px] mx-auto text-center mb-12">
+              <p className="eyebrow mb-4">
                 The problem
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
                 Your knowledge is everywhere.
                 <br />
                 And that means it&apos;s nowhere.
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg leading-[1.5] text-subtitle">
                 Teams don&apos;t lack information — they lack a way to hold it all
                 at once. The cost shows up as wrong answers, slow ramps, and
                 decisions made on stale context.
@@ -71,15 +71,15 @@ export function ProblemSolutionSection() {
             </div>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PROBLEMS.map((problem, index) => (
               <Reveal key={problem.title} delay={index * 120}>
-                <div className="h-full bg-background p-8 hover:bg-card transition-colors duration-300">
-                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-destructive/10 text-destructive mb-5">
+                <div className="card-chamfer h-full p-8">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-destructive/30 bg-destructive/10 text-destructive mb-6">
                     <problem.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{problem.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{problem.body}</p>
+                  <h3 className="text-lg font-medium leading-[1.5] mb-2">{problem.title}</h3>
+                  <p className="text-[15px] text-muted-foreground leading-relaxed">{problem.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -88,39 +88,39 @@ export function ProblemSolutionSection() {
       </section>
 
       {/* ── The solution ── */}
-      <section className="py-24 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative section">
+        <div className="container-lg">
           <Reveal>
-            <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+            <div className="max-w-[768px] mx-auto text-center mb-12">
+              <p className="eyebrow mb-4">
                 The solution
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
                 One place that actually
                 <br />
                 knows your stack.
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg leading-[1.5] text-subtitle">
                 ConFuse turns the sprawl into a single, always-current context
                 layer — and delivers it wherever questions get asked.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {SOLUTIONS.map((solution, index) => (
               <Reveal key={solution.step} delay={index * 150}>
-                <div className="relative h-full border border-border bg-card p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <div className="card-chamfer h-full p-8">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground">
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-brand-mid bg-brand-deep text-brand-soft">
                       <solution.icon className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-mono font-semibold text-primary">
                       {solution.step}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{solution.body}</p>
+                  <h3 className="text-lg font-medium leading-[1.5] mb-2">{solution.title}</h3>
+                  <p className="text-[15px] text-muted-foreground leading-relaxed">{solution.body}</p>
                 </div>
               </Reveal>
             ))}

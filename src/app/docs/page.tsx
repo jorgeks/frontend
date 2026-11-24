@@ -23,35 +23,37 @@ export default async function DocumentationIndex() {
       <Navbar showUserMenu={false} showAuth={false} />
 
       <main>
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden pt-28 pb-24">
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-glow-top" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-8">
-              <div className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-lg mx-auto">
-                <BookOpen className="w-5 h-5 mr-2" />
-                <span className="font-bold text-lg">Documentation</span>
+              <div className="inline-flex items-center px-4 py-1.5 border border-brand-mid bg-brand-deep/60 text-foreground rounded-[20px] mx-auto">
+                <BookOpen className="w-4 h-4 mr-2 text-brand-soft" />
+                <span className="text-sm font-medium">Documentation</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-center mb-6">
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Complete Documentation</span>
+              <h1 className="text-4xl md:text-[64px] leading-[1.05] text-center mb-6">
+                <span className="text-gradient-display">Complete Documentation</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg leading-[1.5] text-subtitle max-w-[768px] mx-auto">
                 Everything you need to master ConFuse, from basic setup to advanced integrations.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-16 -mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="pb-20">
+          <div className="container-lg">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {docs.map((doc) => (
                 <Link key={doc.slug} href={`/docs/${doc.slug}`}>
-                  <Card className="bg-card border-border hover:shadow-card transition-all duration-300 group relative h-full">
+                  <Card className="card-lit border-border hover:border-brand-mid group relative h-full">
                     <div className="flex flex-col px-6 py-4 gap-4 overflow-hidden h-full">
                       <div className="flex items-center gap-2">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                          <FileText className="w-6 h-6 text-primary" />
+                        <div className="w-11 h-11 shrink-0 border border-brand-mid bg-brand-deep rounded-md flex items-center justify-center group-hover:border-primary/60 transition-colors">
+                          <FileText className="w-5 h-5 text-brand-soft" />
                         </div>
-                        <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                        <CardTitle className="text-base font-semibold text-foreground group-hover:text-brand-soft transition-colors line-clamp-2">
                           {doc.title}
                         </CardTitle>
                       </div>
@@ -63,7 +65,7 @@ export default async function DocumentationIndex() {
                       )}
                       
                       <div className="mt-auto pt-4">
-                        <div className="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
+                        <div className="inline-flex items-center gap-1 rounded-md border border-brand-mid bg-brand-deep px-5 py-2 text-sm font-medium text-foreground transition-colors duration-200 group-hover:bg-brand-mid">
                           Read Document <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </div>
                       </div>

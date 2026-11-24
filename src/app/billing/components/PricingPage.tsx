@@ -68,33 +68,35 @@ export function PricingPage() {
   ];
 
   return (
-    <div className="pricing-sea min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-20">
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <Badge variant="secondary" className="w-fit mx-auto mb-4">
+      <main>
+        <section className="relative overflow-hidden pt-44 pb-24">
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-glow-top" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <Badge variant="brand" className="w-fit mx-auto mb-4">
               Simple & Transparent Pricing
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-[64px] leading-[1.05] text-foreground mb-6">
               Choose Your
-              <span className="text-primary"> Subscription Plan</span>
+              <span className="text-gradient-display"> Subscription Plan</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg leading-[1.5] text-subtitle max-w-[768px] mx-auto">
               Connect your repositories, documentation, and logs seamlessly with defined quotas and rock-solid security.
             </p>
           </div>
         </section>
 
-        <section className="py-16 -mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <section className="pb-20">
+          <div className="container-lg">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {plans.map((plan, index) => (
                 <Card 
                   key={index} 
-                  className={`relative bg-card border-border flex flex-col justify-between ${
-                    plan.popular ? 'ring-2 ring-primary shadow-primary' : ''
+                  className={`card-lit relative border-border flex flex-col justify-between ${
+                    plan.popular ? 'border-brand-mid' : ''
                   }`}
                 >
                   {plan.popular && (
@@ -104,11 +106,11 @@ export function PricingPage() {
                   )}
                   
                   <CardHeader className="text-center pb-8">
-                    <CardTitle className="text-lg font-semibold text-foreground mb-2">
+                    <CardTitle className="font-sans text-base font-medium text-brand mb-2">
                       {plan.name}
                     </CardTitle>
                     <div className="space-y-1">
-                      <div className="text-4xl font-bold text-foreground">
+                      <div className="font-display text-4xl font-semibold text-foreground">
                         {plan.price}
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -124,7 +126,7 @@ export function PricingPage() {
                     <ul className="space-y-3 text-left">
                       {plan.features.map((feature, i) => (
                         <li key={i} className="flex items-start text-sm">
-                          <Check className="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0 mt-0.5" />
                           <span className="text-muted-foreground text-xs leading-relaxed">{feature}</span>
                         </li>
                       ))}
@@ -132,11 +134,7 @@ export function PricingPage() {
                     
                     <a href={plan.buyUrl} target={plan.buyUrl.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">
                       <Button 
-                        className={`w-full ${
-                          plan.popular 
-                            ? 'bg-primary hover:bg-primary/90' 
-                            : ''
-                        }`}
+                        className="w-full"
                         variant={plan.popular ? 'default' : 'outline'}
                       >
                         {plan.name === 'Free' ? 'Get Started' : plan.name === 'Enterprise' ? 'Contact Sales' : `Subscribe to ${plan.name}`}
@@ -149,7 +147,7 @@ export function PricingPage() {
           </div>
         </section>
 
-        <section className="py-16 bg-muted/20">
+        <section className="py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-foreground mb-4">

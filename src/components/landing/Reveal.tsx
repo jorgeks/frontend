@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * Scroll-reveal wrapper: fades/slides children in once when they enter the
- * viewport. CSS-transition based (no animation library), stagger via `delay`.
+ * Scroll-reveal wrapper: a short 0.2s fade when children enter the viewport
+ * (Muse-style minimal motion). CSS-transition based (no animation library), stagger via `delay`.
  */
 export function Reveal({
   children,
@@ -39,10 +39,10 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      className={`transition-opacity duration-200 ease-out motion-reduce:transition-none ${
+        visible ? 'opacity-100' : 'opacity-0'
       } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: `${Math.min(delay, 120)}ms` }}
     >
       {children}
     </div>

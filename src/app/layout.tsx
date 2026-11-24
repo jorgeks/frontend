@@ -14,6 +14,17 @@ const spaceGrotesk = localFont({
   weight: '300 700',
   style: 'normal',
   display: 'swap',
+  variable: '--font-sans',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+})
+
+// Display face for headings (Unbounded, OFL) — wide geometric look.
+const unbounded = localFont({
+  src: './fonts/Unbounded-Variable.woff2',
+  weight: '200 900',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-display',
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
 
@@ -46,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#0D0C0F',
 }
 
 export default function RootLayout({
@@ -59,7 +70,7 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={spaceGrotesk.className}>
+      <body className={`${spaceGrotesk.variable} ${unbounded.variable} ${spaceGrotesk.className}`}>
         <Providers>
           <TooltipProvider>
             <Toaster />
