@@ -1,6 +1,7 @@
 'use client'
 
 import { Reveal } from "./Reveal";
+import { SpotlightGroup } from "./Spotlight";
 import { SearchX, BrainCircuit, Users, RefreshCw, Plug, Layers, MessageCircleQuestion } from "lucide-react";
 
 const PROBLEMS = [
@@ -47,84 +48,89 @@ const SOLUTIONS = [
   },
 ];
 
+/** Section heading: eyebrow, H2 and lede, centred in the 768px column. */
+export function SectionHeading({
+  eyebrow,
+  title,
+  lede,
+  className = "mb-14 md:mb-16",
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  lede?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Reveal className={`mx-auto max-w-3xl text-center ${className}`}>
+      <p className="eyebrow mb-5 text-subtle">{eyebrow}</p>
+      <h2 className="mb-5 text-3xl font-medium leading-[1.12] tracking-[-0.03em] md:text-[2.75rem]">{title}</h2>
+      {lede && <p className="text-lg leading-relaxed text-muted-foreground">{lede}</p>}
+    </Reveal>
+  );
+}
+
 export function ProblemSolutionSection() {
   return (
     <>
       {/* ── The problem ── */}
-      <section className="relative section">
+      <section className="relative py-24 md:py-32">
         <div className="container-lg">
-          <Reveal>
-            <div className="max-w-[768px] mx-auto text-center mb-12">
-              <p className="eyebrow mb-4">
-                The problem
-              </p>
-              <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
-                Your knowledge is everywhere.
-                <br />
-                And that means it&apos;s nowhere.
-              </h2>
-              <p className="text-lg leading-[1.5] text-subtitle">
-                Teams don&apos;t lack information — they lack a way to hold it all
+          <SectionHeading
+            eyebrow="The problem"
+            title={<>Your knowledge is everywhere.<br />And that means it&apos;s nowhere.</>}
+            lede={<>Teams don&apos;t lack information — they lack a way to hold it all
                 at once. The cost shows up as wrong answers, slow ramps, and
-                decisions made on stale context.
-              </p>
-            </div>
-          </Reveal>
+                decisions made on stale context.</>}
+          />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <SpotlightGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PROBLEMS.map((problem, index) => (
-              <Reveal key={problem.title} delay={index * 120}>
-                <div className="card-chamfer h-full p-8">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-destructive/30 bg-destructive/10 text-destructive mb-6">
-                    <problem.icon className="w-5 h-5" />
+              <Reveal key={problem.title} delay={index * 90} className="h-full">
+                <div className="spotlight card-lit h-full rounded-xl border border-border p-7">
+                  <div className="mb-10 flex items-center justify-between">
+                    <problem.icon className="h-5 w-5 text-subtle" aria-hidden="true" />
+                    <span className="font-mono text-xs text-dim">0{index + 1}</span>
                   </div>
-                  <h3 className="text-lg font-medium leading-[1.5] mb-2">{problem.title}</h3>
-                  <p className="text-[15px] text-muted-foreground leading-relaxed">{problem.body}</p>
+                  <h3 className="mb-3 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </SpotlightGroup>
         </div>
       </section>
 
       {/* ── The solution ── */}
-      <section className="relative section">
+      <section className="relative border-t border-border py-24 md:py-32">
         <div className="container-lg">
-          <Reveal>
-            <div className="max-w-[768px] mx-auto text-center mb-12">
-              <p className="eyebrow mb-4">
-                The solution
-              </p>
-              <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
-                One place that actually
-                <br />
-                knows your stack.
-              </h2>
-              <p className="text-lg leading-[1.5] text-subtitle">
-                ConFuse turns the sprawl into a single, always-current context
-                layer — and delivers it wherever questions get asked.
-              </p>
-            </div>
-          </Reveal>
+          <SectionHeading
+            eyebrow="The solution"
+            title={<>One place that actually<br />knows your stack.</>}
+            lede={<>ConFuse turns the sprawl into a single, always-current context
+                layer — and delivers it wherever questions get asked.</>}
+          />
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {SOLUTIONS.map((solution, index) => (
-              <Reveal key={solution.step} delay={index * 150}>
-                <div className="card-chamfer h-full p-8">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-brand-mid bg-brand-deep text-brand-soft">
-                      <solution.icon className="w-5 h-5" />
+          <Reveal plain className="relative">
+            {/* connector that grows across the three steps, with a travelling packet */}
+            <div className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-[22px] hidden h-px md:block" aria-hidden="true">
+              <div className="grow-x h-full w-full bg-gradient-to-r from-primary/70 via-primary/40 to-primary/70" style={{ ['--d' as string]: "300ms" }} />
+              <span className="beam-dot absolute top-1/2 h-[3px] w-10 -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-brand-soft to-transparent" />
+            </div>
+            <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
+              {SOLUTIONS.map((solution, index) => (
+                <li key={solution.step}>
+                  <Reveal delay={200 + index * 180} className="flex flex-col items-start text-left md:items-center md:text-center">
+                    <div className="relative z-10 mb-7 flex h-11 w-11 items-center justify-center rounded-full border border-primary/50 bg-background text-brand-soft">
+                      <solution.icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <span className="text-sm font-mono font-semibold text-primary">
-                      {solution.step}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-medium leading-[1.5] mb-2">{solution.title}</h3>
-                  <p className="text-[15px] text-muted-foreground leading-relaxed">{solution.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                    <span className="mb-2 font-mono text-xs text-primary">{solution.step}</span>
+                    <h3 className="mb-3 font-sans text-xl font-semibold tracking-[-0.015em]">{solution.title}</h3>
+                    <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">{solution.body}</p>
+                  </Reveal>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </div>
       </section>
     </>

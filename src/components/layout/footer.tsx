@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
+import { Logo } from '@/components/brand/Logo'
 
 /**
  * Site footer for the public landing surface.
@@ -61,22 +62,17 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center gap-2.5" data-testid="footer-brand">
-              <span
-                aria-hidden
-                className="h-2 w-2 rounded-full bg-primary"
-              />
-              <span className="text-2xl font-bold tracking-[-0.02em]">ConFuse</span>
+              <Logo markClassName="h-7" wordClassName="text-2xl" />
             </Link>
             <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
               Context Layer for coding agents
             </p>
             <Link
               href="/status"
-              className="mt-6 inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors duration-200 hover:border-foreground/25 hover:text-foreground"
+              className="group mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
-              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
               Status
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
             </Link>
           </div>
 
@@ -87,8 +83,7 @@ export function Footer() {
           >
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <p className="flex items-center gap-2.5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
+                <p className="text-[13px] font-medium text-foreground">
                   {col.title}
                 </p>
                 <ul className="mt-5 flex flex-col gap-3">
@@ -96,7 +91,7 @@ export function Footer() {
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         data-testid={l.testId}
                       >
                         {l.label}
@@ -113,7 +108,7 @@ export function Footer() {
           <p className="text-sm text-muted-foreground/70" data-testid="footer-copyright">
             © {new Date().getFullYear()} ConFuse. All rights reserved.
           </p>
-          <span aria-hidden className="block h-0.5 w-24 bg-primary" />
+
         </div>
       </div>
     </footer>

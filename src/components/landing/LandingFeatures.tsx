@@ -1,6 +1,8 @@
 'use client'
 
 import { Reveal } from "./Reveal";
+import { SpotlightGroup } from "./Spotlight";
+import { SyncVisual, GraphVisual, ToolVisual, ScopeVisual } from "./FeatureVisuals";
 
 interface Feature {
   id: string;
@@ -199,52 +201,76 @@ const featureGroups: FeatureGroup[] = [
   },
 ];
 
+const VISUALS: Record<string, React.ComponentType> = {
+  sources: SyncVisual,
+  intelligence: GraphVisual,
+  interfaces: ToolVisual,
+  security: ScopeVisual,
+};
+
 export function LandingFeatures() {
   return (
-    <div id="features" data-testid="features-section">
-      {featureGroups.map((group) => (
-        <section
-          key={group.id}
-          id={`feature-group-${group.id}`}
-          data-testid={`feature-group-${group.id}`}
-          className="relative section"
-        >
-          <div className="container-lg">
-            <Reveal>
-              <div className="max-w-[768px] mx-auto text-center mb-12">
-                <p className="eyebrow mb-4">
-                  {group.label}
-                </p>
-                <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
-                  {group.title}
-                </h2>
-                <p className="text-lg leading-[1.5] text-subtitle">{group.subtitle}</p>
-              </div>
-            </Reveal>
-
-            {/* Keep every group at 6 features: the hairline grid renders full
-                rows only (3 cols on lg, 2 on md) — partial rows leave an ugly
-                empty cell in the gap-px border lattice. */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {group.features.map((feature, index) => (
-                <Reveal key={feature.id} delay={(index % 3) * 100}>
-                  <div
-                    data-testid={`feature-${feature.id}`}
-                    className="card-chamfer h-full p-8 group"
-                  >
-                    <h3 className="text-lg font-medium leading-[1.5] mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-[15px] text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
+    <div id="features" data-testid="features-section" className="scroll-mt-8 border-t border-border">
+      {featureGroups.map((group, gi) => {
+        const Visual = VISUALS[group.id];
+        return (
+          <section
+            key={group.id}
+            id={`feature-group-${group.id}`}
+            data-testid={`feature-group-${group.id}`}
+            className={`relative py-20 md:py-28 ${gi > 0 ? "border-t border-border" : ""}`}
+          >
+            <div className="container-lg grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+              {/* sticky intro + illustration */}
+              <div className="lg:sticky lg:top-24 lg:self-start">
+                <Reveal>
+                  <p className="eyebrow mb-5 text-subtle">
+                    <span className="font-mono text-primary">0{gi + 1}</span>
+                    {group.label}
+                  </p>
+                  <h2 className="mb-4 text-3xl font-medium leading-[1.12] tracking-[-0.03em] md:text-4xl">
+                    {group.title}
+                  </h2>
+                  <p className="max-w-md text-lg leading-relaxed text-muted-foreground">{group.subtitle}</p>
                 </Reveal>
-              ))}
+                {Visual && (
+                  <Reveal delay={150} className="mt-10">
+                    <Visual />
+                  </Reveal>
+                )}
+              </div>
+
+              {/* hairline lattice: 6 features, 2 columns */}
+              <SpotlightGroup className="grid self-start overflow-hidden rounded-xl border border-border sm:grid-cols-2">
+                {group.features.map((feature, index) => (
+                  <Reveal
+                    key={feature.id}
+                    delay={(index % 2) * 80 + Math.floor(index / 2) * 60}
+                    className={[
+                      "h-full",
+                      index > 0 ? "border-t border-border" : "",
+                      index === 1 ? "sm:border-t-0" : "",
+                      index % 2 === 1 ? "sm:border-l sm:border-border" : "",
+                    ].join(" ")}
+                  >
+                    <div
+                      data-testid={`feature-${feature.id}`}
+                      className="spotlight h-full p-7 md:p-8"
+                    >
+                      <h3 className="mb-2.5 font-sans text-base font-semibold tracking-[-0.01em]">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </Reveal>
+                ))}
+              </SpotlightGroup>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
     </div>
   );
 }

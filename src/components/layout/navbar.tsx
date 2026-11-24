@@ -7,6 +7,7 @@ import { ArrowRight, Menu, X } from 'lucide-react'
 import { useAuth } from '@/contexts/auth'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/brand/Logo'
 
 /**
  * Global marketing/navigation bar.
@@ -91,8 +92,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
           className={cn('flex items-center gap-2.5 rounded-sm', focusRing)}
           data-testid="navbar-brand"
         >
-          <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
-          <span className="text-xl font-bold tracking-[-0.02em] text-foreground">ConFuse</span>
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" data-testid="navbar-links" aria-label="Main">

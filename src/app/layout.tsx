@@ -39,9 +39,12 @@ export const metadata: Metadata = {
     siteName: 'ConFuse',
   },
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/brand/icon-180.png',
   },
   manifest: '/manifest.json',
   metadataBase: new URL('https://www.confuse.site'),
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0D0C0F',
+  themeColor: '#141314',
 }
 
 export default function RootLayout({

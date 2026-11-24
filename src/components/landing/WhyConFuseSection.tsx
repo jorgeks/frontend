@@ -1,6 +1,8 @@
 'use client'
 
 import { Reveal } from "./Reveal";
+import { SpotlightGroup } from "./Spotlight";
+import { SectionHeading } from "./ProblemSolutionSection";
 import { Quote, RefreshCw, Bot, Lock, Zap, TrendingUp } from "lucide-react";
 
 const REASONS = [
@@ -38,38 +40,28 @@ const REASONS = [
 
 export function WhyConFuseSection() {
   return (
-    <section className="relative section">
+    <section className="relative border-t border-border py-24 md:py-32">
       <div className="container-lg">
-        <Reveal>
-          <div className="max-w-[768px] mx-auto text-center mb-12">
-            <p className="eyebrow mb-4">
-              Why ConFuse
-            </p>
-            <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
-              Context you can trust.
-              <br />
-              Speed you can feel.
-            </h2>
-            <p className="text-lg leading-[1.5] text-subtitle">
-              Teams reach for ConFuse when the cost of a wrong answer finally
-              outweighs the cost of another tool.
-            </p>
-          </div>
-        </Reveal>
+        <SectionHeading
+          eyebrow="Why ConFuse"
+          title={<>Context you can trust.<br />Speed you can feel.</>}
+          lede={<>Teams reach for ConFuse when the cost of a wrong answer finally
+              outweighs the cost of another tool.</>}
+        />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SpotlightGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((reason, index) => (
-            <Reveal key={reason.title} delay={(index % 3) * 120}>
-              <div className="card-chamfer h-full p-8 group">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-brand-mid bg-brand-deep text-brand-soft mb-6">
-                  <reason.icon className="w-5 h-5" />
+            <Reveal key={reason.title} delay={(index % 3) * 90} className="h-full">
+              <div className="spotlight card-lit group h-full rounded-xl border border-border p-7 md:p-8">
+                <div className="mb-8 inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-brand-soft transition-colors duration-200 group-hover:border-primary/40">
+                  <reason.icon className="h-[18px] w-[18px]" aria-hidden="true" />
                 </div>
-                <h3 className="text-lg font-medium leading-[1.5] mb-2">{reason.title}</h3>
-                <p className="text-[15px] text-muted-foreground leading-relaxed">{reason.body}</p>
+                <h3 className="mb-2.5 font-sans text-[17px] font-semibold tracking-[-0.01em]">{reason.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{reason.body}</p>
               </div>
             </Reveal>
           ))}
-        </div>
+        </SpotlightGroup>
       </div>
     </section>
   );
