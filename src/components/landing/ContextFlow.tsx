@@ -196,8 +196,8 @@ export function ContextFlow() {
   )
 }
 
-/** Agent clients named in the product's own MCP setup copy (dashboard), plus any MCP client. */
-const AGENTS = ['Cursor', 'Windsurf', 'Any MCP client']
+/** Agent clients the product's own help/dashboard copy names for the MCP server. */
+const AGENTS = ['Cursor', 'Windsurf', 'Claude Desktop']
 
 const QUERY = 'Why does checkout retry failed payments?'
 const RESULTS = [
