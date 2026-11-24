@@ -169,7 +169,7 @@ export function ContextFlow() {
         </div>
 
         {/* agents */}
-        <div className="relative grid grid-cols-2 gap-3 md:grid-cols-1 md:gap-16 md:justify-self-end md:w-full md:max-w-[240px]">
+        <div className="relative grid grid-cols-3 gap-2 md:grid-cols-1 md:gap-8 md:justify-self-end md:w-full md:max-w-[240px]">
           {AGENTS.map((label, i) => (
             <div
               key={i}
@@ -196,8 +196,8 @@ export function ContextFlow() {
   )
 }
 
-/** Agent clients named in the product's own MCP setup copy (dashboard). */
-const AGENTS = ['Cursor', 'Windsurf']
+/** Agent clients named in the product's own MCP setup copy (dashboard), plus any MCP client. */
+const AGENTS = ['Cursor', 'Windsurf', 'Any MCP client']
 
 const QUERY = 'Why does checkout retry failed payments?'
 const RESULTS = [

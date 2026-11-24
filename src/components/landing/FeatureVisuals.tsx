@@ -20,7 +20,7 @@ export function SyncVisual() {
     <div className={panel} aria-hidden="true">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
         <span className="label">Event pipeline</span>
-        <span className="font-mono text-[11px] text-subtle">webhooks</span>
+        <span className="font-mono text-xs text-subtle">webhooks</span>
       </div>
       <ul className="divide-y divide-border">
         {rows.map((r) => (
@@ -29,7 +29,7 @@ export function SyncVisual() {
             <div className="min-w-0">
               <div className="flex items-baseline justify-between gap-2">
                 <span className="truncate text-sm font-medium">{r.name}</span>
-                <span className="truncate font-mono text-[11px] text-subtle">{r.event}</span>
+                <span className="truncate font-mono text-xs text-subtle">{r.event}</span>
               </div>
               <div className="mt-2 h-px w-full overflow-hidden bg-border">
                 <div className="sync-bar h-full w-full origin-left bg-primary/80" style={{ ['--dur' as string]: r.dur, ['--d' as string]: r.d }} />
@@ -59,13 +59,13 @@ export function GraphVisual() {
     <div className={panel} aria-hidden="true">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
         <span className="label">Knowledge graph</span>
-        <span className="flex items-center gap-3 font-mono text-[11px] text-subtle">
+        <span className="flex items-center gap-3 font-mono text-xs text-subtle">
           <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-primary" />code</span>
           <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-brand-soft" />docs</span>
           <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-dim" />outdated</span>
         </span>
       </div>
-      <svg viewBox="0 0 360 236" className="block w-full">
+      <svg viewBox="0 0 360 236" className="mx-auto block w-full max-w-[520px]">
         {EDGES.map(([a, b], i) => (
           <line
             key={i}
@@ -84,7 +84,7 @@ export function GraphVisual() {
         />
         {NODES.map(([x, y, k], i) => (
           <g key={i}>
-            <circle cx={x} cy={y} r={k === 'old' ? 3.5 : 4} fill={k === 'old' ? 'hsl(var(--card))' : COLOR[k]} stroke={k === 'old' ? 'hsl(var(--subtle))' : 'none'} strokeDasharray={k === 'old' ? '2 2' : undefined} className={k === 'old' ? '' : 'node-pulse'} style={{ ['--d' as string]: `${(i * 0.37) % 3}s` }} />
+            <circle cx={x} cy={y} r={k === 'old' ? 3.5 : 4} opacity={1} fill={k === 'old' ? 'hsl(var(--card))' : COLOR[k]} stroke={k === 'old' ? 'hsl(var(--subtle))' : 'none'} strokeDasharray={k === 'old' ? '2 2' : undefined} className={k === 'old' ? '' : 'node-pulse'} style={{ ['--d' as string]: `${(i * 0.37) % 3}s` }} />
             {k !== 'old' && <circle cx={x} cy={y} r={9} fill="none" stroke={COLOR[k]} strokeOpacity={0.18} />}
           </g>
         ))}
@@ -98,7 +98,7 @@ export function ToolVisual() {
     <div className={`${panel} font-mono text-[12.5px] leading-[1.7]`} aria-hidden="true">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
         <span className="label font-sans">MCP · tool call</span>
-        <span className="text-[11px] text-subtle">200 OK</span>
+        <span className="text-xs text-subtle">200 OK</span>
       </div>
       <pre className="overflow-hidden px-4 py-4 text-muted-foreground">
 {`{
@@ -132,9 +132,9 @@ export function ScopeVisual() {
             <span className={r.ok ? 'text-foreground' : ''}>{r.who}</span>
             <span className={r.ok ? 'text-muted-foreground' : 'line-through'}>{r.what}</span>
             {r.ok ? (
-              <span className="inline-flex items-center gap-1 text-[11px] text-primary"><Check className="h-3 w-3" />read</span>
+              <span className="inline-flex items-center gap-1 text-xs text-primary"><Check className="h-3 w-3" />read</span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-[11px]"><X className="h-3 w-3" />denied</span>
+              <span className="inline-flex items-center gap-1 text-xs"><X className="h-3 w-3" />denied</span>
             )}
           </li>
         ))}

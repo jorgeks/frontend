@@ -92,7 +92,7 @@ export function NeuralBrain({ className, density = 1 }: { className?: string; de
           x: sx, y: sy, tx, ty, sx, sy, vx: 0, vy: 0,
           r: 0.7 + Math.random() * 1.1,
           pink: Math.random() < 0.28,
-          delay: Math.random() * 0.55,
+          delay: Math.random() * 0.3,
           heat: 0,
           ph: Math.random() * Math.PI * 2,
         }
@@ -134,7 +134,7 @@ export function NeuralBrain({ className, density = 1 }: { className?: string; de
     const frame = (now: number) => {
       if (!t0) t0 = now
       const t = (now - t0) / 1000
-      const assemble = reduce ? 1 : t / 2.2
+      const assemble = reduce ? 1 : t / 1.5
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, W, H)
 

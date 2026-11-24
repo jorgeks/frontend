@@ -43,7 +43,7 @@ export function HeroSection() {
               <span className="rounded-full border border-primary/40 bg-primary/10 shrink-0 whitespace-nowrap px-2.5 py-0.5 font-mono text-[11px] text-brand-soft">
                 v1.0.0-beta
               </span>
-              <span className="min-w-0 truncate">The Context Layer for coding agents is here</span>
+              <span className="hidden min-w-0 truncate min-[420px]:inline">The Context Layer for coding agents is here</span>
               <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
             </a>
 
