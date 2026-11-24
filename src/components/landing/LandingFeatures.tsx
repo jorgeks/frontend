@@ -223,9 +223,9 @@ export function LandingFeatures() {
             data-testid={`feature-group-${group.id}`}
             className={`relative py-20 md:py-24 ${gi > 0 ? "border-t border-border" : ""}`}
           >
-            <div className="container-lg grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+            <div className={`container-lg grid gap-12 xl:gap-16 ${gi % 2 ? "xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]" : "xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"}`}>
               {/* sticky intro + illustration */}
-              <div className="lg:sticky lg:top-24 lg:self-start">
+              <div className={`xl:sticky xl:top-24 xl:self-start ${gi % 2 ? "xl:order-2" : ""}`}>
                 <Reveal>
                   <p className="eyebrow mb-5 text-subtle">
                     <span className="font-mono text-primary">0{gi + 1}</span>
@@ -259,7 +259,7 @@ export function LandingFeatures() {
                   >
                     <div
                       data-testid={`feature-${feature.id}`}
-                      className="spotlight spotlight-soft h-full p-6 md:p-8"
+                      className="spotlight spotlight-soft cell-hover h-full p-6 md:p-8"
                     >
                       <h3 className="mb-2.5 font-sans text-base font-semibold tracking-[-0.01em]">
                         {feature.title}

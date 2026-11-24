@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
  * short blur, deck easing) and any nested one-shot animation (logo draw,
  * beams, underline growth). Stagger with `delay` (ms).
  */
-export function useInView<T extends Element>(rootMargin = '0px 0px -4% 0px') {
+export function useInView<T extends Element>(rootMargin = '0px 0px 8% 0px') {
   const ref = useRef<T>(null)
   const [visible, setVisible] = useState(false)
 

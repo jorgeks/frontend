@@ -78,12 +78,12 @@ export function Footer() {
                 <p className="text-[13px] font-medium text-foreground">
                   {col.title}
                 </p>
-                <ul className="mt-4 flex flex-col gap-1.5">
+                <ul className="mt-3 flex flex-col sm:mt-4 sm:gap-1.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="inline-block py-1 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        className="inline-block py-2 text-sm sm:py-1 text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         data-testid={l.testId}
                       >
                         {l.label}

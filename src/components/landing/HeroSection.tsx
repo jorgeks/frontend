@@ -48,7 +48,7 @@ export function HeroSection() {
             </a>
 
             <h1
-              className="rise mt-7 font-display text-[2.4rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
+              className="rise mt-6 font-display text-[2.15rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
               style={{ ['--d' as string]: '80ms' }}
             >
               ConFuse: Context Layer for <span className="text-primary">coding agents</span>.
@@ -97,7 +97,7 @@ export function HeroSection() {
           </div>
 
           {/* the brain: fragmented dots fuse into the ConFuse mark */}
-          <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[420px] lg:max-w-[520px]">
+          <div className="relative mx-auto hidden w-full sm:block sm:max-w-[420px] lg:max-w-[520px]">
             <div
               className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(closest-side,hsl(var(--brand)/0.10),transparent)]"
               aria-hidden="true"
@@ -112,7 +112,7 @@ export function HeroSection() {
         </div>
 
         {/* integrations marquee */}
-        <div className="mt-14 pb-16 md:mt-20 md:pb-20">
+        <div className="mt-12 pb-12 md:mt-16 md:pb-14">
           <p className="mb-6 text-center text-xs font-medium uppercase tracking-eyebrow text-subtle">
             Integrations
           </p>

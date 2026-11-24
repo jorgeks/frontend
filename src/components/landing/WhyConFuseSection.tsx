@@ -1,7 +1,6 @@
 'use client'
 
 import { Reveal } from "./Reveal";
-import { SpotlightGroup } from "./Spotlight";
 import { SectionHeading } from "./ProblemSolutionSection";
 import { Quote, RefreshCw, Bot, Lock, Zap, TrendingUp } from "lucide-react";
 
@@ -49,19 +48,19 @@ export function WhyConFuseSection() {
               outweighs the cost of another tool.</>}
         />
 
-        <SpotlightGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((reason, index) => (
             <Reveal key={reason.title} delay={(index % 3) * 90} className="h-full">
-              <div className="spotlight card-hover card-lit group h-full rounded-xl border border-border p-7 md:p-8">
-                <div className="mb-8 inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-brand-soft transition-colors duration-200 group-hover:border-primary/40">
-                  <reason.icon className="h-[18px] w-[18px]" aria-hidden="true" />
+              <div className="group h-full border-t border-border py-8 pr-4">
+                <div className="mb-3 flex items-center gap-3">
+                  <reason.icon className="h-[18px] w-[18px] text-brand-soft" aria-hidden="true" />
+                  <h3 className="font-sans text-[17px] font-semibold tracking-[-0.01em]">{reason.title}</h3>
                 </div>
-                <h3 className="mb-2.5 font-sans text-[17px] font-semibold tracking-[-0.01em]">{reason.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{reason.body}</p>
               </div>
             </Reveal>
           ))}
-        </SpotlightGroup>
+        </div>
       </div>
     </section>
   );

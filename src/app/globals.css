@@ -414,3 +414,9 @@
 .card-hover { transition: border-color .2s ease, transform .2s ease; }
 .card-hover:hover { border-color: hsl(var(--foreground) / .18); transform: translateY(-2px); }
 @media (prefers-reduced-motion: reduce) { .card-hover:hover { transform: none; } }
+
+/* Lattice cell hover: lifted surface and a short brand rule on top */
+.cell-hover { position: relative; transition: background-color .2s ease; }
+.cell-hover:hover { background-color: hsl(var(--foreground) / .025); }
+.cell-hover > h3::before { content: ""; position: absolute; top: -1px; left: 0; width: 3rem; height: 1px; background: hsl(var(--brand)); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-deck); }
+.cell-hover:hover > h3::before { transform: scaleX(1); }

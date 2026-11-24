@@ -22,7 +22,7 @@ export function CTASection() {
           />
           <LogoMark draw className="relative mb-10 h-24 w-auto text-foreground md:h-28" />
           <Reveal delay={600}>
-            <h2 className="mb-5 font-display text-3xl font-bold leading-[1.05] tracking-[-0.035em] md:text-5xl">
+            <h2 className="mb-5 text-3xl font-medium leading-[1.1] tracking-[-0.03em] md:text-[2.75rem]">
               Ready to unify your <span className="text-primary">context?</span>
             </h2>
             <p className="mx-auto mb-10 max-w-xl text-lg text-muted-foreground">

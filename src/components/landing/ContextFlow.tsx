@@ -8,7 +8,10 @@ import { useInView } from './Reveal'
 
 const useIso = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-type Beam = { d: string; delay: number; dur: number; out: boolean }
+type Beam = { d: string; delay: number; dur: number; out: boolean; src?: string }
+
+/** Sources the sample query cites (repo, docs, chat): they light up once the capsule returns. */
+const CITED = new Set(['GitHub', 'Notion', 'Slack'])
 
 /**
  * Product scene from the deck's solution slides: every source is wired once
@@ -27,6 +30,8 @@ export function ContextFlow() {
   const agentRefs = useRef<(HTMLDivElement | null)[]>([])
   const [beams, setBeams] = useState<Beam[]>([])
   const [size, setSize] = useState({ w: 0, h: 0 })
+  const [cited, setCited] = useState(false)
+  const coreWrap = useRef<HTMLDivElement>(null)
 
   useIso(() => {
     const measure = () => {
@@ -50,13 +55,14 @@ export function ContextFlow() {
         const y1 = vertical ? r.bottom - br.top : r.top - br.top + r.height / 2
         const x2 = vertical ? cx : cr.left - br.left
         const y2 = vertical ? cr.top - br.top : cy
-        next.push({ d: curve(x1, y1, x2, y2), delay: i * 0.37, dur: 2.6 + (i % 3) * 0.35, out: false })
+        next.push({ d: curve(x1, y1, x2, y2), delay: i * 0.37, dur: 2.6 + (i % 3) * 0.35, out: false, src: INTEGRATIONS[i].name })
       })
       agentRefs.current.forEach((el, i) => {
         if (!el) return
         const r = el.getBoundingClientRect()
+        const wr = coreWrap.current?.getBoundingClientRect() ?? cr
         const x1 = vertical ? cx : cr.right - br.left
-        const y1 = vertical ? cr.bottom - br.top : cy
+        const y1 = vertical ? wr.bottom - br.top + 4 : cy
         const x2 = vertical ? r.left - br.left + r.width / 2 : r.left - br.left
         const y2 = vertical ? r.top - br.top : r.top - br.top + r.height / 2
         next.push({ d: curve(x1, y1, x2, y2), delay: 0.9 + i * 0.6, dur: 2.2, out: true })
@@ -100,16 +106,21 @@ export function ContextFlow() {
                 className="beam-base"
                 style={{ ['--d' as string]: `${b.out ? 0.6 : i * 0.06}s` }}
               />
-              {visible && (
+              {visible && (!cited || b.out || CITED.has(b.src ?? '')) && (
                 <path
+                  key={cited && !b.out ? 'cited' : 'idle'}
                   d={b.d}
                   pathLength={100}
                   fill="none"
                   stroke={b.out ? 'hsl(var(--brand-soft))' : 'hsl(var(--brand))'}
-                  strokeWidth={1.6}
+                  strokeWidth={cited && !b.out ? 2 : 1.6}
                   strokeLinecap="round"
                   className="beam-packet"
-                  style={{ ['--d' as string]: `${1.2 + b.delay}s`, ['--dur' as string]: `${b.dur}s` }}
+                  style={
+                    cited && !b.out
+                      ? { ['--d' as string]: `${(i % 3) * 0.25}s`, ['--dur' as string]: '1.6s' }
+                      : { ['--d' as string]: `${1.2 + b.delay}s`, ['--dur' as string]: `${b.dur}s` }
+                  }
                 />
               )}
             </g>
@@ -122,7 +133,7 @@ export function ContextFlow() {
             <div
               key={s.name}
               ref={(el) => { srcRefs.current[i] = el }}
-              className="reveal flex items-center justify-center gap-3 rounded-md border border-border bg-card px-2 py-2.5 md:justify-start md:px-3 md:py-1.5"
+              className={`reveal flex items-center justify-center gap-3 rounded-md border bg-card px-2 py-2.5 transition-colors duration-500 md:justify-start md:px-3 md:py-1.5 ${cited && CITED.has(s.name) ? 'border-primary/60' : 'border-border'}`}
               data-visible={visible}
               style={{ ['--d' as string]: `${i * 60}ms` }}
             >
@@ -130,7 +141,7 @@ export function ContextFlow() {
               <img src={s.src} alt="" className="h-5 w-5 object-contain" />
               <span className="hidden min-w-0 md:block">
                 <span className="block truncate text-sm font-medium text-foreground">{s.name}</span>
-                <span className="block text-[11px] uppercase tracking-eyebrow text-subtle">{s.kind}</span>
+                <span className="block text-xs uppercase tracking-[0.08em] text-subtle">{s.kind}</span>
               </span>
               <span className="sr-only md:hidden">{s.name}</span>
             </div>
@@ -138,7 +149,7 @@ export function ContextFlow() {
         </div>
 
         {/* ConFuse core */}
-        <div className="relative flex flex-col items-center gap-3 justify-self-center">
+        <div ref={coreWrap} className="relative flex flex-col items-center gap-3 justify-self-center">
           <div ref={core} className="relative h-28 w-28 md:h-32 md:w-32">
             <span className="ring-out absolute inset-0 rounded-[28px] border border-primary/40" aria-hidden="true" />
             <span
@@ -154,7 +165,7 @@ export function ContextFlow() {
               <LogoMark className="h-14 w-auto text-foreground md:h-16" />
             </div>
           </div>
-          <span className="text-sm font-semibold tracking-[-0.01em]">ConFuse</span>
+          <span className="relative rounded bg-card px-2 text-sm font-semibold tracking-[-0.01em]">ConFuse</span>
         </div>
 
         {/* agents */}
@@ -173,14 +184,14 @@ export function ContextFlow() {
               <span className="min-w-0">
                 <span className="block truncate text-sm font-medium">{label}</span>
                 <span className="sr-only"> (coding agent)</span>
-                <span className="block font-mono text-[11px] text-subtle">get_context()</span>
+                <span className="block font-mono text-xs text-subtle">get_context()</span>
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      <ToolCall play={visible} />
+      <ToolCall play={visible} onCited={() => setCited(true)} />
     </div>
   )
 }
@@ -196,14 +207,14 @@ const RESULTS = [
 ]
 
 /** Terminal-style mock of one agent tool call, typed out once in view. */
-function ToolCall({ play }: { play: boolean }) {
+function ToolCall({ play, onCited }: { play: boolean; onCited: () => void }) {
   const [typed, setTyped] = useState(0)
   const [shown, setShown] = useState(0)
 
   useEffect(() => {
     if (!play) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) { setTyped(QUERY.length); setShown(RESULTS.length + 1); return }
+    if (reduce) { setTyped(QUERY.length); setShown(RESULTS.length + 1); onCited(); return }
     let i = 0
     let rt: ReturnType<typeof setTimeout>
     const start = setTimeout(function tick() {
@@ -212,11 +223,12 @@ function ToolCall({ play }: { play: boolean }) {
       if (i < QUERY.length) rt = setTimeout(tick, 16 + Math.random() * 22)
       else {
         let k = 0
-        const reveal = () => { k++; setShown(k); if (k <= RESULTS.length) rt = setTimeout(reveal, 180) }
+        const reveal = () => { k++; setShown(k); if (k === 1) onCited(); if (k <= RESULTS.length) rt = setTimeout(reveal, 180) }
         rt = setTimeout(reveal, 250)
       }
     }, 700)
     return () => { clearTimeout(start); clearTimeout(rt) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [play])
 
   return (
@@ -227,7 +239,7 @@ function ToolCall({ play }: { play: boolean }) {
         <span className="h-2.5 w-2.5 rounded-full border border-border" />
         <span className="ml-2 text-xs">agent · mcp</span>
       </div>
-      <div className="min-h-[9.5rem] space-y-1.5 px-4 py-4 sm:min-h-[8.5rem] sm:px-5">
+      <div className="min-h-[8.75rem] space-y-1.5 px-4 py-4 sm:min-h-[8.5rem] sm:px-5">
         <p className="text-muted-foreground">
           <span className="text-brand-soft">→</span> get_context
           <span className="text-subtle">(</span>
@@ -245,11 +257,11 @@ function ToolCall({ play }: { play: boolean }) {
         {RESULTS.map((r, i) => (
           <p
             key={r.ref}
-            className={`flex flex-wrap gap-x-3 pl-4 transition-all duration-300 ${shown > i + 1 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'}`}
+            className={`flex min-w-0 gap-x-3 whitespace-nowrap pl-4 transition-all duration-300 ${shown > i + 1 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'}`}
           >
-            <span className="w-10 text-subtle">{r.src}</span>
-            <span className="text-foreground">{r.ref}</span>
-            <span className="text-subtle">{r.note}</span>
+            <span className="w-10 shrink-0 text-subtle">{r.src}</span>
+            <span className="min-w-0 truncate text-foreground">{r.ref}</span>
+            <span className="hidden shrink-0 text-subtle sm:inline">{r.note}</span>
           </p>
         ))}
       </div>

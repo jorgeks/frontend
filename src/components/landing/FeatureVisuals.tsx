@@ -84,7 +84,7 @@ export function GraphVisual() {
         />
         {NODES.map(([x, y, k], i) => (
           <g key={i}>
-            <circle cx={x} cy={y} r={k === 'old' ? 3 : 4} fill={COLOR[k]} className={k === 'old' ? '' : 'node-pulse'} style={{ ['--d' as string]: `${(i * 0.37) % 3}s` }} />
+            <circle cx={x} cy={y} r={k === 'old' ? 3.5 : 4} fill={k === 'old' ? 'hsl(var(--card))' : COLOR[k]} stroke={k === 'old' ? 'hsl(var(--subtle))' : 'none'} strokeDasharray={k === 'old' ? '2 2' : undefined} className={k === 'old' ? '' : 'node-pulse'} style={{ ['--d' as string]: `${(i * 0.37) % 3}s` }} />
             {k !== 'old' && <circle cx={x} cy={y} r={9} fill="none" stroke={COLOR[k]} strokeOpacity={0.18} />}
           </g>
         ))}
