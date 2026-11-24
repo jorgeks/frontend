@@ -69,14 +69,14 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
   const primaryCta = signedIn ? (
     <Link
       href="/dashboard"
-      className="cf-cta group"
+      className="cf-cta group rounded-md"
       data-testid="navbar-cta"
     >
       Dashboard
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
     </Link>
   ) : (
-    <button type="button" onClick={goToLogin} className="cf-cta group" data-testid="navbar-cta">
+    <button type="button" onClick={goToLogin} className="cf-cta group rounded-md" data-testid="navbar-cta">
       Get started
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
     </button>
@@ -94,7 +94,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
     >
       {/* Deck-style controls built on the shared theme tokens (primary = brand pink). */}
       <style>{`
-        .cf-cta{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;
+        .cf-cta{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;
           background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-size:14px;font-weight:600;
           letter-spacing:-.01em;white-space:nowrap;
           box-shadow:0 0 0 1px hsl(0 0% 100% / .18) inset,0 8px 28px -8px hsl(var(--primary) / .65);
@@ -102,7 +102,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
         .cf-cta:hover{filter:brightness(1.08);box-shadow:0 0 0 1px hsl(0 0% 100% / .28) inset,0 10px 34px -8px hsl(var(--primary) / .85)}
         .cf-cta:active{transform:translateY(1px)}
         .cf-cta:focus-visible,.cf-ghost:focus-visible,.cf-link:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}
-        .cf-ghost{display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:999px;
+        .cf-ghost{display:inline-flex;align-items:center;height:38px;padding:0 14px;
           border:1px solid hsl(var(--border));color:hsl(var(--foreground));font-size:14px;font-weight:500;white-space:nowrap;
           transition:border-color .2s,background-color .2s}
         .cf-ghost:hover{border-color:hsl(var(--foreground) / .3);background:hsl(var(--foreground) / .04)}
@@ -114,7 +114,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="cf-link flex items-center gap-2.5 rounded-md"
+          className="cf-link flex items-center gap-2.5 rounded-sm"
           data-testid="navbar-brand"
         >
           <span
@@ -125,7 +125,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
         </Link>
 
         <nav
-          className="hidden items-center gap-1 rounded-full border border-foreground/[0.10] bg-foreground/[0.03] p-1 md:flex"
+          className="hidden items-center gap-1 rounded-lg border border-foreground/[0.10] bg-foreground/[0.03] p-1 md:flex"
           data-testid="navbar-links"
           aria-label="Main"
         >
@@ -134,7 +134,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
               key={l.href}
               href={l.href}
               className={cn(
-                'cf-link rounded-full px-4 py-1.5 text-sm font-medium transition-colors',
+                'cf-link rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
                 isActive(l.href)
                   ? 'bg-foreground/[0.08] text-foreground'
                   : 'text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground'
@@ -158,12 +158,12 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
                   >
                     {user?.name || user?.email}
                   </span>
-                  <button type="button" onClick={logout} className="cf-ghost" data-testid="navbar-sign-out">
+                  <button type="button" onClick={logout} className="cf-ghost rounded-md" data-testid="navbar-sign-out">
                     Sign Out
                   </button>
                 </>
               ) : showSignIn ? (
-                <button type="button" onClick={goToLogin} className="cf-ghost" data-testid="navbar-sign-in">
+                <button type="button" onClick={goToLogin} className="cf-ghost rounded-md" data-testid="navbar-sign-in">
                   Sign In
                 </button>
               ) : null}
@@ -174,7 +174,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
           <div className="md:hidden">
             <button
               type="button"
-              className="cf-ghost !h-10 !w-10 !justify-center !p-0"
+              className="cf-ghost rounded-md !h-10 !w-10 !justify-center !p-0"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="navbar-mobile-menu"
@@ -204,7 +204,7 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  'cf-link flex items-center justify-between rounded-[14px] border px-5 py-4 text-lg font-semibold tracking-[-0.01em] transition-colors',
+                  'cf-link flex items-center justify-between rounded-lg border px-5 py-4 text-lg font-semibold tracking-[-0.01em] transition-colors',
                   isActive(l.href)
                     ? 'border-primary/55 bg-primary/[0.06] text-foreground'
                     : 'border-border bg-card text-foreground hover:border-foreground/25'
@@ -222,22 +222,22 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
               {signedIn ? (
                 <>
                   <span className="truncate px-1 text-sm text-muted-foreground/70">{user?.name || user?.email}</span>
-                  <Link href="/dashboard" className="cf-cta !h-12 justify-center text-base" onClick={() => setOpen(false)}>
+                  <Link href="/dashboard" className="cf-cta rounded-md !h-12 justify-center text-base" onClick={() => setOpen(false)}>
                     Dashboard
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
-                  <button type="button" onClick={logout} className="cf-ghost !h-12 justify-center text-base">
+                  <button type="button" onClick={logout} className="cf-ghost rounded-md !h-12 justify-center text-base">
                     Sign Out
                   </button>
                 </>
               ) : (
                 <>
-                  <button type="button" onClick={goToLogin} className="cf-cta !h-12 justify-center text-base">
+                  <button type="button" onClick={goToLogin} className="cf-cta rounded-md !h-12 justify-center text-base">
                     Get started
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </button>
                   {showSignIn && (
-                    <button type="button" onClick={goToLogin} className="cf-ghost !h-12 justify-center text-base">
+                    <button type="button" onClick={goToLogin} className="cf-ghost rounded-md !h-12 justify-center text-base">
                       Sign In
                     </button>
                   )}

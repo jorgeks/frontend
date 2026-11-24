@@ -77,7 +77,7 @@ export function Footer() {
             </p>
             <Link
               href="/status"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-foreground/[0.14] bg-foreground/[0.03] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground"
+              className="mt-6 inline-flex items-center gap-2 rounded-md border border-foreground/[0.14] bg-foreground/[0.03] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground"
             >
               <span className="relative flex h-2 w-2" aria-hidden>
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60 motion-reduce:animate-none" />
@@ -95,10 +95,10 @@ export function Footer() {
           >
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <h3 className="flex items-center gap-2.5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
+                <p className="flex items-center gap-2.5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
                   {col.title}
-                </h3>
+                </p>
                 <ul className="mt-5 flex flex-col gap-3">
                   {col.links.map((l) => (
                     <li key={l.href}>
