@@ -134,11 +134,7 @@ export function PricingPage() {
                     
                     <a href={plan.buyUrl} target={plan.buyUrl.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">
                       <Button 
-                        className={`w-full ${
-                          plan.popular 
-                            ? 'bg-primary hover:bg-primary/90' 
-                            : ''
-                        }`}
+                        className="w-full"
                         variant={plan.popular ? 'default' : 'outline'}
                       >
                         {plan.name === 'Free' ? 'Get Started' : plan.name === 'Enterprise' ? 'Contact Sales' : `Subscribe to ${plan.name}`}
