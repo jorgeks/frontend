@@ -36,32 +36,32 @@
      same on purpose so the brand never flips with the OS theme. */
   :root,
   .dark {
-    --background: 270 9% 5.5%;          /* #0D0C0F — soft near-black (Muse) */
+    --background: 300 3% 7.6%;          /* #141314 — neutral near-black (Muse #171717) */
     --foreground: 295 35% 93.3%;        /* #F3E8F4 */
 
-    --card: 270 8% 8.5%;                /* #161418 */
+    --card: 300 3% 8.6%;                /* #171517 */
     --card-foreground: 295 35% 93.3%;
 
-    --popover: 270 8% 10.5%;            /* #1B191E */
+    --popover: 300 3% 10.6%;            /* #1C1A1C */
     --popover-foreground: 295 35% 93.3%;
 
     --primary: 322 77% 57.5%;           /* #E63FA8 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 8% 10.5%;          /* #1B191E */
+    --secondary: 300 3% 10.6%;          /* #1C1A1C */
     --secondary-foreground: 295 35% 93.3%;
 
-    --muted: 270 7% 12.5%;              /* #211F23 */
-    --muted-foreground: 277 12% 71.8%;  /* #B9AEC0 */
+    --muted: 300 3% 12.5%;              /* #212021 */
+    --muted-foreground: 285 5% 65%;     /* #A8A2AB — body copy (Muse #A3A3A3) */
 
-    --accent: 318 30% 13%;              /* brand-tinted hover */
+    --accent: 318 25% 13%;              /* brand-tinted hover */
     --accent-foreground: 295 35% 93.3%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 270 6% 16%;               /* #282629 hairline */
-    --input: 270 6% 19%;
+    --border: 300 2% 16%;               /* #2A292A — hairline, ~9% white */
+    --input: 300 2% 18%;
     --ring: 322 77% 57.5%;
 
     /* Brand extras */
@@ -69,25 +69,27 @@
     --brand-soft: 322 100% 81%;         /* #FF9EDC */
     --subtle: 281 9% 54.1%;             /* #8E7F95 — labels, eyebrows */
     --dim: 276 11% 36.1%;               /* #5E5266 */
-    --brand-deep: 322 62% 18%;          /* #4A1136 — deep fill for tinted surfaces */
+    --brand-deep: 322 62% 18%;          /* #4A1136 — deep fill (Muse #2E1065) */
+    --brand-mid: 322 58% 30%;           /* #79205A — deep-fill borders (Muse #4C1D95) */
+    --subtitle: 290 8% 84%;             /* #D9D3DA — subtitles (Muse #D4D4D4) */
     --info: 219 100% 65.5%;             /* #4F8DFF */
     --success: 160 84% 39.4%;           /* #10B981 */
     --warning: 38 92% 50.2%;            /* #F59E0B */
 
-    --radius: 1rem;                     /* 16px cards; buttons use md (12px) */
+    --radius: 0.75rem;                  /* 12px — Muse’s dominant radius */
 
-    --shadow-glow: 0 0 0 1px rgba(230, 63, 168, 0.45), 0 0 40px rgba(230, 63, 168, 0.18);
-    --shadow-glow-sm: 0 0 0 1px rgba(230, 63, 168, 0.35), 0 0 18px rgba(230, 63, 168, 0.18);
-    --shadow-glow-inset: 0 0 70px rgba(230, 63, 168, 0.10) inset;
-    --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 24px 48px -24px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 0 1px rgba(230, 63, 168, 0.45);   /* hairline ring, no blur (Muse: depth from borders) */
+    --shadow-glow-sm: 0 0 0 1px rgba(230, 63, 168, 0.3);
+    --shadow-glow-inset: none;
+    --shadow-card: none;
 
-    --sidebar-background: 270 8% 8.5%;
+    --sidebar-background: 300 3% 8.6%;
     --sidebar-foreground: 295 35% 93.3%;
     --sidebar-primary: 322 77% 57.5%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 318 30% 13%;
+    --sidebar-accent: 318 25% 13%;
     --sidebar-accent-foreground: 295 35% 93.3%;
-    --sidebar-border: 270 6% 16%;
+    --sidebar-border: 300 2% 16%;
     --sidebar-ring: 322 77% 57.5%;
 
     color-scheme: dark;
@@ -100,16 +102,16 @@
   }
   body {
     @apply bg-background text-foreground;
+    letter-spacing: -0.24px;
   }
   /* Display headings: wide geometric face (Unbounded), Muse-style */
   h1, h2, h3 {
     font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: -0.01em;
     text-wrap: balance;
   }
-  h4, h5, h6 {
-    letter-spacing: -0.02em;
-  }
+  /* Muse: H1 700, section H2 500 (lighter than the hero), -0.24px tracking */
+  h1 { font-weight: 700; }
+  h2 { font-weight: 500; }
   p {
     text-wrap: pretty;
   }
@@ -171,7 +173,6 @@
     height: 6px;
     border-radius: 9999px;
     background: hsl(var(--brand));
-    box-shadow: 0 0 8px rgba(230, 63, 168, 0.8);
   }
   /* Small uppercase caption used above numbers and card titles */
   .label {
@@ -179,9 +180,8 @@
   }
   /* Highlighted card: magenta hairline + faint magenta wash */
   .card-brand {
-    border-color: rgba(230, 63, 168, 0.55);
-    background-color: rgba(230, 63, 168, 0.05);
-    box-shadow: var(--shadow-glow-inset);
+    border-color: rgba(230, 63, 168, 0.5);
+    background-color: rgba(230, 63, 168, 0.04);
   }
   /* Surface gradient used for large feature cards */
   .surface-gradient {
@@ -195,7 +195,7 @@
   }
   /* Display gradient for hero/section headlines: white → pink → white */
   .text-gradient-display {
-    background-image: linear-gradient(120deg, hsl(var(--foreground)) 0%, hsl(var(--brand-soft)) 45%, hsl(var(--brand)) 60%, hsl(var(--foreground)) 100%);
+    background-image: linear-gradient(120deg, #FFFFFF 0%, hsl(var(--brand)) 50%, #FFFFFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -211,28 +211,55 @@
   }
   /* Brand glow anchored to the top of a section */
   .bg-glow-top {
-    background-image: radial-gradient(55% 60% at 50% 30%, rgba(230, 63, 168, 0.20), rgba(74, 17, 54, 0.10) 50%, transparent 80%);
+    background-image: radial-gradient(50% 55% at 50% 30%, rgba(230, 63, 168, 0.16), rgba(74, 17, 54, 0.08) 50%, transparent 80%);
   }
-  /* Large framed container (product shots, stats, CTA) */
+  /* Large framed container (product shots, stats, CTA): hairline + faint radial */
   .frame {
-    border-radius: calc(var(--radius) + 8px);
+    border-radius: calc(var(--radius) + 12px);
     border: 1px solid hsl(var(--border));
-    background-image: radial-gradient(120% 120% at 50% 0%, hsl(var(--popover)) 0%, hsl(var(--card)) 55%, hsl(var(--background)) 100%);
-    box-shadow: var(--shadow-card);
+    background-image: radial-gradient(circle closest-corner at 50% 50%, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
   }
-  /* Card with a lit top edge, used for feature tiles */
+  /* Card surface: almost imperceptible radial (Muse #171717 → #131314) */
   .card-lit {
-    position: relative;
-    background-image: linear-gradient(180deg, hsl(var(--popover)) 0%, hsl(var(--card)) 100%);
+    background-image: radial-gradient(circle closest-corner at 50% 40%, hsl(var(--popover)) 0%, hsl(var(--card)) 60%, hsl(var(--background)) 100%);
   }
-  .card-lit::before {
+  /* Feature card with a chamfered top-right corner and a brand stroke on the
+     cut. The element is the 1px "border" (gradient), ::before is the surface. */
+  .card-chamfer {
+    --cut: 28px;
+    --edge: hsl(var(--border));
+    --stroke: hsl(var(--brand));
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+    background: linear-gradient(225deg, var(--stroke) 0 calc(var(--cut) * 0.7071 + 1.5px), var(--edge) 0);
+    border-radius: var(--radius) 0 var(--radius) var(--radius);
+    transition: background 0.2s ease;
+  }
+  .card-chamfer::before {
     content: "";
     position: absolute;
-    inset: 0 20% auto 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 158, 220, 0.55), transparent);
-    pointer-events: none;
+    inset: 1px;
+    clip-path: polygon(0 0, calc(100% - var(--cut) + 0.6px) 0, 100% calc(var(--cut) - 0.6px), 100% 100%, 0 100%);
+    border-radius: calc(var(--radius) - 1px) 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px);
+    background-image: radial-gradient(circle closest-corner at 50% 40%, hsl(var(--popover)) 0%, hsl(var(--card)) 60%, hsl(var(--background)) 100%);
   }
+  .card-chamfer > * { position: relative; }
+  .card-chamfer:hover { --edge: hsl(var(--brand) / 0.35); }
+  /* Announcement pill (hero badge): deep brand pill with an inner pill */
+  .pill-announce {
+    @apply inline-flex items-center gap-3 rounded-[20px] border py-1 pl-1 pr-4 text-sm font-medium text-foreground;
+    border-color: hsl(var(--brand-mid));
+    background-color: hsl(var(--brand-deep) / 0.6);
+  }
+  .pill-announce-inner {
+    @apply rounded-[16px] px-3 py-0.5 text-foreground;
+    background-color: hsl(var(--brand-mid));
+  }
+  /* Layout: Muse containers 1280 / 1024 / 768 with a 32px gutter */
+  .container-lg { @apply mx-auto w-full max-w-[1280px] px-4 sm:px-8; }
+  .container-md { @apply mx-auto w-full max-w-[1024px] px-4 sm:px-8; }
+  .container-sm { @apply mx-auto w-full max-w-[768px] px-4 sm:px-8; }
+  .section { @apply py-20; }
   /* Ambient backdrop: soft magenta glow behind dark surfaces */
   .bg-ambient,
   .ambient-glow {

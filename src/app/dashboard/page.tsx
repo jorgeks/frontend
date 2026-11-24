@@ -726,7 +726,7 @@ export default function Dashboard() {
                   </p>
                 </div>
 
-                <div className="mb-10 rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/10 via-card to-card shadow-glow-inset overflow-hidden">
+                <div className="mb-10 rounded-2xl border border-brand-mid bg-gradient-to-br from-brand-deep/40 via-card to-card overflow-hidden">
                   <div className="flex justify-between items-center px-5 py-3.5 border-b border-border/60">
                     <span className="text-sm font-semibold text-foreground">Your Secure Connection URL</span>
                     <Button
@@ -756,7 +756,7 @@ export default function Dashboard() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* Native HTTP Card */}
-                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-glow-sm hover:border-primary/60 overflow-hidden">
+                  <div className="group flex flex-col rounded-xl border border-border bg-card transition-colors duration-200 hover:border-brand-mid overflow-hidden">
                     <div className="h-1.5 w-full bg-gradient-to-r from-brand to-brand-soft" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Native (type: http)</h4>
@@ -784,7 +784,7 @@ export default function Dashboard() {
                   </div>
 
                   {/* Native SSE Card */}
-                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-sky-500/10 hover:border-sky-400/70 dark:hover:border-sky-500/60 overflow-hidden">
+                  <div className="group flex flex-col rounded-xl border border-border bg-card transition-colors duration-200 hover:border-sky-500/50 overflow-hidden">
                     <div className="h-1.5 w-full bg-gradient-to-r from-sky-500 to-sky-400" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Native (type: sse)</h4>
@@ -812,7 +812,7 @@ export default function Dashboard() {
                   </div>
 
                   {/* Stdio Proxy Card */}
-                  <div className="group flex flex-col rounded-xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-xl hover:shadow-violet-500/10 hover:border-violet-400/70 dark:hover:border-violet-500/60 overflow-hidden">
+                  <div className="group flex flex-col rounded-xl border border-border bg-card transition-colors duration-200 hover:border-violet-500/50 overflow-hidden">
                     <div className="h-1.5 w-full bg-gradient-to-r from-violet-500 to-violet-400" />
                     <div className="flex items-center justify-between p-5 pb-3">
                       <h4 className="text-foreground font-semibold text-base">Stdio Proxy (CLI)</h4>

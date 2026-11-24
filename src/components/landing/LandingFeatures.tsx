@@ -207,35 +207,35 @@ export function LandingFeatures() {
           key={group.id}
           id={`feature-group-${group.id}`}
           data-testid={`feature-group-${group.id}`}
-          className="relative py-20 md:py-28"
+          className="relative section"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container-lg">
             <Reveal>
-              <div className="max-w-3xl mx-auto text-center mb-14">
+              <div className="max-w-[768px] mx-auto text-center mb-12">
                 <p className="eyebrow mb-4">
                   {group.label}
                 </p>
-                <h2 className="text-3xl md:text-4xl font-semibold leading-[1.15] mb-4">
+                <h2 className="text-3xl md:text-5xl font-medium leading-[1.2] mb-4">
                   {group.title}
                 </h2>
-                <p className="text-lg leading-relaxed text-muted-foreground">{group.subtitle}</p>
+                <p className="text-lg leading-[1.5] text-subtitle">{group.subtitle}</p>
               </div>
             </Reveal>
 
             {/* Keep every group at 6 features: the hairline grid renders full
                 rows only (3 cols on lg, 2 on md) — partial rows leave an ugly
                 empty cell in the gap-px border lattice. */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {group.features.map((feature, index) => (
                 <Reveal key={feature.id} delay={(index % 3) * 100}>
                   <div
                     data-testid={`feature-${feature.id}`}
-                    className="card-lit h-full rounded-xl border border-border p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 group"
+                    className="card-chamfer h-full p-8 group"
                   >
-                    <h3 className="text-base font-semibold mb-3">
+                    <h3 className="text-lg font-medium leading-[1.5] mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">
                       {feature.description}
                     </p>
                   </div>

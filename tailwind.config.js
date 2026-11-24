@@ -55,8 +55,10 @@ module.exports = {
           DEFAULT: "hsl(var(--brand))",
           soft: "hsl(var(--brand-soft))",
           deep: "hsl(var(--brand-deep))",
+          mid: "hsl(var(--brand-mid))",
         },
         subtle: "hsl(var(--subtle))",
+        subtitle: "hsl(var(--subtitle))",
         dim: "hsl(var(--dim))",
         info: "hsl(var(--info))",
         success: "hsl(var(--success))",
@@ -67,7 +69,7 @@ module.exports = {
         display: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       letterSpacing: {
-        display: "-0.02em",
+        display: "-0.24px",
         eyebrow: "0.12em",
       },
       boxShadow: {
@@ -77,12 +79,15 @@ module.exports = {
         card: "var(--shadow-card)",
       },
       borderRadius: {
-        "2xl": "calc(var(--radius) + 8px)",
-        xl: "calc(var(--radius) + 4px)",
+        "2xl": "calc(var(--radius) + 12px)",
+        xl: "calc(var(--radius) + 8px)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 4px)",
-        sm: "calc(var(--radius) - 6px)",
-        DEFAULT: "calc(var(--radius) - 8px)",
+        md: "var(--radius)",
+        sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "calc(var(--radius) - 6px)",
+      },
+      transitionDuration: {
+        DEFAULT: "200ms",
       },
       keyframes: {
         "accordion-down": {

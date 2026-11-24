@@ -79,24 +79,24 @@ export function PricingPage() {
             <Badge variant="brand" className="w-fit mx-auto mb-4">
               Simple & Transparent Pricing
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold leading-[1.05] text-foreground mb-6">
+            <h1 className="text-4xl md:text-[64px] leading-[1.05] text-foreground mb-6">
               Choose Your
               <span className="text-gradient-display"> Subscription Plan</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg leading-[1.5] text-subtitle max-w-[768px] mx-auto">
               Connect your repositories, documentation, and logs seamlessly with defined quotas and rock-solid security.
             </p>
           </div>
         </section>
 
-        <section className="py-16 -mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <section className="pb-20">
+          <div className="container-lg">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {plans.map((plan, index) => (
                 <Card 
                   key={index} 
                   className={`card-lit relative border-border flex flex-col justify-between ${
-                    plan.popular ? 'border-primary/50 shadow-glow' : ''
+                    plan.popular ? 'border-brand-mid' : ''
                   }`}
                 >
                   {plan.popular && (
@@ -106,7 +106,7 @@ export function PricingPage() {
                   )}
                   
                   <CardHeader className="text-center pb-8">
-                    <CardTitle className="text-xs font-semibold uppercase tracking-eyebrow text-subtle mb-2">
+                    <CardTitle className="font-sans text-base font-medium text-brand mb-2">
                       {plan.name}
                     </CardTitle>
                     <div className="space-y-1">
@@ -134,11 +134,7 @@ export function PricingPage() {
                     
                     <a href={plan.buyUrl} target={plan.buyUrl.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">
                       <Button 
-                        className={`w-full ${
-                          plan.popular 
-                            ? 'bg-primary hover:bg-primary/90' 
-                            : ''
-                        }`}
+                        className="w-full"
                         variant={plan.popular ? 'default' : 'outline'}
                       >
                         {plan.name === 'Free' ? 'Get Started' : plan.name === 'Enterprise' ? 'Contact Sales' : `Subscribe to ${plan.name}`}
