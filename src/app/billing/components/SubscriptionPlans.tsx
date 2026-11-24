@@ -184,7 +184,7 @@ export function SubscriptionPlans() {
           <Card 
             key={plan.id} 
             className={`relative flex flex-col justify-between ${
-              plan.tier === 'pro' ? 'card-brand shadow-glow' : ''
+              plan.tier === 'pro' ? 'border-brand-mid' : ''
             } ${isCurrentPlan(plan.tier) ? 'ring-2 ring-primary border-primary' : ''}`}
           >
             {plan.tier === 'pro' && (
