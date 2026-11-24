@@ -111,10 +111,9 @@ export function ProblemSolutionSection() {
           />
 
           <Reveal plain className="relative">
-            {/* connector that grows across the three steps, with a travelling packet */}
+            {/* hairline connector, drawn once left to right */}
             <div className="pointer-events-none absolute left-[calc((100%-4rem)/6)] right-[calc((100%-4rem)/6)] top-[22px] hidden h-px md:block" aria-hidden="true">
-              <div className="grow-x h-full w-full bg-gradient-to-r from-primary/70 via-primary/40 to-primary/70" style={{ ['--d' as string]: "300ms" }} />
-              <span className="beam-dot absolute top-1/2 h-[3px] w-10 -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-brand-soft to-transparent" />
+              <div className="grow-x h-full w-full bg-foreground/15" style={{ ['--d' as string]: "300ms" }} />
             </div>
             <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
               {SOLUTIONS.map((solution, index) => (

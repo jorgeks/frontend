@@ -1,41 +1,53 @@
-'use client'
-
-import { Check, FileText, GitBranch, Lock, MessageSquare, Terminal, X } from 'lucide-react'
+import { SOURCE_CATEGORIES } from './integrations'
 
 /**
- * Small product illustrations for the four feature groups. Decorative only
- * (aria-hidden); motion is slow, low-contrast and off under reduced motion.
+ * Small illustrations for the four feature groups. Decorative (aria-hidden)
+ * and built only from what the copy states: source categories, webhooks,
+ * graph with time, get_context's typed result, permission scopes.
+ *
+ * Motion follows measured references: Linear's 5x5 dot-matrix loaders
+ * (opacity .3 ↔ 1 in 200ms steps), Supermemory's column-delayed sweeps,
+ * Vercel's grey-to-accent state fills. All CSS, deterministic, off under
+ * prefers-reduced-motion.
  */
 
 const panel = 'overflow-hidden rounded-xl border border-border bg-card/60'
+const head = 'flex items-center justify-between border-b border-border px-4 py-2.5'
+
+/** 5x5 dot matrix with a diagonal stepped scan (Linear-style loader). */
+function DotMatrix({ offset = 0 }: { offset?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+      {Array.from({ length: 25 }, (_, i) => {
+        const c = i % 5, r = Math.floor(i / 5)
+        return (
+          <circle
+            key={i}
+            cx={2 + c * 3}
+            cy={2 + r * 3}
+            r={1}
+            className="dm-dot"
+            style={{ ['--d' as string]: `${((c + r) * 0.2 + offset).toFixed(2)}s` }}
+          />
+        )
+      })}
+    </svg>
+  )
+}
 
 export function SyncVisual() {
-  const rows = [
-    { icon: GitBranch, name: 'Repositories', event: 'push · main', dur: '3.4s', d: '0s' },
-    { icon: FileText, name: 'Documentation', event: 'page edited', dur: '4.2s', d: '.8s' },
-    { icon: MessageSquare, name: 'Conversations', event: 'thread resolved', dur: '3.8s', d: '1.6s' },
-    { icon: Terminal, name: 'Logs', event: 'stream', dur: '2.6s', d: '.4s' },
-  ]
   return (
     <div className={panel} aria-hidden="true">
-      <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-        <span className="label">Event pipeline</span>
+      <div className={head}>
+        <span className="label">Real-time sync</span>
         <span className="font-mono text-xs text-subtle">webhooks</span>
       </div>
       <ul className="divide-y divide-border">
-        {rows.map((r) => (
-          <li key={r.name} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3">
-            <r.icon className="h-4 w-4 text-subtle" />
-            <div className="min-w-0">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-sm font-medium">{r.name}</span>
-                <span className="truncate font-mono text-xs text-subtle">{r.event}</span>
-              </div>
-              <div className="mt-2 h-px w-full overflow-hidden bg-border">
-                <div className="sync-bar h-full w-full origin-left bg-primary/80" style={{ ['--dur' as string]: r.dur, ['--d' as string]: r.d }} />
-              </div>
-            </div>
-            <Check className="h-3.5 w-3.5 text-primary" />
+        {SOURCE_CATEGORIES.map((c, i) => (
+          <li key={c.id} className="flex items-center gap-3 px-4 py-3">
+            <c.icon className="h-4 w-4 text-subtle" />
+            <span className="flex-1 text-sm font-medium">{c.name}</span>
+            <DotMatrix offset={i * 0.7} />
           </li>
         ))}
       </ul>
@@ -43,102 +55,116 @@ export function SyncVisual() {
   )
 }
 
-const NODES: [number, number, 'code' | 'doc' | 'old'][] = [
-  [48, 60, 'code'], [120, 34, 'doc'], [196, 58, 'code'], [262, 30, 'doc'], [318, 76, 'code'],
-  [86, 128, 'doc'], [160, 112, 'code'], [236, 128, 'doc'], [300, 150, 'old'], [40, 176, 'old'],
-  [124, 192, 'code'], [204, 186, 'doc'], [270, 206, 'code'],
+/* Graph on a 3-column time axis; nodes snap to a grid, edges are orthogonal. */
+const COLS = [60, 180, 300]
+const NODES: { c: number; y: number; k: 'code' | 'doc' }[] = [
+  { c: 0, y: 44, k: 'code' }, { c: 0, y: 104, k: 'doc' }, { c: 0, y: 164, k: 'code' },
+  { c: 1, y: 44, k: 'doc' }, { c: 1, y: 104, k: 'code' }, { c: 1, y: 164, k: 'doc' },
+  { c: 2, y: 74, k: 'code' }, { c: 2, y: 134, k: 'doc' },
 ]
-const EDGES: [number, number][] = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [0, 5], [1, 6], [2, 6], [2, 7], [4, 7], [4, 8], [5, 6], [6, 7],
-  [7, 8], [5, 9], [5, 10], [6, 10], [6, 11], [7, 11], [11, 12], [8, 12], [10, 11], [9, 10],
-]
-const COLOR = { code: 'hsl(var(--brand))', doc: 'hsl(var(--brand-soft))', old: 'hsl(var(--dim))' }
+const LINKS: [number, number][] = [[0, 4], [1, 4], [2, 5], [3, 6], [4, 6], [4, 7], [5, 7], [0, 1], [3, 4]]
 
 export function GraphVisual() {
+  const p = (i: number) => ({ x: COLS[NODES[i].c], y: NODES[i].y })
   return (
     <div className={panel} aria-hidden="true">
-      <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
+      <div className={head}>
         <span className="label">Knowledge graph</span>
         <span className="flex items-center gap-3 font-mono text-xs text-subtle">
-          <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-primary" />code</span>
-          <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-brand-soft" />docs</span>
-          <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 rounded-full bg-dim" />outdated</span>
+          <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 bg-foreground/80" />code</span>
+          <span className="inline-flex items-center gap-1.5"><i className="h-1.5 w-1.5 border border-foreground/60" />docs</span>
         </span>
       </div>
-      <svg viewBox="0 0 360 236" className="mx-auto block w-full max-w-[520px]">
-        {EDGES.map(([a, b], i) => (
-          <line
+      <svg viewBox="0 0 360 220" className="graph-t mx-auto block w-full max-w-[520px]">
+        {/* time axis */}
+        {COLS.map((x) => (
+          <line key={x} x1={x} y1={20} x2={x} y2={188} stroke="hsl(var(--foreground) / .06)" strokeDasharray="2 4" />
+        ))}
+        <line x1={24} y1={202} x2={336} y2={202} stroke="hsl(var(--foreground) / .14)" />
+        <text x={336} y={214} textAnchor="end" className="fill-subtle font-mono text-[9px]">time →</text>
+        {/* orthogonal links */}
+        {LINKS.map(([a, b], i) => {
+          const A = p(a), B = p(b)
+          const mx = A.x === B.x ? A.x : (A.x + B.x) / 2
+          const d = A.x === B.x ? `M${A.x},${A.y} V${B.y}` : `M${A.x},${A.y} H${mx} V${B.y} H${B.x}`
+          return <path key={i} d={d} fill="none" stroke="hsl(var(--foreground) / .18)" pathLength={100} className="beam-base" style={{ ['--d' as string]: `${0.2 + i * 0.06}s` }} />
+        })}
+        {/* nodes: older columns age out, the newest column is current */}
+        {NODES.map((n, i) => (
+          <rect
             key={i}
-            x1={NODES[a][0]} y1={NODES[a][1]} x2={NODES[b][0]} y2={NODES[b][1]}
-            stroke="hsl(var(--foreground) / 0.14)" strokeWidth={1}
-            pathLength={100}
-            className="beam-base"
-            style={{ ['--d' as string]: `${0.3 + i * 0.05}s` }}
+            x={COLS[n.c] - 5}
+            y={n.y - 5}
+            width={10}
+            height={10}
+            rx={2}
+            className={`g-node g-${n.k}`}
+            style={{ ['--d' as string]: `${n.c * 0.9}s`, ['--age' as string]: n.c === 2 ? 1 : n.c === 1 ? 0.7 : 0.4 }}
           />
         ))}
-        {/* a query walking the graph */}
-        <polyline
-          points={[0, 1, 6, 7, 11, 12].map((n) => NODES[n].slice(0, 2).join(',')).join(' ')}
-          fill="none" stroke="hsl(var(--brand))" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-          pathLength={100} className="beam-packet" style={{ ['--d' as string]: '1.8s', ['--dur' as string]: '4s' }}
-        />
-        {NODES.map(([x, y, k], i) => (
-          <g key={i}>
-            <circle cx={x} cy={y} r={k === 'old' ? 3.5 : 4} opacity={1} fill={k === 'old' ? 'hsl(var(--card))' : COLOR[k]} stroke={k === 'old' ? 'hsl(var(--subtle))' : 'none'} strokeDasharray={k === 'old' ? '2 2' : undefined} className={k === 'old' ? '' : 'node-pulse'} style={{ ['--d' as string]: `${(i * 0.37) % 3}s` }} />
-            {k !== 'old' && <circle cx={x} cy={y} r={9} fill="none" stroke={COLOR[k]} strokeOpacity={0.18} />}
-          </g>
-        ))}
+        {/* the "now" scanline sweeps the time axis */}
+        <line x1={0} y1={20} x2={0} y2={188} stroke="hsl(var(--brand))" strokeWidth={1} className="g-scan" />
       </svg>
     </div>
   )
 }
 
 export function ToolVisual() {
+  const k = (s: string) => <span className="text-brand-soft">&quot;{s}&quot;</span>
   return (
     <div className={`${panel} font-mono text-[12.5px] leading-[1.7]`} aria-hidden="true">
-      <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-        <span className="label font-sans">MCP · tool call</span>
-        <span className="text-xs text-subtle">200 OK</span>
+      <div className={head}>
+        <span className="label font-sans">MCP · get_context</span>
+        <span className="text-xs text-subtle">structured</span>
       </div>
       <pre className="overflow-hidden px-4 py-4 text-muted-foreground">
 {`{
-  `}<span className="text-brand-soft">&quot;tool&quot;</span>{`: `}<span className="text-foreground">&quot;get_context&quot;</span>{`,
-  `}<span className="text-brand-soft">&quot;chunks&quot;</span>{`: [ `}<span className="text-foreground">…</span>{` ],
-  `}<span className="text-brand-soft">&quot;entities&quot;</span>{`: [ `}<span className="text-foreground">&quot;RetryPolicy&quot;</span>{` ],
-  `}<span className="text-brand-soft">&quot;relationships&quot;</span>{`: [ `}<span className="text-foreground">…</span>{` ],
-  `}<span className="text-brand-soft">&quot;sources&quot;</span>{`: [ `}<span className="text-foreground">&quot;repo&quot;</span>{`, `}<span className="text-foreground">&quot;docs&quot;</span>{`, `}<span className="text-foreground">&quot;chat&quot;</span>{` ]
-}`}<span className="caret ml-0.5 inline-block h-[1.05em] w-[7px] translate-y-[3px] bg-primary/80" />
+  `}{k('chunks')}{`: [ … ],
+  `}{k('entities')}{`: [ … ],
+  `}{k('relationships')}{`: [ … ]
+}`}
       </pre>
     </div>
   )
 }
 
+const ROLES = ['agent_a', 'agent_b', 'agent_c']
+/** Illustrative scope matrix: filled = allowed, outline = not granted. */
+const GRANTS = [
+  [1, 1, 1],
+  [1, 1, 1],
+  [0, 1, 1],
+  [1, 1, 0],
+]
+
 export function ScopeVisual() {
-  const rows = [
-    { who: 'agent:ci', what: 'repo/billing/*', ok: true },
-    { who: 'agent:support', what: 'docs/public', ok: true },
-    { who: 'role:viewer', what: 'workspace', ok: true },
-    { who: 'agent:ci', what: 'docs/hr/*', ok: false },
-  ]
   return (
     <div className={panel} aria-hidden="true">
-      <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-        <span className="label">Access scopes</span>
-        <Lock className="h-3.5 w-3.5 text-subtle" />
+      <div className={head}>
+        <span className="label">Explicit scoping</span>
+        <span className="font-mono text-xs text-subtle">row-level</span>
       </div>
-      <ul className="divide-y divide-border font-mono text-[12.5px]">
-        {rows.map((r, i) => (
-          <li key={i} className={`grid grid-cols-[1fr_1fr_auto] items-center gap-3 px-4 py-3 ${r.ok ? '' : 'text-dim'}`}>
-            <span className={r.ok ? 'text-foreground' : ''}>{r.who}</span>
-            <span className={r.ok ? 'text-muted-foreground' : 'line-through'}>{r.what}</span>
-            {r.ok ? (
-              <span className="inline-flex items-center gap-1 text-xs text-primary"><Check className="h-3 w-3" />read</span>
-            ) : (
-              <span className="inline-flex items-center gap-1 text-xs"><X className="h-3 w-3" />denied</span>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div className="px-4 py-3">
+        <div className="grid grid-cols-[1fr_repeat(3,4.5rem)] items-center gap-y-2.5 text-xs">
+          <span />
+          {ROLES.map((r) => <span key={r} className="text-center font-mono text-[11px] text-subtle">{r}</span>)}
+          {SOURCE_CATEGORIES.map((c, ri) => (
+            <div key={c.id} className="contents">
+              <span className="flex items-center gap-2 text-sm text-foreground">
+                <c.icon className="h-3.5 w-3.5 text-subtle" />{c.name}
+              </span>
+              {GRANTS[ri].map((g, ci) => (
+                <span key={ci} className="flex justify-center">
+                  <i
+                    className={`scope-cell block h-3 w-3 rounded-[3px] ${g ? 'is-on' : ''}`}
+                    style={{ ['--d' as string]: `${0.3 + ci * 0.2 + ri * 0.08}s` }}
+                  />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

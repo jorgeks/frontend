@@ -1,37 +1,41 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Code2 } from 'lucide-react'
 import { LogoMark } from '@/components/brand/Logo'
 import { SOURCE_CATEGORIES } from './integrations'
 import { useInView } from './Reveal'
 
 const useIso = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-type Beam = { d: string; delay: number; dur: number; out: boolean; src?: string }
+/** Agent clients the product's own help copy names for the MCP server. */
+const AGENTS = ['Cursor', 'Windsurf', 'Claude Desktop']
 
-/** Categories the sample query cites (repo, docs, chat): they light up once the capsule returns. */
-const CITED = new Set(['repo', 'docs', 'chat'])
+/** One sync cycle, in seconds: sources → ConFuse → agents. */
+const CYCLE = 6
+const IN_STEP = 0.12
+const OUT_START = 0.75
+
+type Line = { d: string; delay: number }
 
 /**
- * Product scene from the deck's solution slides: every source is wired once
- * into ConFuse, and ConFuse serves every coding agent. Beams draw in when the
- * scene scrolls into view, then packets keep travelling along them. Below,
- * an agent's single tool call returns cited context.
- *
- * Paths are measured from the real DOM tiles, so the same component works
- * left-to-right on desktop and top-to-bottom on mobile.
+ * Product scene: what ConFuse unifies (by category) wired once into ConFuse,
+ * which serves the coding agents. Hairline paths, no particles: one
+ * deterministic signal per cycle draws along each line in order (sources,
+ * then hub, then agents) and the card it reaches lights its edge for a beat.
+ * Timing comes from measured references (Supermemory's stroke flash at ~2.5%
+ * of a 6s loop; Linear's cubic-bezier(.32,.72,0,1) for drawn strokes).
+ * Paths are measured from the DOM, so it lays out left-to-right on desktop
+ * and top-to-bottom on phones.
  */
 export function ContextFlow() {
   const [viewRef, visible] = useInView<HTMLDivElement>()
   const box = useRef<HTMLDivElement>(null)
   const core = useRef<HTMLDivElement>(null)
+  const coreWrap = useRef<HTMLDivElement>(null)
   const srcRefs = useRef<(HTMLDivElement | null)[]>([])
   const agentRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [beams, setBeams] = useState<Beam[]>([])
+  const [lines, setLines] = useState<Line[]>([])
   const [size, setSize] = useState({ w: 0, h: 0 })
-  const [cited, setCited] = useState(false)
-  const coreWrap = useRef<HTMLDivElement>(null)
 
   useIso(() => {
     const measure = () => {
@@ -39,36 +43,43 @@ export function ContextFlow() {
       if (!b || !c) return
       const br = b.getBoundingClientRect()
       const cr = c.getBoundingClientRect()
+      const wr = coreWrap.current?.getBoundingClientRect() ?? cr
       const vertical = br.width < 768
       const cx = cr.left - br.left + cr.width / 2
       const cy = cr.top - br.top + cr.height / 2
-      const next: Beam[] = []
       const curve = (x1: number, y1: number, x2: number, y2: number) =>
         vertical
           ? `M${x1},${y1} C${x1},${(y1 + y2) / 2} ${x2},${(y1 + y2) / 2} ${x2},${y2}`
           : `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`
-
+      const next: Line[] = []
       srcRefs.current.forEach((el, i) => {
         if (!el) return
         const r = el.getBoundingClientRect()
-        const x1 = vertical ? r.left - br.left + r.width / 2 : r.right - br.left
-        const y1 = vertical ? r.bottom - br.top : r.top - br.top + r.height / 2
-        const x2 = vertical ? cx : cr.left - br.left
-        const y2 = vertical ? cr.top - br.top : cy
-        next.push({ d: curve(x1, y1, x2, y2), delay: i * 0.37, dur: 2.6 + (i % 3) * 0.35, out: false, src: SOURCE_CATEGORIES[i].id })
+        next.push({
+          d: curve(
+            vertical ? r.left - br.left + r.width / 2 : r.right - br.left,
+            vertical ? r.bottom - br.top : r.top - br.top + r.height / 2,
+            vertical ? cx : cr.left - br.left,
+            vertical ? cr.top - br.top : cy
+          ),
+          delay: i * IN_STEP,
+        })
       })
       agentRefs.current.forEach((el, i) => {
         if (!el) return
         const r = el.getBoundingClientRect()
-        const wr = coreWrap.current?.getBoundingClientRect() ?? cr
-        const x1 = vertical ? cx : cr.right - br.left
-        const y1 = vertical ? wr.bottom - br.top + 4 : cy
-        const x2 = vertical ? r.left - br.left + r.width / 2 : r.left - br.left
-        const y2 = vertical ? r.top - br.top : r.top - br.top + r.height / 2
-        next.push({ d: curve(x1, y1, x2, y2), delay: 0.9 + i * 0.6, dur: 2.2, out: true })
+        next.push({
+          d: curve(
+            vertical ? cx : cr.right - br.left,
+            vertical ? wr.bottom - br.top + 4 : cy,
+            vertical ? r.left - br.left + r.width / 2 : r.left - br.left,
+            vertical ? r.top - br.top : r.top - br.top + r.height / 2
+          ),
+          delay: OUT_START + i * IN_STEP,
+        })
       })
       setSize({ w: br.width, h: br.height })
-      setBeams(next)
+      setLines(next)
     }
     measure()
     const ro = new ResizeObserver(measure)
@@ -76,18 +87,16 @@ export function ContextFlow() {
     return () => ro.disconnect()
   }, [])
 
+  const cyc = { ['--cycle' as string]: `${CYCLE}s` }
+
   return (
-    <div ref={viewRef} data-visible={visible} className="frame relative overflow-hidden p-5 sm:p-8 md:p-10">
+    <div ref={viewRef} data-visible={visible} className="frame relative overflow-hidden p-5 sm:p-8 md:p-10" style={cyc}>
       <div className="mb-8 flex items-center justify-between gap-4 border-b border-border pb-4 md:mb-10">
         <span className="label">Context Layer</span>
         <span className="hidden font-mono text-xs text-subtle sm:inline">sources → confuse → agents</span>
       </div>
 
-      <div
-        ref={box}
-        className="relative grid grid-cols-1 items-center gap-12 md:grid-cols-[1fr_auto_1fr] md:gap-8"
-      >
-        {/* beams */}
+      <div ref={box} className="relative grid grid-cols-1 items-center gap-12 md:grid-cols-[1fr_auto_1fr] md:gap-8">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full"
           width={size.w}
@@ -95,32 +104,18 @@ export function ContextFlow() {
           viewBox={`0 0 ${size.w || 1} ${size.h || 1}`}
           aria-hidden="true"
         >
-          {beams.map((b, i) => (
+          {lines.map((l, i) => (
             <g key={i}>
-              <path
-                d={b.d}
-                pathLength={100}
-                fill="none"
-                stroke="hsl(var(--foreground) / 0.12)"
-                strokeWidth={1}
-                className="beam-base"
-                style={{ ['--d' as string]: `${b.out ? 0.6 : i * 0.06}s` }}
-              />
-              {visible && (!cited || b.out || CITED.has(b.src ?? '')) && (
+              <path d={l.d} pathLength={100} fill="none" stroke="hsl(var(--foreground) / 0.14)" strokeWidth={1} className="beam-base" style={{ ['--d' as string]: `${i * 0.05}s` }} />
+              {visible && (
                 <path
-                  key={cited && !b.out ? 'cited' : 'idle'}
-                  d={b.d}
+                  d={l.d}
                   pathLength={100}
                   fill="none"
-                  stroke={b.out ? 'hsl(var(--brand-soft))' : 'hsl(var(--brand))'}
-                  strokeWidth={cited && !b.out ? 2 : 1.6}
-                  strokeLinecap="round"
-                  className="beam-packet"
-                  style={
-                    cited && !b.out
-                      ? { ['--d' as string]: `${(i % 3) * 0.25}s`, ['--dur' as string]: '1.6s' }
-                      : { ['--d' as string]: `${1.2 + b.delay}s`, ['--dur' as string]: `${b.dur}s` }
-                  }
+                  stroke="hsl(var(--brand))"
+                  strokeWidth={1.25}
+                  className="flow-signal"
+                  style={{ ['--d' as string]: `${1.4 + l.delay}s` }}
                 />
               )}
             </g>
@@ -133,12 +128,12 @@ export function ContextFlow() {
             <div
               key={c.id}
               ref={(el) => { srcRefs.current[i] = el }}
-              className={`reveal rounded-md border bg-card px-3 py-2.5 transition-colors duration-500 ${cited && CITED.has(c.id) ? 'border-primary/60' : 'border-border'}`}
+              className={`reveal rounded-md border border-border bg-card px-3 py-2.5 ${visible ? 'flow-edge' : ''}`}
               data-visible={visible}
-              style={{ ['--d' as string]: `${i * 80}ms` }}
+              style={{ ['--d' as string]: `${i * 80}ms`, ['--fd' as string]: `${1.4 + i * IN_STEP}s` }}
             >
               <div className="flex items-center gap-2">
-                <c.icon className={`h-4 w-4 transition-colors duration-500 ${cited && CITED.has(c.id) ? 'text-primary' : 'text-subtle'}`} aria-hidden="true" />
+                <c.icon className="h-4 w-4 text-subtle" aria-hidden="true" />
                 <span className="text-sm font-medium text-foreground">{c.name}</span>
               </div>
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -154,122 +149,34 @@ export function ContextFlow() {
           ))}
         </div>
 
-        {/* ConFuse core */}
+        {/* ConFuse */}
         <div ref={coreWrap} className="relative flex flex-col items-center gap-3 justify-self-center">
-          <div ref={core} className="relative h-28 w-28 md:h-32 md:w-32">
-            <span className="ring-out absolute inset-0 rounded-[28px] border border-primary/40" aria-hidden="true" />
-            <span
-              className="ring-out absolute inset-0 rounded-[28px] border border-primary/30"
-              style={{ animationDelay: '1.5s' }}
-              aria-hidden="true"
-            />
-            {/* rotating hairline */}
-            <span className="absolute inset-0 overflow-hidden rounded-[28px] bg-border" aria-hidden="true">
-              <span className="spin-slow absolute -inset-1/2 bg-[conic-gradient(from_0deg,transparent_0deg,hsl(var(--brand))_40deg,transparent_90deg)]" />
-            </span>
-            <div className="absolute inset-px flex items-center justify-center rounded-[27px] bg-card">
-              <LogoMark className="h-14 w-auto text-foreground md:h-16" />
-            </div>
+          <div
+            ref={core}
+            className={`flex h-28 w-28 items-center justify-center rounded-[24px] border border-border bg-card md:h-32 md:w-32 ${visible ? 'flow-edge' : ''}`}
+            style={{ ['--fd' as string]: `${1.4 + 0.6}s` }}
+          >
+            <LogoMark className="h-14 w-auto text-foreground md:h-16" />
           </div>
           <span className="relative rounded bg-card px-2 text-sm font-semibold tracking-[-0.01em]">ConFuse</span>
         </div>
 
         {/* agents */}
-        <div className="relative grid grid-cols-3 gap-2 md:grid-cols-1 md:gap-8 md:justify-self-end md:w-full md:max-w-[240px]">
+        <div className="relative grid grid-cols-3 gap-2 md:grid-cols-1 md:gap-6 md:justify-self-end md:w-full md:max-w-[240px]">
           {AGENTS.map((label, i) => (
             <div
-              key={i}
+              key={label}
               ref={(el) => { agentRefs.current[i] = el }}
-              className="reveal flex items-center gap-3 rounded-md border border-primary/35 bg-primary/[0.05] px-3 py-3"
+              className={`reveal rounded-md border border-border bg-card px-3 py-3 ${visible ? 'flow-edge' : ''}`}
               data-visible={visible}
-              style={{ ['--d' as string]: `${500 + i * 120}ms` }}
+              style={{ ['--d' as string]: `${400 + i * 100}ms`, ['--fd' as string]: `${1.4 + OUT_START + 0.6 + i * IN_STEP}s` }}
             >
-              <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/40 text-brand-soft sm:flex">
-                <Code2 className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span className="min-w-0">
-                <span className="block truncate text-sm font-medium">{label}</span>
-                <span className="sr-only"> (coding agent)</span>
-                <span className="hidden font-mono text-xs text-subtle sm:block">get_context()</span>
-              </span>
+              <span className="block text-[13px] font-medium leading-tight sm:truncate sm:text-sm">{label}</span>
+              <span className="sr-only"> (coding agent)</span>
+              <span className="hidden font-mono text-xs text-subtle sm:block">get_context</span>
             </div>
           ))}
         </div>
-      </div>
-
-      <ToolCall play={visible} onCited={() => setCited(true)} />
-    </div>
-  )
-}
-
-/** Agent clients the product's own help/dashboard copy names for the MCP server. */
-const AGENTS = ['Cursor', 'Windsurf', 'Claude Desktop']
-
-const QUERY = 'Why does checkout retry failed payments?'
-const RESULTS = [
-  { src: 'repo', ref: 'services/billing/retry.ts', note: 'L12–48' },
-  { src: 'docs', ref: 'Payments runbook', note: '§ Retries' },
-  { src: 'chat', ref: '#payments', note: 'design decision' },
-]
-
-/** Terminal-style mock of one agent tool call, typed out once in view. */
-function ToolCall({ play, onCited }: { play: boolean; onCited: () => void }) {
-  const [typed, setTyped] = useState(0)
-  const [shown, setShown] = useState(0)
-
-  useEffect(() => {
-    if (!play) return
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) { setTyped(QUERY.length); setShown(RESULTS.length + 1); onCited(); return }
-    let i = 0
-    let rt: ReturnType<typeof setTimeout>
-    const start = setTimeout(function tick() {
-      i++
-      setTyped(i)
-      if (i < QUERY.length) rt = setTimeout(tick, 16 + Math.random() * 22)
-      else {
-        let k = 0
-        const reveal = () => { k++; setShown(k); if (k === 1) onCited(); if (k <= RESULTS.length) rt = setTimeout(reveal, 180) }
-        rt = setTimeout(reveal, 250)
-      }
-    }, 700)
-    return () => { clearTimeout(start); clearTimeout(rt) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [play])
-
-  return (
-    <div className="mt-12 overflow-hidden rounded-lg border border-border bg-background/70 font-mono text-[12.5px] leading-relaxed md:mt-14 md:text-[13px]">
-      <div className="flex items-center gap-2 border-b border-border px-4 py-2.5 text-subtle">
-        <span className="h-2.5 w-2.5 rounded-full border border-border" />
-        <span className="h-2.5 w-2.5 rounded-full border border-border" />
-        <span className="h-2.5 w-2.5 rounded-full border border-border" />
-        <span className="ml-2 text-xs">agent · mcp</span>
-      </div>
-      <div className="min-h-[8.75rem] space-y-1.5 px-4 py-4 sm:min-h-[8.5rem] sm:px-5">
-        <p className="text-muted-foreground">
-          <span className="text-brand-soft">→</span> get_context
-          <span className="text-subtle">(</span>
-          <span className="text-foreground">&quot;{QUERY.slice(0, typed)}</span>
-          {typed < QUERY.length ? (
-            <span className="caret inline-block h-[1.05em] w-[7px] translate-y-[2px] bg-foreground/70" />
-          ) : (
-            <span className="text-foreground">&quot;</span>
-          )}
-          <span className="text-subtle">)</span>
-        </p>
-        <p className={`text-subtle transition-opacity duration-300 ${shown > 0 ? 'opacity-100' : 'opacity-0'}`}>
-          <span className="text-primary">✓</span> context capsule · {RESULTS.length} sources cited
-        </p>
-        {RESULTS.map((r, i) => (
-          <p
-            key={r.ref}
-            className={`flex min-w-0 gap-x-3 whitespace-nowrap pl-4 transition-all duration-300 ${shown > i + 1 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'}`}
-          >
-            <span className="w-10 shrink-0 text-subtle">{r.src}</span>
-            <span className="min-w-0 truncate text-foreground">{r.ref}</span>
-            <span className="hidden shrink-0 text-subtle sm:inline">{r.note}</span>
-          </p>
-        ))}
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, GitBranch, FileText, MessageSquare, Terminal } from "lucide-react";
 import { useAuth } from '@/contexts/auth';
 import { DemoModal } from "./DemoModal";
-import { NeuralBrain } from "./NeuralBrain";
+import { HalftoneBrain } from "./HalftoneBrain";
 import { ContextFlow } from "./ContextFlow";
 import { INTEGRATIONS } from "./integrations";
 
@@ -18,7 +18,7 @@ const SOURCE_TAGS = [
 
 /**
  * Hero, after the deck's cover slide: copy on the left, the ConFuse brain on
- * the right built from particles that fuse into the real logo. Below it, the
+ * the right as a halftone dot matrix of the real logo (see HalftoneBrain). Below it, the
  * product scene (sources -> ConFuse -> agents) and the integrations marquee.
  * Copy is unchanged; only the look and motion moved.
  */
@@ -97,12 +97,8 @@ export function HeroSection() {
           </div>
 
           {/* the brain: fragmented dots fuse into the ConFuse mark */}
-          <div className="relative mx-auto hidden w-full sm:block sm:max-w-[420px] lg:max-w-[520px]">
-            <div
-              className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(closest-side,hsl(var(--brand)/0.10),transparent)]"
-              aria-hidden="true"
-            />
-            <NeuralBrain className="relative block aspect-[1020/868] w-full" />
+          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[400px] lg:max-w-[500px]">
+            <HalftoneBrain className="block w-full" />
           </div>
         </div>
 
