@@ -68,18 +68,20 @@ export function PricingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background bg-ambient">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-20">
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <main>
+        <section className="relative overflow-hidden pt-44 pb-24">
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-glow-top" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Badge variant="brand" className="w-fit mx-auto mb-4">
               Simple & Transparent Pricing
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-display text-foreground mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold leading-[1.05] text-foreground mb-6">
               Choose Your
-              <span className="text-primary"> Subscription Plan</span>
+              <span className="text-gradient-display"> Subscription Plan</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Connect your repositories, documentation, and logs seamlessly with defined quotas and rock-solid security.
@@ -93,8 +95,8 @@ export function PricingPage() {
               {plans.map((plan, index) => (
                 <Card 
                   key={index} 
-                  className={`relative bg-card border-border flex flex-col justify-between ${
-                    plan.popular ? 'card-brand shadow-glow' : ''
+                  className={`card-lit relative border-border flex flex-col justify-between ${
+                    plan.popular ? 'border-primary/50 shadow-glow' : ''
                   }`}
                 >
                   {plan.popular && (
@@ -108,7 +110,7 @@ export function PricingPage() {
                       {plan.name}
                     </CardTitle>
                     <div className="space-y-1">
-                      <div className="text-5xl font-bold tracking-display text-foreground">
+                      <div className="font-display text-4xl font-semibold text-foreground">
                         {plan.price}
                       </div>
                       <div className="text-sm text-muted-foreground">

@@ -54,6 +54,7 @@ module.exports = {
         brand: {
           DEFAULT: "hsl(var(--brand))",
           soft: "hsl(var(--brand-soft))",
+          deep: "hsl(var(--brand-deep))",
         },
         subtle: "hsl(var(--subtle))",
         dim: "hsl(var(--dim))",
@@ -63,6 +64,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         display: "-0.02em",
@@ -75,11 +77,12 @@ module.exports = {
         card: "var(--shadow-card)",
       },
       borderRadius: {
-        xl: "calc(var(--radius) + 6px)",
+        "2xl": "calc(var(--radius) + 8px)",
+        xl: "calc(var(--radius) + 4px)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        DEFAULT: "calc(var(--radius) - 6px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 6px)",
+        DEFAULT: "calc(var(--radius) - 8px)",
       },
       keyframes: {
         "accordion-down": {

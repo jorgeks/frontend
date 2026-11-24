@@ -36,32 +36,32 @@
      same on purpose so the brand never flips with the OS theme. */
   :root,
   .dark {
-    --background: 0 0% 0%;              /* #000000 */
+    --background: 270 9% 5.5%;          /* #0D0C0F — soft near-black (Muse) */
     --foreground: 295 35% 93.3%;        /* #F3E8F4 */
 
-    --card: 266 28% 4.9%;               /* #0C0910 */
+    --card: 270 8% 8.5%;                /* #161418 */
     --card-foreground: 295 35% 93.3%;
 
-    --popover: 273 27% 6.5%;            /* #110C15 */
+    --popover: 270 8% 10.5%;            /* #1B191E */
     --popover-foreground: 295 35% 93.3%;
 
     --primary: 322 77% 57.5%;           /* #E63FA8 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 273 27% 6.5%;          /* #110C15 */
+    --secondary: 270 8% 10.5%;          /* #1B191E */
     --secondary-foreground: 295 35% 93.3%;
 
-    --muted: 266 14% 9.7%;              /* white 5% over card */
+    --muted: 270 7% 12.5%;              /* #211F23 */
     --muted-foreground: 277 12% 71.8%;  /* #B9AEC0 */
 
-    --accent: 310 42% 10.5%;            /* brand 12% over card */
+    --accent: 318 30% 13%;              /* brand-tinted hover */
     --accent-foreground: 295 35% 93.3%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 266 7% 17.3%;             /* white 13% over card */
-    --input: 266 7% 17.3%;
+    --border: 270 6% 16%;               /* #282629 hairline */
+    --input: 270 6% 19%;
     --ring: 322 77% 57.5%;
 
     /* Brand extras */
@@ -69,24 +69,25 @@
     --brand-soft: 322 100% 81%;         /* #FF9EDC */
     --subtle: 281 9% 54.1%;             /* #8E7F95 — labels, eyebrows */
     --dim: 276 11% 36.1%;               /* #5E5266 */
+    --brand-deep: 322 62% 18%;          /* #4A1136 — deep fill for tinted surfaces */
     --info: 219 100% 65.5%;             /* #4F8DFF */
     --success: 160 84% 39.4%;           /* #10B981 */
     --warning: 38 92% 50.2%;            /* #F59E0B */
 
-    --radius: 0.875rem;                 /* 14px */
+    --radius: 1rem;                     /* 16px cards; buttons use md (12px) */
 
     --shadow-glow: 0 0 0 1px rgba(230, 63, 168, 0.45), 0 0 40px rgba(230, 63, 168, 0.18);
     --shadow-glow-sm: 0 0 0 1px rgba(230, 63, 168, 0.35), 0 0 18px rgba(230, 63, 168, 0.18);
     --shadow-glow-inset: 0 0 70px rgba(230, 63, 168, 0.10) inset;
-    --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 24px 48px -24px rgba(0, 0, 0, 0.7);
 
-    --sidebar-background: 266 28% 4.9%;
+    --sidebar-background: 270 8% 8.5%;
     --sidebar-foreground: 295 35% 93.3%;
     --sidebar-primary: 322 77% 57.5%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 310 42% 10.5%;
+    --sidebar-accent: 318 30% 13%;
     --sidebar-accent-foreground: 295 35% 93.3%;
-    --sidebar-border: 266 7% 17.3%;
+    --sidebar-border: 270 6% 16%;
     --sidebar-ring: 322 77% 57.5%;
 
     color-scheme: dark;
@@ -100,8 +101,17 @@
   body {
     @apply bg-background text-foreground;
   }
-  h1, h2, h3, h4 {
+  /* Display headings: wide geometric face (Unbounded), Muse-style */
+  h1, h2, h3 {
+    font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h4, h5, h6 {
     letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
   }
   ::selection {
     background: rgba(230, 63, 168, 0.35);
@@ -175,13 +185,53 @@
   }
   /* Surface gradient used for large feature cards */
   .surface-gradient {
-    background-image: linear-gradient(180deg, #110C15 0%, #0A070C 100%);
+    background-image: linear-gradient(180deg, hsl(var(--popover)) 0%, hsl(var(--card)) 100%);
   }
   .text-gradient-brand {
     background-image: linear-gradient(90deg, hsl(var(--brand)) 0%, hsl(var(--brand-soft)) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+  /* Display gradient for hero/section headlines: white → pink → white */
+  .text-gradient-display {
+    background-image: linear-gradient(120deg, hsl(var(--foreground)) 0%, hsl(var(--brand-soft)) 45%, hsl(var(--brand)) 60%, hsl(var(--foreground)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Faint grid lines, faded towards the edges (hero / section backdrops) */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 80px 80px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, #000 30%, transparent 100%);
+  }
+  /* Brand glow anchored to the top of a section */
+  .bg-glow-top {
+    background-image: radial-gradient(55% 60% at 50% 30%, rgba(230, 63, 168, 0.20), rgba(74, 17, 54, 0.10) 50%, transparent 80%);
+  }
+  /* Large framed container (product shots, stats, CTA) */
+  .frame {
+    border-radius: calc(var(--radius) + 8px);
+    border: 1px solid hsl(var(--border));
+    background-image: radial-gradient(120% 120% at 50% 0%, hsl(var(--popover)) 0%, hsl(var(--card)) 55%, hsl(var(--background)) 100%);
+    box-shadow: var(--shadow-card);
+  }
+  /* Card with a lit top edge, used for feature tiles */
+  .card-lit {
+    position: relative;
+    background-image: linear-gradient(180deg, hsl(var(--popover)) 0%, hsl(var(--card)) 100%);
+  }
+  .card-lit::before {
+    content: "";
+    position: absolute;
+    inset: 0 20% auto 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 158, 220, 0.55), transparent);
+    pointer-events: none;
   }
   /* Ambient backdrop: soft magenta glow behind dark surfaces */
   .bg-ambient,

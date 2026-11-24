@@ -3,5 +3,5 @@
  * docs index and every /docs/[slug] article share the brand look.
  */
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-screen bg-background bg-ambient">{children}</div>;
+  return <div className="min-h-screen bg-background">{children}</div>;
 }

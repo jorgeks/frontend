@@ -51,19 +51,19 @@ export function ProblemSolutionSection() {
   return (
     <>
       {/* ── The problem ── */}
-      <section className="py-24 border-b border-border">
+      <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="max-w-2xl mb-14">
+            <div className="max-w-3xl mx-auto text-center mb-16">
               <p className="eyebrow mb-4">
                 The problem
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-[1.12] mb-5">
                 Your knowledge is everywhere.
                 <br />
                 And that means it&apos;s nowhere.
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 Teams don&apos;t lack information — they lack a way to hold it all
                 at once. The cost shows up as wrong answers, slow ramps, and
                 decisions made on stale context.
@@ -74,11 +74,11 @@ export function ProblemSolutionSection() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {PROBLEMS.map((problem, index) => (
               <Reveal key={problem.title} delay={index * 120}>
-                <div className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset">
-                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-destructive/10 text-destructive mb-5">
+                <div className="card-lit h-full rounded-xl border border-border p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40">
+                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-destructive/30 bg-destructive/10 text-destructive mb-6">
                     <problem.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{problem.title}</h3>
+                  <h3 className="text-base font-semibold mb-3">{problem.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{problem.body}</p>
                 </div>
               </Reveal>
@@ -88,19 +88,19 @@ export function ProblemSolutionSection() {
       </section>
 
       {/* ── The solution ── */}
-      <section className="py-24 border-b border-border">
+      <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="max-w-2xl mb-14">
+            <div className="max-w-3xl mx-auto text-center mb-16">
               <p className="eyebrow mb-4">
                 The solution
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
+              <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-[1.12] mb-5">
                 One place that actually
                 <br />
                 knows your stack.
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 ConFuse turns the sprawl into a single, always-current context
                 layer — and delivers it wherever questions get asked.
               </p>
@@ -110,16 +110,16 @@ export function ProblemSolutionSection() {
           <div className="grid md:grid-cols-3 gap-8">
             {SOLUTIONS.map((solution, index) => (
               <Reveal key={solution.step} delay={index * 150}>
-                <div className="relative h-full rounded-lg border border-primary/50 bg-card p-8 shadow-glow-inset transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
+                <div className="card-lit h-full rounded-xl border border-primary/40 p-8 shadow-glow-inset transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground">
+                    <div className="inline-flex items-center justify-center w-11 h-11 rounded-md bg-primary text-primary-foreground shadow-glow-sm">
                       <solution.icon className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-mono font-semibold text-primary">
                       {solution.step}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
+                  <h3 className="text-lg font-semibold mb-3">{solution.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{solution.body}</p>
                 </div>
               </Reveal>

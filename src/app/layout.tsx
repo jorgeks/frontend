@@ -18,6 +18,16 @@ const spaceGrotesk = localFont({
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
 
+// Display face for headings (Unbounded, OFL) — wide geometric look.
+const unbounded = localFont({
+  src: './fonts/Unbounded-Variable.woff2',
+  weight: '200 900',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-display',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+})
+
 export const metadata: Metadata = {
   title: 'ConFuse - Context Layer for coding agents',
   description: 'ConFuse is the Context Layer for coding agents — connecting repositories, documentation, conversations, and logs so every answer is grounded in what your team actually knows.',
@@ -47,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#0D0C0F',
 }
 
 export default function RootLayout({
@@ -60,7 +70,7 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={`${spaceGrotesk.variable} ${spaceGrotesk.className}`}>
+      <body className={`${spaceGrotesk.variable} ${unbounded.variable} ${spaceGrotesk.className}`}>
         <Providers>
           <TooltipProvider>
             <Toaster />
