@@ -38,19 +38,19 @@ const REASONS = [
 
 export function WhyConFuseSection() {
   return (
-    <section className="py-24 border-b border-border">
+    <section className="relative py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="max-w-2xl mb-14">
+          <div className="max-w-3xl mx-auto text-center mb-16">
             <p className="eyebrow mb-4">
               Why ConFuse
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-display leading-[1.1] mb-4">
+            <h2 className="text-3xl md:text-5xl font-semibold leading-[1.1] mb-5">
               Context you can trust.
               <br />
               Speed you can feel.
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg leading-relaxed text-muted-foreground">
               Teams reach for ConFuse when the cost of a wrong answer finally
               outweighs the cost of another tool.
             </p>
@@ -60,11 +60,11 @@ export function WhyConFuseSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {REASONS.map((reason, index) => (
             <Reveal key={reason.title} delay={(index % 3) * 120}>
-              <div className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset group">
-                <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary/10 text-primary mb-5 transition-transform duration-300 group-hover:scale-110">
+              <div className="card-lit h-full rounded-xl border border-border p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 group">
+                <div className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-primary/30 bg-brand-deep text-brand-soft mb-6 transition-transform duration-300 group-hover:scale-110">
                   <reason.icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{reason.title}</h3>
+                <h3 className="text-base font-semibold mb-3">{reason.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{reason.body}</p>
               </div>
             </Reveal>

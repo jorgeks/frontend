@@ -207,20 +207,18 @@ export function LandingFeatures() {
           key={group.id}
           id={`feature-group-${group.id}`}
           data-testid={`feature-group-${group.id}`}
-          className={`py-24 border-b border-border ${
-            group.id === "intelligence" || group.id === "security" ? "bg-card/40" : ""
-          }`}
+          className="relative py-20 md:py-28"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <div className="mb-12 max-w-2xl">
+              <div className="max-w-3xl mx-auto text-center mb-14">
                 <p className="eyebrow mb-4">
                   {group.label}
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-display mb-3">
+                <h2 className="text-3xl md:text-4xl font-semibold leading-[1.15] mb-4">
                   {group.title}
                 </h2>
-                <p className="text-lg text-muted-foreground">{group.subtitle}</p>
+                <p className="text-lg leading-relaxed text-muted-foreground">{group.subtitle}</p>
               </div>
             </Reveal>
 
@@ -232,9 +230,9 @@ export function LandingFeatures() {
                 <Reveal key={feature.id} delay={(index % 3) * 100}>
                   <div
                     data-testid={`feature-${feature.id}`}
-                    className="h-full rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-glow-inset group"
+                    className="card-lit h-full rounded-xl border border-border p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 group"
                   >
-                    <h3 className="text-lg font-semibold mb-2 tracking-tight">
+                    <h3 className="text-base font-semibold mb-3">
                       {feature.title}
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
