@@ -13,7 +13,7 @@ import { Reveal } from "./Reveal";
  */
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden border-t border-border py-24 md:py-32">
+    <section className="relative overflow-hidden border-t border-border py-20 md:py-24">
       <div className="container-md">
         <Reveal plain className="relative flex flex-col items-center text-center">
           <div

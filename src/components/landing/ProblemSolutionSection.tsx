@@ -73,7 +73,7 @@ export function ProblemSolutionSection() {
   return (
     <>
       {/* ── The problem ── */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-20 md:py-24">
         <div className="container-lg">
           <SectionHeading
             eyebrow="The problem"
@@ -86,7 +86,7 @@ export function ProblemSolutionSection() {
           <SpotlightGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PROBLEMS.map((problem, index) => (
               <Reveal key={problem.title} delay={index * 90} className="h-full">
-                <div className="spotlight card-lit h-full rounded-xl border border-border p-7">
+                <div className="spotlight card-hover card-lit h-full rounded-xl border border-border p-7">
                   <div className="mb-10 flex items-center justify-between">
                     <problem.icon className="h-5 w-5 text-subtle" aria-hidden="true" />
                     <span className="font-mono text-xs text-dim">0{index + 1}</span>
@@ -101,7 +101,7 @@ export function ProblemSolutionSection() {
       </section>
 
       {/* ── The solution ── */}
-      <section className="relative border-t border-border py-24 md:py-32">
+      <section className="relative border-t border-border py-20 md:py-24">
         <div className="container-lg">
           <SectionHeading
             eyebrow="The solution"

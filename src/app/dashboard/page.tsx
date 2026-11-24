@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { LogoMark } from '@/components/brand/Logo'
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -283,7 +284,7 @@ export default function Dashboard() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
               <div className="flex items-center space-x-3">
-                <h1 className="text-2xl font-bold tracking-tight text-foreground">ConFuse</h1>
+                <h1 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-foreground"><LogoMark className="h-7 w-auto" />ConFuse</h1>
               </div>
               <div className="flex items-center gap-4">
                 <ProfileAvatar />

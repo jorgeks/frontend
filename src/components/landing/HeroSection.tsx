@@ -32,10 +32,10 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden border-b border-border">
-      <div className="container-lg relative pt-14 md:pt-20 lg:pt-24">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6">
+      <div className="container-lg relative pt-10 md:pt-16 lg:pt-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-4">
           {/* copy */}
-          <div className="flex flex-col items-start text-left">
+          <div className="flex min-w-0 max-w-full flex-col items-start text-left">
             <a
               href="#features"
               className="rise group inline-flex max-w-full items-center gap-2.5 rounded-full border border-border py-1 pl-1 pr-3.5 text-xs text-muted-foreground transition-colors duration-200 hover:border-foreground/25 hover:text-foreground sm:text-sm"
@@ -43,12 +43,12 @@ export function HeroSection() {
               <span className="rounded-full border border-primary/40 bg-primary/10 shrink-0 whitespace-nowrap px-2.5 py-0.5 font-mono text-[11px] text-brand-soft">
                 v1.0.0-beta
               </span>
-              <span className="truncate">The Context Layer for coding agents is here</span>
+              <span className="min-w-0 truncate">The Context Layer for coding agents is here</span>
               <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
             </a>
 
             <h1
-              className="rise mt-7 font-display text-[2.4rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.4rem] xl:text-[3.75rem]"
+              className="rise mt-7 font-display text-[2.4rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
               style={{ ['--d' as string]: '80ms' }}
             >
               ConFuse: Context Layer for <span className="text-primary">coding agents</span>.
@@ -97,7 +97,7 @@ export function HeroSection() {
           </div>
 
           {/* the brain: fragmented dots fuse into the ConFuse mark */}
-          <div className="relative mx-auto w-full max-w-[560px]">
+          <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[420px] lg:max-w-[520px]">
             <div
               className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(closest-side,hsl(var(--brand)/0.10),transparent)]"
               aria-hidden="true"
@@ -107,7 +107,7 @@ export function HeroSection() {
         </div>
 
         {/* product scene */}
-        <div className="mt-16 md:mt-24">
+        <div className="mt-12 md:mt-16">
           <ContextFlow />
         </div>
 

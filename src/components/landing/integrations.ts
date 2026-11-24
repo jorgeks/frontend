@@ -7,4 +7,5 @@ export const INTEGRATIONS = [
   { src: '/integrations/confluence.png', name: 'Confluence', kind: 'Documents' },
   { src: '/integrations/google-drive.png', name: 'Google Drive', kind: 'Documents' },
   { src: '/integrations/dropbox.png', name: 'Dropbox', kind: 'Documents' },
+  { src: '/integrations/slack.png', name: 'Slack', kind: 'Conversations' },
 ] as const

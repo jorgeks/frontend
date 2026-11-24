@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 
 /**
@@ -67,13 +66,6 @@ export function Footer() {
             <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
               Context Layer for coding agents
             </p>
-            <Link
-              href="/status"
-              className="group mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
-            >
-              Status
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
-            </Link>
           </div>
 
           <nav
@@ -86,12 +78,12 @@ export function Footer() {
                 <p className="text-[13px] font-medium text-foreground">
                   {col.title}
                 </p>
-                <ul className="mt-5 flex flex-col gap-3">
+                <ul className="mt-4 flex flex-col gap-1.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        className="inline-block py-1 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         data-testid={l.testId}
                       >
                         {l.label}

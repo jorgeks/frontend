@@ -40,7 +40,7 @@ const REASONS = [
 
 export function WhyConFuseSection() {
   return (
-    <section className="relative border-t border-border py-24 md:py-32">
+    <section className="relative border-t border-border py-20 md:py-24">
       <div className="container-lg">
         <SectionHeading
           eyebrow="Why ConFuse"
@@ -52,7 +52,7 @@ export function WhyConFuseSection() {
         <SpotlightGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((reason, index) => (
             <Reveal key={reason.title} delay={(index % 3) * 90} className="h-full">
-              <div className="spotlight card-lit group h-full rounded-xl border border-border p-7 md:p-8">
+              <div className="spotlight card-hover card-lit group h-full rounded-xl border border-border p-7 md:p-8">
                 <div className="mb-8 inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-brand-soft transition-colors duration-200 group-hover:border-primary/40">
                   <reason.icon className="h-[18px] w-[18px]" aria-hidden="true" />
                 </div>

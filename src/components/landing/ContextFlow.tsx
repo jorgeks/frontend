@@ -117,12 +117,12 @@ export function ContextFlow() {
         </svg>
 
         {/* sources */}
-        <div className="relative grid grid-cols-4 gap-2 sm:grid-cols-7 md:grid-cols-1 md:gap-2.5 md:justify-self-start md:w-full md:max-w-[240px]">
+        <div className="relative grid grid-cols-4 gap-2 sm:grid-cols-8 md:grid-cols-1 md:gap-2 md:justify-self-start md:w-full md:max-w-[240px]">
           {INTEGRATIONS.map((s, i) => (
             <div
               key={s.name}
               ref={(el) => { srcRefs.current[i] = el }}
-              className="reveal flex items-center justify-center gap-3 rounded-md border border-border bg-card px-2 py-2 md:justify-start md:px-3"
+              className="reveal flex items-center justify-center gap-3 rounded-md border border-border bg-card px-2 py-2.5 md:justify-start md:px-3 md:py-1.5"
               data-visible={visible}
               style={{ ['--d' as string]: `${i * 60}ms` }}
             >
@@ -159,7 +159,7 @@ export function ContextFlow() {
 
         {/* agents */}
         <div className="relative grid grid-cols-2 gap-3 md:grid-cols-1 md:gap-16 md:justify-self-end md:w-full md:max-w-[240px]">
-          {['Coding agent', 'Coding agent'].map((label, i) => (
+          {AGENTS.map((label, i) => (
             <div
               key={i}
               ref={(el) => { agentRefs.current[i] = el }}
@@ -172,6 +172,7 @@ export function ContextFlow() {
               </span>
               <span className="min-w-0">
                 <span className="block truncate text-sm font-medium">{label}</span>
+                <span className="sr-only"> (coding agent)</span>
                 <span className="block font-mono text-[11px] text-subtle">get_context()</span>
               </span>
             </div>
@@ -183,6 +184,9 @@ export function ContextFlow() {
     </div>
   )
 }
+
+/** Agent clients named in the product's own MCP setup copy (dashboard). */
+const AGENTS = ['Cursor', 'Windsurf']
 
 const QUERY = 'Why does checkout retry failed payments?'
 const RESULTS = [
@@ -205,13 +209,13 @@ function ToolCall({ play }: { play: boolean }) {
     const start = setTimeout(function tick() {
       i++
       setTyped(i)
-      if (i < QUERY.length) rt = setTimeout(tick, 28 + Math.random() * 40)
+      if (i < QUERY.length) rt = setTimeout(tick, 16 + Math.random() * 22)
       else {
         let k = 0
-        const reveal = () => { k++; setShown(k); if (k <= RESULTS.length) rt = setTimeout(reveal, 260) }
-        rt = setTimeout(reveal, 450)
+        const reveal = () => { k++; setShown(k); if (k <= RESULTS.length) rt = setTimeout(reveal, 180) }
+        rt = setTimeout(reveal, 250)
       }
-    }, 1400)
+    }, 700)
     return () => { clearTimeout(start); clearTimeout(rt) }
   }, [play])
 
@@ -223,7 +227,7 @@ function ToolCall({ play }: { play: boolean }) {
         <span className="h-2.5 w-2.5 rounded-full border border-border" />
         <span className="ml-2 text-xs">agent · mcp</span>
       </div>
-      <div className="space-y-1.5 px-4 py-4 sm:px-5">
+      <div className="min-h-[9.5rem] space-y-1.5 px-4 py-4 sm:min-h-[8.5rem] sm:px-5">
         <p className="text-muted-foreground">
           <span className="text-brand-soft">→</span> get_context
           <span className="text-subtle">(</span>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from "react";
 import { Reveal } from "./Reveal";
 import { SpotlightGroup } from "./Spotlight";
 import { SyncVisual, GraphVisual, ToolVisual, ScopeVisual } from "./FeatureVisuals";
@@ -209,6 +210,8 @@ const VISUALS: Record<string, React.ComponentType> = {
 };
 
 export function LandingFeatures() {
+  // On phones each group shows 3 features until expanded (all copy stays in the DOM).
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   return (
     <div id="features" data-testid="features-section" className="scroll-mt-8 border-t border-border">
       {featureGroups.map((group, gi) => {
@@ -218,7 +221,7 @@ export function LandingFeatures() {
             key={group.id}
             id={`feature-group-${group.id}`}
             data-testid={`feature-group-${group.id}`}
-            className={`relative py-20 md:py-28 ${gi > 0 ? "border-t border-border" : ""}`}
+            className={`relative py-20 md:py-24 ${gi > 0 ? "border-t border-border" : ""}`}
           >
             <div className="container-lg grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
               {/* sticky intro + illustration */}
@@ -248,6 +251,7 @@ export function LandingFeatures() {
                     delay={(index % 2) * 80 + Math.floor(index / 2) * 60}
                     className={[
                       "h-full",
+                      index >= 3 && !open[group.id] ? "hidden sm:block" : "",
                       index > 0 ? "border-t border-border" : "",
                       index === 1 ? "sm:border-t-0" : "",
                       index % 2 === 1 ? "sm:border-l sm:border-border" : "",
@@ -255,7 +259,7 @@ export function LandingFeatures() {
                   >
                     <div
                       data-testid={`feature-${feature.id}`}
-                      className="spotlight h-full p-7 md:p-8"
+                      className="spotlight spotlight-soft h-full p-6 md:p-8"
                     >
                       <h3 className="mb-2.5 font-sans text-base font-semibold tracking-[-0.01em]">
                         {feature.title}
@@ -266,6 +270,15 @@ export function LandingFeatures() {
                     </div>
                   </Reveal>
                 ))}
+                {!open[group.id] && (
+                  <button
+                    type="button"
+                    onClick={() => setOpen((o) => ({ ...o, [group.id]: true }))}
+                    className="border-t border-border px-6 py-4 text-left text-sm font-medium text-brand-soft sm:hidden"
+                  >
+                    Show all {group.features.length} →
+                  </button>
+                )}
               </SpotlightGroup>
             </div>
           </section>

@@ -302,9 +302,9 @@
 
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  filter: blur(6px);
-  transition: opacity .9s var(--ease-deck), transform .9s var(--ease-deck), filter .9s var(--ease-deck);
+  transform: translate3d(0, 14px, 0);
+  filter: blur(3px);
+  transition: opacity .6s var(--ease-deck), transform .6s var(--ease-deck), filter .6s var(--ease-deck);
   transition-delay: var(--d, 0ms);
 }
 .reveal[data-visible="true"] { opacity: 1; transform: none; filter: none; }
@@ -407,3 +407,10 @@
 @keyframes cf-sync { 0% { transform: scaleX(0); opacity: 1; } 70% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
 .sync-bar { transform: scaleX(0); animation: cf-sync var(--dur, 3s) var(--ease-deck) infinite; animation-delay: var(--d, 0s); }
 @media (prefers-reduced-motion: reduce) { .sync-bar { animation: none; transform: none; opacity: .6; } }
+
+/* Lattice cells: surface light only (no border trace on shared hairlines) */
+.spotlight-soft::after { display: none; }
+/* One hover treatment for standalone cards */
+.card-hover { transition: border-color .2s ease, transform .2s ease; }
+.card-hover:hover { border-color: hsl(var(--foreground) / .18); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .card-hover:hover { transform: none; } }

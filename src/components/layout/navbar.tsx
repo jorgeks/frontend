@@ -65,14 +65,14 @@ export function Navbar({ showUserMenu = true, showAuth = true }: { showUserMenu?
 
   const primaryCta = (className?: string) =>
     signedIn ? (
-      <Button asChild className={className} data-testid="navbar-cta">
+      <Button asChild variant="secondary" className={className} data-testid="navbar-cta">
         <Link href="/dashboard" onClick={() => setOpen(false)}>
           Dashboard
           <ArrowRight aria-hidden />
         </Link>
       </Button>
     ) : (
-      <Button onClick={goToLogin} className={className} data-testid="navbar-cta">
+      <Button onClick={goToLogin} variant="secondary" className={className} data-testid="navbar-cta">
         Get started
         <ArrowRight aria-hidden />
       </Button>

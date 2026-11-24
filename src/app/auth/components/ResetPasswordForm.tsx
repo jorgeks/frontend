@@ -1,11 +1,13 @@
 'use client'
 
+import { Logo } from '@/components/brand/Logo'
+
 import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Eye, EyeOff, Lock, ArrowRight, Sparkles, CheckCircle, AlertCircle } from 'lucide-react'
+import { Eye, EyeOff, Lock, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import { apiClient, unwrapResponse } from '@/lib/api'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -137,10 +139,7 @@ export function ResetPasswordForm() {
           {}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-2 group">
-              <Sparkles className="w-8 h-8 text-green-400 group-hover:text-green-300 transition-colors" />
-              <span className="text-4xl font-bold font-orbitron bg-gradient-to-r from-green-400 via-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                ConFuse
-              </span>
+<Logo markClassName="h-9" wordClassName="text-3xl" />
             </Link>
           </div>
 
@@ -185,10 +184,7 @@ export function ResetPasswordForm() {
         {}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 group">
-            <Sparkles className="w-8 h-8 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
-            <span className="text-4xl font-bold font-orbitron bg-gradient-to-r from-indigo-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-              ConFuse
-            </span>
+<Logo markClassName="h-9" wordClassName="text-3xl" />
           </Link>
         </div>
 
