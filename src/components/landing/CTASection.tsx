@@ -3,41 +3,44 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { LogoMark } from "@/components/brand/Logo";
 import { Reveal } from "./Reveal";
 
+/**
+ * Closing CTA, after the deck's "thank you" slide: the ConFuse mark traces
+ * itself in, then the headline and the two actions. Copy and destinations
+ * unchanged (primary -> /billing, secondary -> /pricing).
+ */
 export function CTASection() {
   return (
-    <section className="py-28 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-16 left-1/3 h-72 w-72 rounded-full bg-white/40 blur-3xl animate-[float-slow_10s_ease-in-out_infinite]" />
-        <div className="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-primary/15 blur-3xl animate-[float-slower_12s_ease-in-out_infinite]" />
-      </div>
-
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <Reveal>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-5">
-            Ready to unify your context?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-            Start free, invite your team when it clicks, and scale when you&apos;re
-            ready. No credit card required.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/billing">
-              <Button className="h-12 px-8 bg-foreground text-background hover:bg-foreground/90 rounded-none font-medium text-base group">
-                Get Started Free
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+    <section className="relative overflow-hidden border-t border-border py-20 md:py-24">
+      <div className="container-md">
+        <Reveal plain className="relative flex flex-col items-center text-center">
+          <div
+            className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,hsl(var(--brand)/0.12),transparent)]"
+            aria-hidden="true"
+          />
+          <LogoMark draw className="relative mb-10 h-24 w-auto text-foreground md:h-28" />
+          <Reveal delay={600}>
+            <h2 className="mb-5 text-3xl font-medium leading-[1.1] tracking-[-0.03em] md:text-[2.75rem]">
+              Ready to unify your <span className="text-primary">context?</span>
+            </h2>
+            <p className="mx-auto mb-10 max-w-xl text-lg text-muted-foreground">
+              Start free, invite your team when it clicks, and scale when you&apos;re
+              ready. No credit card required.
+            </p>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
+              <Button asChild size="lg" variant="secondary" className="group">
+                <Link href="/billing">
+                  Get Started Free
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
               </Button>
-            </Link>
-            <Link href="/pricing">
-              <Button
-                variant="outline"
-                className="h-12 px-8 border-border hover:bg-muted rounded-none font-medium text-base"
-              >
-                View Pricing
+              <Button asChild size="lg" variant="outline">
+                <Link href="/pricing">View Pricing</Link>
               </Button>
-            </Link>
-          </div>
+            </div>
+          </Reveal>
         </Reveal>
       </div>
     </section>

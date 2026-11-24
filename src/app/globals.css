@@ -28,84 +28,71 @@
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
-
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 9%;
-
-    --radius: 0rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 0 0% 9%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96.1%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 0 0% 89.8%;
-    --sidebar-ring: 0 0% 9%;
-  }
-
+  /* ── ConFuse design tokens (single source of truth) ─────────────────────
+     Derived from the ConFuse deck v7 aesthetic: near-black canvas, plum-tinted
+     surfaces, magenta brand (#E63FA8) with a soft pink highlight (#FF9EDC),
+     lilac-grey copy, 14px radii and soft magenta glows. Every surface
+     (landing, pricing, docs, app) reads from these; :root and .dark are the
+     same on purpose so the brand never flips with the OS theme. */
+  :root,
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 300 3% 7.6%;          /* #141314 — neutral near-black (Muse #171717) */
+    --foreground: 295 35% 93.3%;        /* #F3E8F4 */
 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 300 3% 8.6%;                /* #171517 */
+    --card-foreground: 295 35% 93.3%;
 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 300 3% 10.6%;            /* #1C1A1C */
+    --popover-foreground: 295 35% 93.3%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 322 77% 57.5%;           /* #E63FA8 */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 300 3% 10.6%;          /* #1C1A1C */
+    --secondary-foreground: 295 35% 93.3%;
 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    --muted: 300 3% 12.5%;              /* #212021 */
+    --muted-foreground: 285 5% 65%;     /* #A8A2AB — body copy (Muse #A3A3A3) */
 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 318 25% 13%;              /* brand-tinted hover */
+    --accent-foreground: 295 35% 93.3%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    
-    --sidebar-background: 0 0% 3.9%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 0 0% 9%;
-    --sidebar-accent: 0 0% 14.9%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 14.9%;
-    --sidebar-ring: 0 0% 83.1%;
+    --border: 300 2% 16%;               /* #2A292A — hairline, ~9% white */
+    --input: 300 2% 18%;
+    --ring: 322 77% 57.5%;
+
+    /* Brand extras */
+    --brand: 322 77% 57.5%;             /* #E63FA8 */
+    --brand-soft: 322 100% 81%;         /* #FF9EDC */
+    --subtle: 281 9% 54.1%;             /* #8E7F95 — labels, eyebrows */
+    --dim: 276 11% 36.1%;               /* #5E5266 */
+    --brand-deep: 322 62% 18%;          /* #4A1136 — deep fill (Muse #2E1065) */
+    --brand-mid: 322 58% 30%;           /* #79205A — deep-fill borders (Muse #4C1D95) */
+    --subtitle: 290 8% 84%;             /* #D9D3DA — subtitles (Muse #D4D4D4) */
+    --info: 219 100% 65.5%;             /* #4F8DFF */
+    --success: 160 84% 39.4%;           /* #10B981 */
+    --warning: 38 92% 50.2%;            /* #F59E0B */
+
+    --radius: 0.75rem;                  /* 12px — Muse’s dominant radius */
+
+    --shadow-glow: 0 0 0 1px rgba(230, 63, 168, 0.45);   /* hairline ring, no blur (Muse: depth from borders) */
+    --shadow-glow-sm: 0 0 0 1px rgba(230, 63, 168, 0.3);
+    --shadow-glow-inset: none;
+    --shadow-card: none;
+
+    --sidebar-background: 300 3% 8.6%;
+    --sidebar-foreground: 295 35% 93.3%;
+    --sidebar-primary: 322 77% 57.5%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 318 25% 13%;
+    --sidebar-accent-foreground: 295 35% 93.3%;
+    --sidebar-border: 300 2% 16%;
+    --sidebar-ring: 322 77% 57.5%;
+
+    color-scheme: dark;
   }
 }
 
@@ -115,6 +102,22 @@
   }
   body {
     @apply bg-background text-foreground;
+    letter-spacing: -0.24px;
+  }
+  /* Display headings: wide geometric face (Unbounded), Muse-style */
+  h1, h2, h3 {
+    font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    text-wrap: balance;
+  }
+  /* Muse: H1 700, section H2 500 (lighter than the hero), -0.24px tracking */
+  h1 { font-weight: 700; }
+  h2 { font-weight: 500; }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: rgba(230, 63, 168, 0.35);
+    color: hsl(var(--foreground));
   }
   
   ::-webkit-scrollbar {
@@ -125,6 +128,7 @@
   }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--foreground) / 0.5);
@@ -157,85 +161,111 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* Ambient dashboard backdrop: soft brand-colored glow behind the dark UI */
-.ambient-glow { background-image: radial-gradient(1000px 500px at 15% -5%, rgba(59, 130, 246, 0.14), transparent), radial-gradient(800px 450px at 85% 0%, rgba(168, 85, 247, 0.12), transparent), radial-gradient(700px 400px at 50% 110%, rgba(16, 185, 129, 0.07), transparent); }
-
-/* ── Landing theme (scoped: '/' only) ─────────────────────────────────────
-   WHY: the marketing landing is the ONE light surface on the platform
-   (#BAADD1 lavender, per product direction); every other route keeps the
-   standard dark theme. Scoping the design tokens here re-themes everything
-   inside the wrapper (incl. shared Navbar/Footer) without touching them. */
-.landing {
-  --background: 262 28% 75%;          /* #BAADD1 */
-  --foreground: 262 45% 16%;
-  --card: 262 32% 87%;
-  --card-foreground: 262 45% 16%;
-  --popover: 262 32% 87%;
-  --popover-foreground: 262 45% 16%;
-  --primary: 262 47% 30%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 262 26% 88%;
-  --secondary-foreground: 262 45% 16%;
-  --muted: 262 24% 84%;
-  --muted-foreground: 262 18% 36%;
-  --accent: 262 30% 89%;
-  --accent-foreground: 262 45% 16%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 262 22% 62%;
-  --input: 262 22% 62%;
-  --ring: 262 47% 30%;
-}
-
-/* Unauthenticated pricing surface (/pricing + the signed-out /billing view):
-   warm seashell #FFF5EE backdrop with white cards and a terracotta accent.
-   Scoped so every token-driven child (Navbar, Footer, Cards, Buttons) stays
-   readable; signed-in surfaces keep their themes. */
-.pricing-sea {
-  --background: 24.7 100% 96.7%;     /* #FFF5EE */
-  --foreground: 24 45% 14%;
-  --card: 0 0% 100%;
-  --card-foreground: 24 45% 14%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 24 45% 14%;
-  --primary: 18 72% 40%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 24 40% 91%;
-  --secondary-foreground: 24 45% 14%;
-  --muted: 24 40% 90%;
-  --muted-foreground: 24 22% 34%;
-  --accent: 24 45% 89%;
-  --accent-foreground: 24 45% 14%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 24 35% 78%;
-  --input: 24 35% 78%;
-  --ring: 18 72% 40%;
-}
-
-/* Documentation surface (/docs index + /docs/[slug] articles): warm dark
-   salmon #E9967A backdrop with white cards. Applied from docs/layout.tsx so
-   every current and future docs page inherits it. */
-.docs-salmon {
-  --background: 15.13 71.61% 69.61%;   /* #E9967A */
-  --foreground: 15 50% 13%;
-  --card: 0 0% 100%;
-  --card-foreground: 15 50% 13%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 15 50% 13%;
-  --primary: 15 70% 30%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 15 55% 82%;
-  --secondary-foreground: 15 50% 13%;
-  --muted: 15 55% 80%;
-  --muted-foreground: 15 30% 28%;
-  --accent: 15 60% 80%;
-  --accent-foreground: 15 50% 13%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 15 40% 50%;
-  --input: 15 40% 50%;
-  --ring: 15 70% 30%;
+/* Brand utilities (deck v7 vocabulary) */
+@layer components {
+  /* Uppercase label with a small magenta dot in front */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-xs font-bold uppercase tracking-eyebrow text-foreground;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 14px;
+    height: 1px;
+    background: hsl(var(--brand));
+  }
+  /* Small uppercase caption used above numbers and card titles */
+  .label {
+    @apply text-xs font-semibold uppercase tracking-eyebrow text-subtle;
+  }
+  /* Highlighted card: magenta hairline + faint magenta wash */
+  .card-brand {
+    border-color: rgba(230, 63, 168, 0.5);
+    background-color: rgba(230, 63, 168, 0.04);
+  }
+  /* Surface gradient used for large feature cards */
+  .surface-gradient {
+    background-image: linear-gradient(180deg, hsl(var(--popover)) 0%, hsl(var(--card)) 100%);
+  }
+  .text-gradient-brand {
+    background-image: linear-gradient(90deg, hsl(var(--brand)) 0%, hsl(var(--brand-soft)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Display gradient for headlines: quiet white → lilac sheen (accent stays in details) */
+  .text-gradient-display {
+    background-image: linear-gradient(180deg, #FFFFFF 20%, hsl(var(--foreground) / 0.62) 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Faint grid lines, faded towards the edges (hero / section backdrops) */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 80px 80px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, #000 30%, transparent 100%);
+  }
+  /* Brand glow anchored to the top of a section */
+  .bg-glow-top {
+    background-image: radial-gradient(50% 55% at 50% 30%, rgba(230, 63, 168, 0.16), rgba(74, 17, 54, 0.08) 50%, transparent 80%);
+  }
+  /* Large framed container (product shots, stats, CTA): hairline + faint radial */
+  .frame {
+    border-radius: calc(var(--radius) + 12px);
+    border: 1px solid hsl(var(--border));
+    background-image: radial-gradient(circle closest-corner at 50% 50%, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
+  }
+  /* Card surface: almost imperceptible radial (Muse #171717 → #131314) */
+  .card-lit {
+    background-image: radial-gradient(circle closest-corner at 50% 40%, hsl(var(--popover)) 0%, hsl(var(--card)) 60%, hsl(var(--background)) 100%);
+  }
+  /* Feature card with a chamfered top-right corner and a brand stroke on the
+     cut. The element is the 1px "border" (gradient), ::before is the surface. */
+  .card-chamfer {
+    --cut: 28px;
+    --edge: hsl(var(--border));
+    --stroke: hsl(var(--brand));
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+    background: linear-gradient(225deg, var(--stroke) 0 calc(var(--cut) * 0.7071 + 1.5px), var(--edge) 0);
+    border-radius: var(--radius) 0 var(--radius) var(--radius);
+    transition: background 0.2s ease;
+  }
+  .card-chamfer::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    clip-path: polygon(0 0, calc(100% - var(--cut) + 0.6px) 0, 100% calc(var(--cut) - 0.6px), 100% 100%, 0 100%);
+    border-radius: calc(var(--radius) - 1px) 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px);
+    background-image: radial-gradient(circle closest-corner at 50% 40%, hsl(var(--popover)) 0%, hsl(var(--card)) 60%, hsl(var(--background)) 100%);
+  }
+  .card-chamfer > * { position: relative; }
+  .card-chamfer:hover { --edge: hsl(var(--brand) / 0.35); }
+  /* Announcement pill (hero badge): deep brand pill with an inner pill */
+  .pill-announce {
+    @apply inline-flex items-center gap-3 rounded-[20px] border py-1 pl-1 pr-4 text-sm font-medium text-foreground;
+    border-color: hsl(var(--brand-mid));
+    background-color: hsl(var(--brand-deep) / 0.6);
+  }
+  .pill-announce-inner {
+    @apply rounded-[16px] px-3 py-0.5 text-foreground;
+    background-color: hsl(var(--brand-mid));
+  }
+  /* Layout: Muse containers 1280 / 1024 / 768 with a 32px gutter */
+  .container-lg { @apply mx-auto w-full max-w-[1280px] px-4 sm:px-8; }
+  .container-md { @apply mx-auto w-full max-w-[1024px] px-4 sm:px-8; }
+  .container-sm { @apply mx-auto w-full max-w-[768px] px-4 sm:px-8; }
+  .section { @apply py-20; }
+  /* Ambient backdrop: soft magenta glow behind dark surfaces */
+  .bg-ambient,
+  .ambient-glow {
+    background-image:
+      radial-gradient(900px 480px at 15% -10%, rgba(230, 63, 168, 0.14), transparent 70%),
+      radial-gradient(700px 420px at 90% 0%, rgba(255, 158, 220, 0.07), transparent 70%);
+  }
 }
 
 /* Landing motion vocabulary (CSS-only; stagger via inline delays) */
@@ -263,3 +293,193 @@
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+
+/* ── Landing motion layer (deck v7 vocabulary) ─────────────────────────────
+   One easing everywhere: the deck's cubic-bezier(.2,.7,.2,1). Entrances are
+   opacity + 16px rise + a short blur; loops are slow and low-contrast. All of
+   it switches off under prefers-reduced-motion. */
+:root { --ease-deck: cubic-bezier(.2, .7, .2, 1); }
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  /* Linear's measured transform curve: .7s cubic-bezier(.32,.72,0,1); no blur */
+  transition: opacity .7s cubic-bezier(.32, .72, 0, 1), transform .7s cubic-bezier(.32, .72, 0, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal[data-visible="true"] { opacity: 1; transform: none; filter: none; }
+
+/* Hero entrance, plays on load */
+@keyframes cf-rise { from { opacity: 0; transform: translate3d(0, 18px, 0); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.rise { animation: cf-rise .9s var(--ease-deck) both; animation-delay: var(--d, 0ms); }
+
+/* Logo mark: trace the outline, then fill */
+@keyframes cf-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cf-fill { from { fill-opacity: 0; } to { fill-opacity: 1; } }
+@keyframes cf-unstroke { to { stroke-opacity: 0; } }
+.cf-mark-draw path { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; }
+[data-visible="true"] .cf-mark-draw path,
+.cf-mark-draw.is-playing path {
+  /* Supermemory's measured logo-draw: 1.2s cubic-bezier(.4,0,.2,1) */
+  animation: cf-draw 1.2s cubic-bezier(.4, 0, .2, 1) forwards, cf-fill .5s 1s ease forwards, cf-unstroke .4s 1.3s ease forwards;
+}
+
+/* Underline that grows from the left (deck .close .ul) */
+@keyframes cf-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+[data-visible="true"] .grow-x { animation: cf-grow 1.1s var(--ease-deck) both; animation-delay: var(--d, 200ms); }
+.grow-x { transform-origin: left; transform: scaleX(0); }
+
+@keyframes cf-beam-in { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.beam-base { stroke-dasharray: 100; stroke-dashoffset: 100; }
+[data-visible="true"] .beam-base { animation: cf-beam-in 1.4s var(--ease-deck) forwards; animation-delay: var(--d, 0s); }
+
+/* Logo marquee */
+.marquee { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track { animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Cursor spotlight on cards: a faint radial that follows the pointer, on the
+   border and the surface. --mx/--my are set by <SpotlightGroup>. */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), hsl(var(--brand) / .55), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--mx, -999px) var(--my, -999px), hsl(var(--foreground) / .035), transparent 70%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+[data-spotlight-active="true"] .spotlight::after,
+[data-spotlight-active="true"] .spotlight::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .rise { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; transition: none !important; }
+  .cf-mark-draw path { stroke-dasharray: none; fill-opacity: 1; animation: none !important; stroke-opacity: 0; }
+  .grow-x { transform: none; animation: none !important; }
+  .beam-base { stroke-dashoffset: 0; animation: none !important; }
+  .marquee-track { animation: none !important; }
+}
+
+/* Lattice cells: surface light only (no border trace on shared hairlines) */
+.spotlight-soft::after { display: none; }
+/* One hover treatment for standalone cards */
+.card-hover { transition: border-color .15s cubic-bezier(.4, 0, .2, 1); }
+.card-hover svg { transition: color .15s cubic-bezier(.4, 0, .2, 1); }
+.card-hover:hover { border-color: hsl(var(--foreground) / .2); }
+.card-hover:hover svg { color: hsl(var(--brand)); }
+
+/* Lattice cell hover: lifted surface and a short brand rule on top */
+.cell-hover { position: relative; transition: background-color .2s ease; }
+.cell-hover:hover { background-color: hsl(var(--foreground) / .025); }
+.cell-hover > h3::before { content: ""; position: absolute; top: -1px; left: 0; width: 3rem; height: 1px; background: hsl(var(--brand)); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-deck); }
+.cell-hover:hover > h3::before { transform: scaleX(1); }
+
+/* ── Halftone brain (measured technique: supermemory.ai st-calc) ───────────
+   scale/fill per cell from custom properties; column-derived delays make a
+   left-to-right wave. --s is the cell's coverage of the logo. */
+.halftone rect:not(:first-of-type) {
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: hsl(var(--foreground) / .88);
+  scale: var(--s);
+  animation:
+    ht-in .9s cubic-bezier(.32, .72, 0, 1) both,
+    ht-wave 9s linear infinite;
+  animation-delay: var(--din), var(--dw);
+}
+@keyframes ht-in { from { scale: 0; } to { scale: var(--s); } }
+@keyframes ht-wave {
+  0%, 4% { scale: var(--s); fill: hsl(var(--foreground) / .88); }
+  6% { scale: calc(var(--s) * .55 + .45); fill: hsl(var(--brand)); }
+  12%, 100% { scale: var(--s); fill: hsl(var(--foreground) / .88); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .halftone rect:not(:first-of-type) { animation: none; }
+}
+
+/* ── Context flow: one deterministic signal per cycle ─────────────────────
+   The signal draws along a line in 10% of the cycle (Linear's stroke easing),
+   then fades; the card it reaches lights its edge briefly (Supermemory's
+   st-layer stroke flash, ~2.5% of a 6s loop). */
+.flow-signal { stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; animation: flow-signal var(--cycle, 6s) cubic-bezier(.32, .72, 0, 1) infinite; animation-delay: var(--d, 0s); }
+@keyframes flow-signal {
+  0% { stroke-dashoffset: 100; opacity: 1; }
+  10% { stroke-dashoffset: 0; opacity: 1; }
+  16%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-edge { animation: flow-edge var(--cycle, 6s) linear infinite; animation-delay: var(--fd, 0s); }
+@keyframes flow-edge {
+  0%, 100% { border-color: hsl(var(--border)); }
+  2.5% { border-color: hsl(var(--brand) / .7); }
+  9% { border-color: hsl(var(--border)); }
+}
+@media (prefers-reduced-motion: reduce) { .flow-signal { display: none; } .flow-edge { animation: none; } }
+
+/* ── Feature illustrations ─────────────────────────────────────────────── */
+/* Linear-style 5x5 loader: 14 frames of 200ms, one frame lit per dot */
+.dm-dot { fill: hsl(var(--foreground)); opacity: .22; animation: dm-blink 2.8s steps(1) infinite; animation-delay: var(--d, 0s); }
+@keyframes dm-blink { 0% { opacity: 1; fill: hsl(var(--brand)); } 7.14% { opacity: .55; fill: hsl(var(--foreground)); } 14.28%, 100% { opacity: .22; } }
+
+/* Graph: nodes fade with age; the scanline crosses the time axis every 6s and
+   each column's nodes take the accent as it passes (Supermemory-style sweep). */
+.g-node { opacity: var(--age, 1); stroke-width: 1.5; transition: opacity .2s; }
+.g-code { fill: hsl(var(--foreground) / .85); --st: transparent; stroke: var(--st); }
+.g-doc { fill: hsl(var(--card)); --st: hsl(var(--foreground) / .75); stroke: var(--st); }
+[data-visible="true"] .g-node { animation: g-hit 6s linear infinite; animation-delay: calc(var(--d, 0s) + .6s); }
+/* only the outline flashes, so code (filled) and docs (hollow) stay readable */
+@keyframes g-hit { 0%, 10%, 100% { stroke: var(--st); } 3% { stroke: hsl(var(--brand)); opacity: 1; } }
+.g-scan { opacity: 0; }
+[data-visible="true"] .g-scan { animation: g-scan 6s cubic-bezier(.32, .72, 0, 1) infinite; animation-delay: .6s; }
+@keyframes g-scan { 0% { transform: translateX(60px); opacity: 0; } 2% { opacity: .9; } 30% { transform: translateX(300px); opacity: .9; } 36%, 100% { transform: translateX(300px); opacity: 0; } }
+
+/* Scope matrix: Vercel-style grey → accent state fill, revealed column by column */
+.scope-cell { border: 1px solid hsl(var(--foreground) / .25); }
+.scope-cell.is-on { background: hsl(var(--foreground) / .18); }
+[data-visible="true"] .scope-cell.is-on { animation: scope-on .5s cubic-bezier(.32, .72, 0, 1) forwards; animation-delay: var(--d, 0s); }
+@keyframes scope-on { to { background: hsl(var(--brand)); border-color: hsl(var(--brand)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dm-dot, .g-node, .g-scan { animation: none !important; }
+  .scope-cell.is-on { animation: none !important; background: hsl(var(--brand)); border-color: hsl(var(--brand)); }
+}
+
+/* Problem glyphs: 7x7 cell fields, stepped like Linear's dot-matrix loaders */
+.pg-cell { fill: hsl(var(--foreground)); opacity: .12; }
+.pg-flash, .pg-decay { opacity: .55; }
+[data-visible="true"] .pg-flash { animation: pg-flash 4.2s steps(1) infinite; animation-delay: var(--d, 0s); }
+[data-visible="true"] .pg-type { animation: pg-type var(--pg-t, 5s) steps(1) infinite; animation-delay: var(--d, 0s); }
+[data-visible="true"] .pg-decay { animation: pg-decay 6s cubic-bezier(.4, 0, .2, 1) infinite; animation-delay: var(--d, 0s); }
+@keyframes pg-flash { 0% { fill: hsl(var(--brand)); opacity: 1; } 6%, 100% { fill: hsl(var(--foreground)); opacity: .55; } }
+@keyframes pg-type { 0% { opacity: .12; } 1% { fill: hsl(var(--brand)); opacity: 1; } 5%, 82% { fill: hsl(var(--foreground)); opacity: .6; } 84%, 100% { opacity: .12; } }
+@keyframes pg-decay { 0%, 25% { opacity: .6; } 55%, 88% { opacity: .1; } 100% { opacity: .6; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-visible="true"] .pg-flash, [data-visible="true"] .pg-type, [data-visible="true"] .pg-decay { animation: none; }
+  .pg-type { opacity: .55; }
+}
+
+/* Why rows: colour-only state change, Vercel timing */
+.why-idx, .why-title { transition: color .15s cubic-bezier(.4, 0, .2, 1); }
+.why-row:hover .why-idx { color: hsl(var(--brand)); }
+.why-row:hover .why-title { color: hsl(var(--brand-soft)); }
+
+/* Solution stepper signal: only while in view */
+.stepper:not([data-visible="true"]) .flow-signal, .stepper:not([data-visible="true"]) .flow-edge { animation: none; }
+.stepper { --cycle: 8s; }

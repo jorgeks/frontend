@@ -14,6 +14,17 @@ const spaceGrotesk = localFont({
   weight: '300 700',
   style: 'normal',
   display: 'swap',
+  variable: '--font-sans',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+})
+
+// Display face for headings (Unbounded, OFL) — wide geometric look.
+const unbounded = localFont({
+  src: './fonts/Unbounded-Variable.woff2',
+  weight: '200 900',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-display',
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
 
@@ -28,9 +39,12 @@ export const metadata: Metadata = {
     siteName: 'ConFuse',
   },
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/brand/icon-180.png',
   },
   manifest: '/manifest.json',
   metadataBase: new URL('https://www.confuse.site'),
@@ -46,7 +60,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#141314',
 }
 
 export default function RootLayout({
@@ -59,7 +73,7 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={spaceGrotesk.className}>
+      <body className={`${spaceGrotesk.variable} ${unbounded.variable} ${spaceGrotesk.className}`}>
         <Providers>
           <TooltipProvider>
             <Toaster />

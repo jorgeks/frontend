@@ -127,7 +127,7 @@ export function LoginForm() {
           {/* Top: Logo + Wordmark */}
           <div className="flex items-center gap-3">
             <Image
-              src="/favicon.svg"
+              src="/brand/confuse-mark.svg"
               alt="ConFuse"
               width={32}
               height={32}
@@ -179,7 +179,7 @@ export function LoginForm() {
           <div className="md:hidden mb-8">
             <div className="flex items-center gap-2 mb-3">
               <Image
-                src="/favicon.svg"
+                src="/brand/confuse-mark.svg"
                 alt="ConFuse"
                 width={28}
                 height={28}
@@ -200,7 +200,7 @@ export function LoginForm() {
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-6">
                 <Image
-                  src="/favicon.svg"
+                  src="/brand/confuse-mark.svg"
                   alt="ConFuse"
                   width={24}
                   height={24}

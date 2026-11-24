@@ -1,11 +1,13 @@
 'use client'
 
+import { Logo } from '@/components/brand/Logo'
+
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Mail, ArrowRight, Sparkles, ArrowLeft, CheckCircle } from 'lucide-react'
+import { Mail, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 import { apiClient, unwrapResponse } from '@/lib/api'
 
@@ -50,10 +52,7 @@ export function ForgotPasswordForm() {
           {}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-2 group">
-              <Sparkles className="w-8 h-8 text-purple-400 group-hover:text-purple-300 transition-colors" />
-              <span className="text-4xl font-bold font-orbitron bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                ConFuse
-              </span>
+<Logo markClassName="h-9" wordClassName="text-3xl" />
             </Link>
           </div>
 
@@ -115,10 +114,7 @@ export function ForgotPasswordForm() {
         {}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 group">
-            <Sparkles className="w-8 h-8 text-purple-400 group-hover:text-purple-300 transition-colors" />
-            <span className="text-4xl font-bold font-orbitron bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-              ConFuse
-            </span>
+<Logo markClassName="h-9" wordClassName="text-3xl" />
           </Link>
         </div>
 

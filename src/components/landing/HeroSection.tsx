@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, GitBranch, FileText, MessageSquare, Terminal } from "lucide-react";
 import { useAuth } from '@/contexts/auth';
 import { DemoModal } from "./DemoModal";
+import { HalftoneBrain } from "./HalftoneBrain";
+import { ContextFlow } from "./ContextFlow";
+import { INTEGRATIONS } from "./integrations";
 
 const SOURCE_TAGS = [
   { icon: GitBranch, label: "Repositories" },
@@ -13,94 +16,116 @@ const SOURCE_TAGS = [
   { icon: Terminal, label: "Logs" },
 ];
 
+/**
+ * Hero, after the deck's cover slide: copy on the left, the ConFuse brain on
+ * the right as a halftone dot matrix of the real logo (see HalftoneBrain). Below it, the
+ * product scene (sources -> ConFuse -> agents) and the integrations marquee.
+ * Copy is unchanged; only the look and motion moved.
+ */
 export function HeroSection() {
   const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   const handleGetStarted = () => {
-    if (isAuthenticated) {
-      window.location.href = '/dashboard';
-    } else {
-      window.location.href = '/auth/login';
-    }
+    window.location.href = isAuthenticated ? '/dashboard' : '/auth/login';
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden border-b border-border">
-      {/* soft floating orbs + grid: motion without noise */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-white/40 blur-3xl animate-[pulse-soft_9s_ease-in-out_infinite]" />
-        <div className="absolute top-1/3 -right-24 h-[28rem] w-[28rem] rounded-full bg-primary/15 blur-3xl animate-[float-slow_11s_ease-in-out_infinite]" />
-        <div className="absolute bottom-0 left-1/4 h-80 w-80 rounded-full bg-white/30 blur-3xl animate-[float-slower_13s_ease-in-out_infinite]" />
-        <div className="absolute inset-0 grid grid-cols-[100px_1fr_100px] grid-rows-[100px_1fr_100px] opacity-[0.12]">
-          <div className="border-r border-b border-foreground"></div>
-          <div className="border-b border-foreground"></div>
-          <div className="border-l border-b border-foreground"></div>
-          <div className="border-r border-foreground"></div>
-          <div></div>
-          <div className="border-l border-foreground"></div>
-          <div className="border-r border-t border-foreground"></div>
-          <div className="border-t border-foreground"></div>
-          <div className="border-l border-t border-foreground"></div>
-        </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10 w-full">
-        <div className="space-y-10">
-          <div
-            className="inline-flex items-center gap-2 border border-border px-3 py-1 text-sm font-medium uppercase tracking-wider text-muted-foreground bg-background/70 animate-[fade-in-up_0.6s_ease-out_both]"
-          >
-            <span className="h-2 w-2 rounded-full bg-primary animate-[pulse-soft_2.5s_ease-in-out_infinite]" />
-            v1.0.0-beta · The Context Layer for coding agents is here
-          </div>
-
-          <div className="space-y-6">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.08] animate-[fade-in-up_0.7s_ease-out_0.1s_both]">
-              ConFuse:{" "}
-              <span className="bg-gradient-to-r from-primary via-purple-700 to-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-[gradient-x_6s_ease_infinite]">
-                Context Layer for coding agents
+    <section className="relative overflow-hidden border-b border-border">
+      <div className="container-lg relative pt-6 md:pt-16 lg:pt-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-4">
+          {/* copy */}
+          <div className="flex min-w-0 max-w-full flex-col items-start text-left">
+            <a
+              href="#features"
+              className="rise group inline-flex max-w-full items-center gap-2.5 rounded-full border border-border py-1 pl-1 pr-3.5 text-xs text-muted-foreground transition-colors duration-200 hover:border-foreground/25 hover:text-foreground sm:text-sm"
+            >
+              <span className="rounded-full border border-primary/40 bg-primary/10 shrink-0 whitespace-nowrap px-2.5 py-0.5 font-mono text-xs text-brand-soft">
+                v1.0.0-beta
               </span>
-              .
+              <span className="hidden min-w-0 truncate min-[420px]:inline">The Context Layer for coding agents is here</span>
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </a>
+
+            <h1
+              className="rise mt-5 font-display text-[2rem] font-bold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[3.2rem] xl:text-[3.6rem]"
+              style={{ ['--d' as string]: '80ms' }}
+            >
+              ConFuse: Context Layer for <span className="text-primary">coding agents</span>.
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground/90 animate-[fade-in-up_0.7s_ease-out_0.25s_both]">
+            <h2
+              className="rise mt-4 font-sans text-base font-medium sm:mt-6 sm:text-lg tracking-[-0.01em] text-foreground/90 md:text-xl"
+              style={{ ['--d' as string]: '180ms' }}
+            >
               Stop hunting for context. Start shipping with it.
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-[fade-in-up_0.7s_ease-out_0.4s_both]">
+            <p
+              className="rise mt-3 max-w-[560px] text-[15px] leading-relaxed sm:text-base text-muted-foreground md:text-[17px]"
+              style={{ ['--d' as string]: '260ms' }}
+            >
               Your repositories, documentation, conversations, and logs — connected
               in one living context layer. Every answer, for every teammate and every
               AI agent, is grounded in what your team actually knows.
             </p>
+
+            <div
+              className="rise mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:gap-3 sm:w-auto sm:flex-row"
+              style={{ ['--d' as string]: '340ms' }}
+            >
+              <Button size="lg" variant="secondary" className="group" onClick={handleGetStarted}>
+                Get Started Free
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => setIsDemoOpen(true)}>
+                <Play className="h-4 w-4" />
+                Watch Demo
+              </Button>
+            </div>
+
+            {/* what ConFuse unifies */}
+            <ul
+              className="rise mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground"
+              style={{ ['--d' as string]: '420ms' }}
+            >
+              {SOURCE_TAGS.map((tag) => (
+                <li key={tag.label} className="inline-flex items-center gap-2">
+                  <tag.icon className="h-3.5 w-3.5 text-subtle" aria-hidden="true" />
+                  {tag.label}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-2 animate-[fade-in-up_0.7s_ease-out_0.55s_both]">
-            <Button
-              className="h-12 px-8 bg-foreground text-background hover:bg-foreground/90 transition-colors rounded-none font-medium text-base group"
-              onClick={handleGetStarted}
-            >
-              Get Started Free
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              variant="outline"
-              className="h-12 px-8 border-border hover:bg-muted transition-colors rounded-none font-medium text-base"
-              onClick={() => setIsDemoOpen(true)}
-            >
-              <Play className="w-4 h-4 mr-2" />
-              Watch Demo
-            </Button>
+          {/* the brain: fragmented dots fuse into the ConFuse mark */}
+          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[400px] lg:max-w-[500px]">
+            <HalftoneBrain className="block w-full" />
           </div>
+        </div>
 
-          {/* source-type strip: what ConFuse unifies */}
-          <div className="flex flex-wrap gap-3 pt-4 animate-[fade-in-up_0.7s_ease-out_0.7s_both]">
-            {SOURCE_TAGS.map((tag) => (
-              <span
-                key={tag.label}
-                className="inline-flex items-center gap-2 border border-border bg-background/60 px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-background transition-colors"
-              >
-                <tag.icon className="w-4 h-4 text-primary" />
-                {tag.label}
-              </span>
-            ))}
+        {/* product scene */}
+        <div className="mt-12 md:mt-16">
+          <ContextFlow />
+        </div>
+
+        {/* integrations marquee */}
+        <div className="mt-12 pb-12 md:mt-16 md:pb-14">
+          <p className="mb-6 text-center text-xs font-medium uppercase tracking-eyebrow text-subtle">
+            Integrations
+          </p>
+          <div className="marquee overflow-hidden" aria-label="Integrations">
+            <ul className="marquee-track flex w-max gap-12 pr-12">
+              {[...INTEGRATIONS, ...INTEGRATIONS].map((logo, i) => (
+                <li
+                  key={`${logo.name}-${i}`}
+                  aria-hidden={i >= INTEGRATIONS.length ? true : undefined}
+                  className="flex items-center gap-3 text-[15px] font-medium text-muted-foreground opacity-70 grayscale transition duration-200 hover:opacity-100 hover:grayscale-0"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={logo.src} alt="" className="h-6 w-6 object-contain" loading="lazy" />
+                  {logo.name}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

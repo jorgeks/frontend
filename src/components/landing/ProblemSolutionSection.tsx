@@ -1,26 +1,27 @@
 'use client'
 
 import { Reveal } from "./Reveal";
-import { SearchX, BrainCircuit, Users, RefreshCw, Plug, Layers, MessageCircleQuestion } from "lucide-react";
+import { Plug, Layers, MessageCircleQuestion } from "lucide-react";
+import { ProblemGlyph, type GlyphKind } from "./ProblemGlyph";
 
 const PROBLEMS = [
   {
-    icon: SearchX,
+    glyph: "scattered" as GlyphKind,
     title: "Knowledge is scattered",
     body: "A bit in the repos. A bit in the docs. The rest buried in chat threads and log streams. Nobody has the whole picture.",
   },
   {
-    icon: BrainCircuit,
+    glyph: "guess" as GlyphKind,
     title: "AI that guesses",
     body: "Assistants answer without your context — confidently, and often wrong. Trust erodes with every made-up detail.",
   },
   {
-    icon: Users,
+    glyph: "weeks" as GlyphKind,
     title: "Onboarding takes weeks",
     body: "The 'why' behind the code lives in people's heads. New teammates re-ask the same questions in every channel.",
   },
   {
-    icon: RefreshCw,
+    glyph: "stale" as GlyphKind,
     title: "Answers go stale",
     body: "The moment code changes, every doc and every cached answer drifts out of date. Nobody knows what's still true.",
   },
@@ -47,84 +48,95 @@ const SOLUTIONS = [
   },
 ];
 
+/** Section heading: eyebrow, H2 and lede, centred in the 768px column. */
+export function SectionHeading({
+  eyebrow,
+  title,
+  lede,
+  className = "mb-14 md:mb-16",
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  lede?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Reveal className={`max-w-3xl text-left md:mx-auto md:text-center ${className}`}>
+      <p className="eyebrow mb-5 text-subtle">{eyebrow}</p>
+      <h2 className="mb-5 text-3xl font-medium leading-[1.12] tracking-[-0.03em] md:text-[2.75rem]">{title}</h2>
+      {lede && <p className="text-lg leading-relaxed text-muted-foreground">{lede}</p>}
+    </Reveal>
+  );
+}
+
 export function ProblemSolutionSection() {
   return (
     <>
       {/* ── The problem ── */}
-      <section className="py-24 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-                The problem
-              </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
-                Your knowledge is everywhere.
-                <br />
-                And that means it&apos;s nowhere.
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Teams don&apos;t lack information — they lack a way to hold it all
+      <section className="relative py-20 md:py-24">
+        <div className="container-lg">
+          <SectionHeading
+            eyebrow="The problem"
+            title={<>Your knowledge is everywhere.<br />And that means it&apos;s nowhere.</>}
+            lede={<>Teams don&apos;t lack information — they lack a way to hold it all
                 at once. The cost shows up as wrong answers, slow ramps, and
-                decisions made on stale context.
-              </p>
-            </div>
-          </Reveal>
+                decisions made on stale context.</>}
+          />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          {/* one frame split by hairlines; each problem drawn as a 7x7 cell field */}
+          <Reveal plain className="frame grid overflow-hidden sm:grid-cols-2 xl:grid-cols-4">
             {PROBLEMS.map((problem, index) => (
-              <Reveal key={problem.title} delay={index * 120}>
-                <div className="h-full bg-background p-8 hover:bg-card transition-colors duration-300">
-                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-destructive/10 text-destructive mb-5">
-                    <problem.icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{problem.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{problem.body}</p>
-                </div>
+              <Reveal
+                key={problem.title}
+                delay={index * 90}
+                className="cell-hover border-border p-7 [&:not(:first-child)]:border-t sm:[&:nth-child(2)]:border-l sm:[&:nth-child(2)]:border-t-0 sm:[&:nth-child(4)]:border-l xl:border-t-0 xl:[&:not(:first-child)]:border-l xl:[&:not(:first-child)]:border-t-0"
+              >
+                <ProblemGlyph kind={problem.glyph} />
+                <h3 className="mb-3 mt-6 font-sans text-[17px] font-semibold tracking-[-0.01em]">{problem.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
               </Reveal>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ── The solution ── */}
-      <section className="py-24 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="max-w-2xl mb-14">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-                The solution
-              </p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
-                One place that actually
-                <br />
-                knows your stack.
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                ConFuse turns the sprawl into a single, always-current context
-                layer — and delivers it wherever questions get asked.
-              </p>
-            </div>
-          </Reveal>
+      <section className="relative border-t border-border py-20 md:py-24">
+        <div className="container-lg">
+          <SectionHeading
+            eyebrow="The solution"
+            title={<>One place that actually<br />knows your stack.</>}
+            lede={<>ConFuse turns the sprawl into a single, always-current context
+                layer — and delivers it wherever questions get asked.</>}
+          />
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {SOLUTIONS.map((solution, index) => (
-              <Reveal key={solution.step} delay={index * 150}>
-                <div className="relative h-full border border-border bg-card p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground">
-                      <solution.icon className="w-5 h-5" />
+          <Reveal plain className="stepper relative" >
+            {/* hairline connector, drawn once; then one signal per 8s cycle
+                runs 01 → 03 and each step's ring flashes as it passes */}
+            <div className="pointer-events-none absolute left-[calc((100%-4rem)/6)] right-[calc((100%-4rem)/6)] top-[22px] hidden h-px md:block" aria-hidden="true">
+              <div className="grow-x h-full w-full bg-foreground/15" style={{ ['--d' as string]: "300ms" }} />
+              <svg className="absolute inset-0 h-px w-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 1">
+                <line x1="0" y1="0.5" x2="100" y2="0.5" pathLength={100} stroke="hsl(var(--brand))" strokeWidth={1.25} vectorEffect="non-scaling-stroke" className="flow-signal" style={{ ['--d' as string]: "1.6s" }} />
+              </svg>
+            </div>
+            <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
+              {SOLUTIONS.map((solution, index) => (
+                <li key={solution.step}>
+                  <Reveal delay={200 + index * 180} className="flex flex-col items-start text-left md:items-center md:text-center">
+                    <div
+                      className="flow-edge relative z-10 mb-7 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground/80"
+                      style={{ ['--fd' as string]: `${1.6 + [0, 0.12, 0.7][index]}s` }}
+                    >
+                      <solution.icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <span className="text-sm font-mono font-semibold text-primary">
-                      {solution.step}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{solution.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                    <span className="mb-2 font-mono text-xs text-primary">{solution.step}</span>
+                    <h3 className="mb-3 font-sans text-xl font-semibold tracking-[-0.015em]">{solution.title}</h3>
+                    <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">{solution.body}</p>
+                  </Reveal>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </div>
       </section>
     </>

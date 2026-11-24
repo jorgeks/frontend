@@ -153,7 +153,7 @@ export function LogoOrbit({ className }: LogoOrbitProps) {
         <div className="absolute inset-0 rounded-full bg-white/5 blur-xl" />
         <div className="absolute inset-0 rounded-full bg-white/10 blur-sm" />
         <Image
-          src="/favicon.svg"
+          src="/brand/confuse-mark.svg"
           alt="ConFuse"
           width={CENTER_SIZE}
           height={CENTER_SIZE}

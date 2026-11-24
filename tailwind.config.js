@@ -51,11 +51,43 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          soft: "hsl(var(--brand-soft))",
+          deep: "hsl(var(--brand-deep))",
+          mid: "hsl(var(--brand-mid))",
+        },
+        subtle: "hsl(var(--subtle))",
+        subtitle: "hsl(var(--subtitle))",
+        dim: "hsl(var(--dim))",
+        info: "hsl(var(--info))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+      letterSpacing: {
+        display: "-0.24px",
+        eyebrow: "0.12em",
+      },
+      boxShadow: {
+        glow: "var(--shadow-glow)",
+        "glow-sm": "var(--shadow-glow-sm)",
+        "glow-inset": "var(--shadow-glow-inset)",
+        card: "var(--shadow-card)",
       },
       borderRadius: {
+        "2xl": "calc(var(--radius) + 12px)",
+        xl: "calc(var(--radius) + 8px)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
+        md: "var(--radius)",
         sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "calc(var(--radius) - 6px)",
+      },
+      transitionDuration: {
+        DEFAULT: "200ms",
       },
       keyframes: {
         "accordion-down": {

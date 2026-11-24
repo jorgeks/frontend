@@ -46,7 +46,7 @@ export function DemoModal({
       <DialogContent className="max-w-5xl sm:max-w-5xl w-[95vw] p-4 sm:p-6 bg-background/95 backdrop-blur-md border-border text-foreground overflow-hidden">
         <DialogHeader className="mb-3 space-y-1">
           <div className="flex items-center justify-between pr-6">
-            <DialogTitle className="text-xl font-bold tracking-tight">
+            <DialogTitle className="text-xl font-bold tracking-display">
               Interactive Product Demo
             </DialogTitle>
             <a

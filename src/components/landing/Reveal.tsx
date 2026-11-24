@@ -1,48 +1,61 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { cn } from '@/lib/utils'
 
 /**
- * Scroll-reveal wrapper: fades/slides children in once when they enter the
- * viewport. CSS-transition based (no animation library), stagger via `delay`.
+ * Fires once when the element enters the viewport and exposes it as
+ * `data-visible`, so CSS can run both the entrance (.reveal: fade, 16px rise,
+ * short blur, deck easing) and any nested one-shot animation (logo draw,
+ * beams, underline growth). Stagger with `delay` (ms).
  */
-export function Reveal({
-  children,
-  delay = 0,
-  className = '',
-}: {
-  children: React.ReactNode
-  delay?: number
-  className?: string
-}) {
-  const ref = useRef<HTMLDivElement>(null)
+export function useInView<T extends Element>(rootMargin = '0px 0px 8% 0px') {
+  const ref = useRef<T>(null)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setVisible(true)
+      return
+    }
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setVisible(true)
-            observer.disconnect()
-          }
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisible(true)
+          observer.disconnect()
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin }
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [rootMargin])
+
+  return [ref, visible] as const
+}
+
+export function Reveal({
+  children,
+  delay = 0,
+  className = '',
+  plain = false,
+}: {
+  children: React.ReactNode
+  delay?: number
+  className?: string
+  /** Only flag visibility (for nested animations), without the fade-in. */
+  plain?: boolean
+}) {
+  const [ref, visible] = useInView<HTMLDivElement>()
 
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      data-visible={visible}
+      className={cn(!plain && 'reveal', className)}
+      style={{ ['--d' as string]: `${delay}ms` }}
     >
       {children}
     </div>

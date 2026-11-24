@@ -1,50 +1,107 @@
 'use client'
 
 import Link from 'next/link'
+import { Logo } from '@/components/brand/Logo'
 
 /**
  * Site footer for the public landing surface.
+ *
+ * Column layout on the shared design system: hairline `border-border`,
+ * `.container-lg` width, eyebrow labels with the brand dot, no glows.
  */
+
+type FooterLink = { href: string; label: string; testId?: string }
+
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
+  {
+    title: 'Product',
+    links: [
+      { href: '/#features', label: 'Features', testId: 'footer-features' },
+      { href: '/pricing', label: 'Pricing', testId: 'footer-pricing' },
+      { href: '/changelog', label: 'Changelog', testId: 'footer-changelog' },
+      { href: '/status', label: 'Status', testId: 'footer-status' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { href: '/docs', label: 'Documentation', testId: 'footer-docs' },
+      { href: '/blog', label: 'Blog', testId: 'footer-blog' },
+      { href: '/help', label: 'Help', testId: 'footer-help' },
+      { href: '/community', label: 'Community', testId: 'footer-community' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about', label: 'About', testId: 'footer-about' },
+      { href: '/careers', label: 'Careers', testId: 'footer-careers' },
+      { href: '/security', label: 'Security', testId: 'footer-security' },
+      { href: '/contact', label: 'Contact', testId: 'footer-contact' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacy', label: 'Privacy', testId: 'footer-privacy' },
+      { href: '/terms', label: 'Terms', testId: 'footer-terms' },
+      { href: '/cookies', label: 'Cookies', testId: 'footer-cookies' },
+    ],
+  },
+]
+
 export function Footer() {
   return (
     <footer
-      className="border-t border-border bg-background px-4 py-10 sm:px-6 lg:px-8"
+      className="border-t border-border bg-background pb-10 pt-16 text-foreground"
       data-testid="footer"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-bold text-foreground">ConFuse</span>
-          <span className="text-sm text-muted-foreground">
-            Context Layer for coding agents
-          </span>
+
+      <div className="container-lg mx-auto w-full max-w-[1280px] px-4 sm:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
+          <div className="max-w-sm">
+            <Link href="/" className="inline-flex items-center gap-2.5" data-testid="footer-brand">
+              <Logo markClassName="h-7" wordClassName="text-2xl" />
+            </Link>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              Context Layer for coding agents
+            </p>
+          </div>
+
+          <nav
+            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4"
+            data-testid="footer-links"
+            aria-label="Footer"
+          >
+            {COLUMNS.map((col) => (
+              <div key={col.title}>
+                <p className="text-[13px] font-medium text-foreground">
+                  {col.title}
+                </p>
+                <ul className="mt-3 flex flex-col sm:mt-4 sm:gap-1.5">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link
+                        href={l.href}
+                        className="inline-flex min-h-11 items-center text-sm sm:min-h-0 sm:py-1 text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        data-testid={l.testId}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        <nav className="flex items-center gap-6" data-testid="footer-links">
-          <Link
-            href="/"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Home
-          </Link>
-          <Link
-            href="/#features"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            data-testid="footer-features"
-          >
-            Features
-          </Link>
-          <Link
-            href="/pricing"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            data-testid="footer-pricing"
-          >
-            Pricing
-          </Link>
-        </nav>
+        <div className="mt-14 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground/70" data-testid="footer-copyright">
+            © {new Date().getFullYear()} ConFuse. All rights reserved.
+          </p>
 
-        <p className="text-sm text-muted-foreground" data-testid="footer-copyright">
-          © {new Date().getFullYear()} ConFuse. All rights reserved.
-        </p>
+        </div>
       </div>
     </footer>
   )

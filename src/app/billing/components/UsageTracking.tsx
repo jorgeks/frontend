@@ -183,7 +183,7 @@ export function UsageTracking() {
                 {getResourceLabel(resourceType)}
               </CardTitle>
               {isNearLimit(resourceType) && (
-                <AlertTriangle className="h-4 w-4 text-orange-500" />
+                <AlertTriangle className="h-4 w-4 text-warning" />
               )}
             </CardHeader>
             <CardContent>
@@ -197,12 +197,12 @@ export function UsageTracking() {
                 <div className="mt-3">
                   <Progress 
                     value={getUsagePercentage(resourceType)} 
-                    className={`h-2 ${isNearLimit(resourceType) ? 'bg-orange-100' : ''}`}
+                    className={`h-2 ${isNearLimit(resourceType) ? 'bg-warning/15' : ''}`}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>{getUsagePercentage(resourceType).toFixed(1)}% used</span>
                     {isNearLimit(resourceType) && (
-                      <Badge variant="outline" className="text-orange-600 border-orange-200">
+                      <Badge variant="outline" className="text-warning border-warning/40">
                         Near Limit
                       </Badge>
                     )}
@@ -234,8 +234,8 @@ export function UsageTracking() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="usage" fill="#3b82f6" name="Current Usage" />
-                  <Bar dataKey="limit" fill="#e5e7eb" name="Limit" />
+                  <Bar dataKey="usage" fill="hsl(var(--primary))" name="Current Usage" />
+                  <Bar dataKey="limit" fill="hsl(var(--border))" name="Limit" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
