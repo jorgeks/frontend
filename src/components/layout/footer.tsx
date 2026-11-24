@@ -77,7 +77,7 @@ export function Footer() {
             </p>
             <Link
               href="/status"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-foreground/[0.14] bg-foreground/[0.03] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground"
+              className="mt-6 inline-flex items-center gap-2 rounded-md border border-foreground/[0.14] bg-foreground/[0.03] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground"
             >
               <span className="relative flex h-2 w-2" aria-hidden>
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60 motion-reduce:animate-none" />
